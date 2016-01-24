@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   end
 
   scope 'api/v1', module: 'api/v1' do
-    resources :raw_images, only: :create
+    resources :raw_images, only: [:index, :show, :create, :update]
   end
 end
