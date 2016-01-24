@@ -1,5 +1,4 @@
 development:
-  USER_COUNT_LIMIT: 100
   S3_AWS_ACCESS_KEY: AKIAICWW7TSZ5RKD3XNQ
   S3_BUCKET_NAME: mockitapi
   S3_REGION: ap-southeast-1
