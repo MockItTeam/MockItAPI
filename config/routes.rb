@@ -9,8 +9,9 @@ Rails.application.routes.draw do
     post '/users', to: 'registrations#create'
   end
 
+  use_doorkeeper
+
   scope 'api/v1', module: 'api/v1' do
-    use_doorkeeper
     resources :raw_images, only: [:index, :show, :create, :update]
   end
 end
