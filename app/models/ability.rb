@@ -4,6 +4,6 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
-    can :manage, RawImage, user_id: user.id
+    can :manage, Project, user_id: user.id
   end
 end
