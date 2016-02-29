@@ -1,7 +1,19 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# Owner User
+owner = FactoryGirl.create(:mockit)
+
+members = (0..4).map do
+  FactoryGirl.create(:user)
+end
+
+# Project
+project = FactoryGirl.build(:project, owner: owner)
+project.members << members
+project.save
+
+(0..4).map do
+  user = members.sample
+  raw_image = FactoryGirl.create(:raw_image, user: user)
+
+  # Mockup
+  FactoryGirl.create(:mockup, project: project, user: user, raw_image: raw_image)
+end
