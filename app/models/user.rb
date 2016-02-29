@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :trackable
 
   enum status: { active: 0 }
@@ -16,5 +14,11 @@ class User < ActiveRecord::Base
   validates :username, length: { in: 3..20 } ,
                        uniqueness: { case_sensitive: false },
                        format: { with: /\A[a-z]+\z/,
-                                 message: "Only a-z (lowercase) allowed" }
+                                 message: 'Only a-z (lowercase) allowed' }
+
+  before_save :set_default_status
+
+  def set_default_status
+    self.status = :active
+  end
 end
