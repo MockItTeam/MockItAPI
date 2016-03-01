@@ -19,6 +19,9 @@ gem 'cancancan', '~> 1.10' # Continuation of CanCan, the authorization Gem for R
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'sass-rails' # SASS
 
+# CORS
+gem 'rack-cors', :require => 'rack/cors'
+
 group :development do
   gem 'better_errors' # Better error page for Rails and other Rack apps
   gem 'binding_of_caller' # Retrieve the binding of a method's caller in MRI 1.9.2+
