@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   has_many :invitations
+  has_many :mockups
   has_and_belongs_to_many :members, class_name: 'User'
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
 

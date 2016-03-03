@@ -5,5 +5,6 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     can :manage, Project, user_id: user.id
+    can [:read, :update], Project, id: user.project_ids
   end
 end

@@ -7,7 +7,7 @@ class Invitation < ActiveRecord::Base
 
   validates_presence_of :from, :to, :project
 
-  before_save :set_default_status
+  before_create :set_default_status
 
   def set_default_status
     self.status = :pending
