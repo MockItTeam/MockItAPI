@@ -1,12 +1,12 @@
-class ProjectSerializer < ActiveModel::Serializer
+class UserSerializer < ActiveModel::Serializer
   attributes :id,
-             :name,
+             :username,
              :status,
              :created_at,
              :updated_at
 
-  has_one :owner
-  has_many :members
+  has_many :projects
+  has_many :raw_images
   has_many :invitations
   has_many :mockups
 end
