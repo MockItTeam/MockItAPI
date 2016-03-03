@@ -2,45 +2,36 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   before_action :authenticate_user!
   before_action :page_params
 
-  authorize_resource
-  load_resource except: :create
+  load_and_authorize_resource
+  skip_load_resource only: :create
 
   def index
-    respond_to do |format|
-      format.json { render json: @projects, status: :ok }
-    end
+    render json: @projects, status: :ok
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: @project, status: :ok }
-    end
+    render json: @project, status: :ok
   end
 
   def create
     @project = Project.new(create_project_params)
-    respond_to do |format|
-      if @project.save
-        format.json { render json: @project, status: :created }
-      else
-        format.json { render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity }
-      end
+    if @project.save
+      render json: @project, status: :created
+    else
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @project.update_attributes(update_project_params)
-        format.json { render json: @project, status: :ok }
-      else
-        format.json { render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity }
-      end
+    if @project.update_attributes(update_project_params)
+      render json: @project, status: :ok
+    else
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @project.status = params['status'] if params['status']
-    if @project.save
+    if @project.destroy
       head :ok
     else
       render json: {errors: [@position.errors.full_messages.to_sentence]}, status: :unprocessable_entity
