@@ -38,6 +38,7 @@ group :development, :test do
   gem 'rspec-retry' # Retry randomly failing rspec example.
   gem 'shoulda-matchers' # Tests common Rails functionalities
   gem 'database_cleaner' # Use Database Cleaner
+  gem 'json_matchers' # Tests common Rails functionalities
 
   gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring' # Spring speeds up development by keeping your application running in the background.

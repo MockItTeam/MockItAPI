@@ -107,6 +107,10 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    json-schema (2.2.5)
+    json_matchers (0.5.0)
+      activesupport (>= 3.0.0)
+      json-schema (~> 2.2.5)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -237,6 +241,7 @@ DEPENDENCIES
   figaro
   intercom-rails
   jquery-rails
+  json_matchers
   mandrill-api
   mini_magick
   newrelic_rpm
