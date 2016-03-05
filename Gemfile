@@ -35,6 +35,7 @@ group :development, :test do
   gem 'figaro' # Simple Rails app configuration
 
   gem 'rspec-rails' # Rails testing engine
+  gem 'rspec-retry' # Retry randomly failing rspec example.
   gem 'shoulda-matchers' # Tests common Rails functionalities
   gem 'database_cleaner' # Use Database Cleaner
 

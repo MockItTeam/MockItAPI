@@ -186,6 +186,8 @@ GEM
       rspec-expectations (~> 3.4.0)
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
+    rspec-retry (0.4.5)
+      rspec-core
     rspec-support (3.4.1)
     sass (3.4.21)
     sass-rails (5.0.4)
@@ -247,6 +249,7 @@ DEPENDENCIES
   rails_12factor
   roadie-rails
   rspec-rails
+  rspec-retry
   sass-rails
   shoulda-matchers
   spring
