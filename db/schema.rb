@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224103815) do
+ActiveRecord::Schema.define(version: 20160305122701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160224103815) do
     t.integer  "status",       default: 0
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.datetime "deleted_at"
   end
 
   add_index "invitations", ["from_user_id"], name: "index_invitations_on_from_user_id", using: :btree
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160224103815) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.text     "json_elements"
+    t.datetime "deleted_at"
   end
 
   add_index "mockups", ["status"], name: "index_mockups_on_status", using: :btree
@@ -88,6 +90,8 @@ ActiveRecord::Schema.define(version: 20160224103815) do
     t.integer  "status",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "image"
+    t.datetime "deleted_at"
   end
 
   add_index "projects", ["status"], name: "index_projects_on_status", using: :btree
@@ -103,6 +107,7 @@ ActiveRecord::Schema.define(version: 20160224103815) do
     t.integer  "status",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.datetime "deleted_at"
   end
 
   add_index "raw_images", ["status"], name: "index_raw_images_on_status", using: :btree
@@ -121,6 +126,7 @@ ActiveRecord::Schema.define(version: 20160224103815) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "status",                 default: 0
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
