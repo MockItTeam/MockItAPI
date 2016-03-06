@@ -9,6 +9,7 @@ invited_member = FactoryGirl.create(:user)
 
 # Project
 project = FactoryGirl.build(:project, owner: owner)
+project.members << owner
 project.members << members
 project.save
 
