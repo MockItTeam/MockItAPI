@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :trackable
 
-  enum status: { active: 0 }
-
   has_many :raw_images
   has_many :mockups
   has_many :invitations
@@ -15,10 +13,4 @@ class User < ActiveRecord::Base
                        uniqueness: { case_sensitive: false },
                        format: { with: /\A[a-z]+\z/,
                                  message: 'Only a-z (lowercase) allowed' }
-
-  before_save :set_default_status
-
-  def set_default_status
-    self.status = :active
-  end
 end

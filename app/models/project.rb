@@ -1,6 +1,4 @@
 class Project < ActiveRecord::Base
-  enum status: { active: 0 }
-
   has_many :invitations
   has_and_belongs_to_many :members, class_name: 'User'
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
@@ -14,10 +12,4 @@ class Project < ActiveRecord::Base
                       message: 'Only a-z, A-Z, 0-9 allowed' }
 
   scope :pending_invitations, -> () { project.invitations.where(status: :pending) }
-
-  before_save :set_default_status
-
-  def set_default_status
-    self.status = :active
-  end
 end

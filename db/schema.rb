@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160305122701) do
+ActiveRecord::Schema.define(version: 20160306083937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,14 +35,11 @@ ActiveRecord::Schema.define(version: 20160305122701) do
     t.integer  "raw_image_id"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.integer  "status",        default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.text     "json_elements"
     t.datetime "deleted_at"
   end
-
-  add_index "mockups", ["status"], name: "index_mockups_on_status", using: :btree
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", null: false
@@ -87,14 +84,11 @@ ActiveRecord::Schema.define(version: 20160305122701) do
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.integer  "status",     default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "image"
     t.datetime "deleted_at"
   end
-
-  add_index "projects", ["status"], name: "index_projects_on_status", using: :btree
 
   create_table "projects_users", force: :cascade do |t|
     t.integer "project_id"
@@ -104,13 +98,10 @@ ActiveRecord::Schema.define(version: 20160305122701) do
   create_table "raw_images", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.integer  "status",     default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "deleted_at"
   end
-
-  add_index "raw_images", ["status"], name: "index_raw_images_on_status", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",               default: "", null: false
@@ -125,7 +116,6 @@ ActiveRecord::Schema.define(version: 20160305122701) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "status",                 default: 0
     t.datetime "deleted_at"
   end
 
