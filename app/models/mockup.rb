@@ -1,5 +1,7 @@
 class Mockup < ActiveRecord::Base
-  belongs_to :raw_image
+  acts_as_paranoid
+
+  belongs_to :raw_image, dependent: :destroy
   belongs_to :user
   belongs_to :project
 

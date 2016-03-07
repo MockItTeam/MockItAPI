@@ -2,45 +2,41 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   before_action :authenticate_user!
   before_action :page_params
 
+  load_resource except: [:create]
   authorize_resource
-  load_resource except: :create
 
   def index
-    respond_to do |format|
-      format.json { render json: @projects, status: :ok }
-    end
+    @projects = @projects.page(@page).per(@per_page)
+    render json: @projects,
+           meta: pagination_dict(@projects),
+           status: :ok
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: @project, status: :ok }
-    end
+    render json: @project, status: :ok
   end
 
   def create
-    @project = Project.new(create_project_params)
-    respond_to do |format|
-      if @project.save
-        format.json { render json: @project, status: :created }
-      else
-        format.json { render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity }
-      end
+    @project = Project.new(project_params)
+    @project.owner = current_user
+
+    if @project.save
+      render json: @project, status: :created
+    else
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @project.update_attributes(update_project_params)
-        format.json { render json: @project, status: :ok }
-      else
-        format.json { render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity }
-      end
+    if @project.update_attributes(project_params)
+      render json: @project, status: :ok
+    else
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @project.status = params['status'] if params['status']
-    if @project.save
+    if @project.destroy
       head :ok
     else
       render json: {errors: [@position.errors.full_messages.to_sentence]}, status: :unprocessable_entity
@@ -49,11 +45,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
 
   private
 
-  def create_project_params
-    params.require(:project).permit(:name).merge(owner: current_user)
-  end
-
-  def update_project_params
-    params.require(:project).permit(:name, :status)
+  def project_params
+    jsonapi_params.require(:project).permit(:name)
   end
 end
