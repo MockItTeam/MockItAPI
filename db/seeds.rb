@@ -1,17 +1,19 @@
 # Owner User
-owner = FactoryGirl.create(:mockit)
+owner = FactoryGirl.create(:owner)
 
-members = (0..4).map do
-  FactoryGirl.create(:user)
-end
+members = (0..4).map { FactoryGirl.create(:user) }
 
 invited_member = FactoryGirl.create(:user)
 
 # Project
-project = FactoryGirl.build(:project, owner: owner)
-project.members << owner
+project = FactoryGirl.create(:project, owner: owner)
 project.members << members
-project.save
+
+# Projects for mockit user
+(0..4).map do
+  p = FactoryGirl.create(:project, owner: owner)
+  p.members << owner
+end
 
 (0..4).map do
   user = members.sample

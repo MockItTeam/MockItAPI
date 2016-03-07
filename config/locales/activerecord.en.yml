@@ -2,3 +2,10 @@ en:
   activerecord:
     exception:
       not_found: Not Found
+    errors:
+      models:
+        project:
+          attributes:
+            name:
+              taken: Project's name must be unique per user
+              invalid: Only a-z, A-Z, 0-9 allowed

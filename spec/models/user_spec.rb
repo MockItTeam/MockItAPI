@@ -4,7 +4,6 @@ RSpec.describe User, type: :model do
   context 'db' do
     context 'columns' do
       it { should have_db_column(:username).of_type(:string).with_options(null: false) }
-      it { should have_db_column(:status).of_type(:integer) }
     end
 
     context 'indexes' do
@@ -36,11 +35,6 @@ RSpec.describe User, type: :model do
 
       it 'checks validity of username' do
         expect(valid_user).to be_valid
-      end
-
-      context 'has status active' do
-        subject { valid_user.status == 'active' }
-        it { is_expected.to be_truthy }
       end
     end
 
