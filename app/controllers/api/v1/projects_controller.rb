@@ -2,11 +2,14 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   before_action :authenticate_user!
   before_action :page_params
 
-  load_and_authorize_resource
-  skip_load_resource only: :create
+  load_resource except: [:create]
+  authorize_resource
 
   def index
-    render json: @projects, status: :ok
+    @projects = @projects.page(@page).per(@per_page)
+    render json: @projects,
+           meta: pagination_dict(@projects),
+           status: :ok
   end
 
   def show
@@ -14,7 +17,9 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   end
 
   def create
-    @project = Project.new(create_project_params)
+    @project = Project.new(project_params)
+    @project.owner = current_user
+
     if @project.save
       render json: @project, status: :created
     else
@@ -23,7 +28,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   end
 
   def update
-    if @project.update_attributes(update_project_params)
+    if @project.update_attributes(project_params)
       render json: @project, status: :ok
     else
       render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
@@ -40,11 +45,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
 
   private
 
-  def create_project_params
-    params.require(:project).permit(:name).merge(owner: current_user)
-  end
-
-  def update_project_params
-    params.require(:project).permit(:name, :status)
+  def project_params
+    jsonapi_params.require(:project).permit(:name)
   end
 end
