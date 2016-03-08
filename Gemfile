@@ -1,9 +1,12 @@
+source 'https://rubygems.org'
+
+ruby '2.3.0'
+
 # Backend
 gem 'rails', '4.2.5' # Latest stable
 gem 'pg' # Use Postgresql as database
 gem 'active_model_serializers', '~> 0.10.0.rc4' # ActiveModel::Serializer implementation and Rails hooks
 gem 'carrierwave' # Classier solution for file uploads for Rails
-gem 'carrierwave-aws'
 gem 'mini_magick' # A ruby wrapper for ImageMagick or GraphicsMagick command line
 gem 'kaminari' # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Rails 3 and 4
 gem 'chronic' # Chronic is a pure Ruby natural language date parser.
@@ -16,9 +19,10 @@ gem 'devise' # Authentication solution for Rails with Warden
 gem 'doorkeeper' # OAuth 2 provider
 gem 'cancancan', '~> 1.10' # Continuation of CanCan, the authorization Gem for Ruby on Rails.
 
-# Assets
-gem 'jquery-rails' # Use jquery as the JavaScript library
-gem 'sass-rails' # SASS
+# Deploy
+gem 'mina'
+gem 'mina-puma', :require => false
+gem 'puma', '~> 3.1.0'
 
 # CORS
 gem 'rack-cors', :require => 'rack/cors'
@@ -49,6 +53,5 @@ group :production do
   gem 'rails_12factor' # Makes running your Rails app easier. Based on the ideas behind 12factor.net (Heroku)
   gem 'rack-timeout' # Rack middleware which aborts requests that have been running for longer than a specified timeout.
   gem 'mandrill-api' # A Ruby API library for the Mandrill email as a service platform.
-  gem 'newrelic_rpm' # New Relic provides you with deep information about the performance of your web application as it runs in production.
   gem 'intercom-rails' # The easiest way to install Intercom in a Rails app
 end
