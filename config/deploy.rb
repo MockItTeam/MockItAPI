@@ -70,6 +70,7 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
+      invoke :'run[kill -9 $(lsof -i tcp:3000 -t)]'
       invoke :'puma:restart'
     end
   end
