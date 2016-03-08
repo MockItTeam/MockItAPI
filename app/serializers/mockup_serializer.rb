@@ -6,6 +6,6 @@ class MockupSerializer < ActiveModel::Serializer
              :updated_at
 
   belongs_to :project
-  belongs_to :user
+  belongs_to :owner
   belongs_to :raw_image
 end
