@@ -9,3 +9,7 @@ en:
             name:
               taken: Project's name must be unique per user
               invalid: Only a-z, A-Z, 0-9 allowed
+        user:
+          attributes:
+            username:
+              invalid: Only a-z (lowercase) allowed

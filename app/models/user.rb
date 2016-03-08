@@ -15,8 +15,7 @@ class User < ActiveRecord::Base
             presence: true,
             length: {in: 3..20},
             uniqueness: {case_sensitive: false},
-            format: {with: /\A[a-z]+\z/,
-                     message: 'Only a-z (lowercase) allowed'}
+            format: {with: /\A[a-z]+\z/}
 
   private
 

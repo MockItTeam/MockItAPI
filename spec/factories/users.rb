@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   factory :user do
-    username { FFaker::Name.first_name.downcase }
+    username { FFaker::Internet.domain_word.downcase }
     password '1234'
   end
 end
