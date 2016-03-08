@@ -10,17 +10,14 @@ project = FactoryGirl.create(:project, owner: owner)
 project.members << members
 
 # Projects for mockit user
-(0..4).map do
-  p = FactoryGirl.create(:project, owner: owner)
-  p.members << owner
-end
+(0..4).map { FactoryGirl.create(:project, owner: owner) }
 
 (0..4).map do
   user = members.sample
-  raw_image = FactoryGirl.create(:raw_image, user: user)
+  raw_image = FactoryGirl.create(:raw_image, owner: user)
 
   # Mockup
-  FactoryGirl.create(:mockup, project: project, user: user, raw_image: raw_image)
+  FactoryGirl.create(:mockup, project: project, owner: user, raw_image: raw_image)
 end
 
 # Invitation

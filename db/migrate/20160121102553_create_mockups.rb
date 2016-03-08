@@ -3,7 +3,7 @@ class CreateMockups < ActiveRecord::Migration
     create_table :mockups do |t|
       t.string :description
       t.references :raw_image
-      t.references :user
+      t.integer :owner_id
       t.references :project
       t.integer :status, default: 0, index: true
 
