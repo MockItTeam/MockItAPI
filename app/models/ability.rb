@@ -6,5 +6,7 @@ class Ability
 
     can :manage, Project, user_id: user.id
     can [:read, :update], Project, id: user.project_ids
+    can [:read, :update, :destroy], User, id: user.id
+    can [:read], User, projects: { user_id: user.id }
   end
 end
