@@ -44,19 +44,30 @@ class Api::V1::ApiController < ActionController::Base
     relationships_params = params_data[:relationships]
     if relationships_params.is_a?(Hash)
       relationships_params.each do |type, value|
-        # if the relationship is something else other than hash (eg. array)
-        # the assignment of relationship_id will fail
-        relation_model = value[:data][:type].classify.downcase rescue nil
-        relationship_id = value[:data][:id] rescue nil
-        if relation_model.present? && relationship_id.present?
-          flatten_params.merge!({ :"#{relation_model}_id" => relationship_id })
+        relation_key = type.classify.downcase rescue nil
+        if value[:data].is_a?(Array)
+          tmp_array = []
+          value[:data].each do |hash_data|
+            relation_model = hash_data[:type].classify.downcase rescue nil
+            relationship_id = hash_data[:id] rescue nil
+            if relation_model.present? && relationship_id.present?
+              tmp_array << relationship_id.to_i
+            end
+          end
+          flatten_params.merge!({:"#{relation_key}_ids" => tmp_array})
+        else
+          relation_model = value[:data][:type].classify.downcase rescue nil
+          relationship_id = value[:data][:id] rescue nil
+          if relation_model.present? && relationship_id.present?
+            flatten_params.merge!({:"#{relation_model}_id" => relationship_id.to_i})
+          end
         end
       end
     end
 
     object_key = params_data[:type].try(:singularize)
     ActionController::Parameters.new(object_key.present? ?
-                                       params.merge({ object_key => flatten_params }) : params
+                                       params.merge({object_key => flatten_params}) : params
     )
   end
 end

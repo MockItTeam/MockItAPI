@@ -1,7 +1,7 @@
 class ProjectSerializer < ActiveModel::Serializer
   attributes :id,
              :name,
-             :image,
+             :image_url,
              :created_at,
              :updated_at
 
@@ -10,7 +10,7 @@ class ProjectSerializer < ActiveModel::Serializer
   has_many :invitations
   has_many :mockups
 
-  def image
+  def image_url
     object.image.url
   end
 end
