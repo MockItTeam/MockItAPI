@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
+  let(:owner) { FactoryGirl.create(:owner) }
+  let(:members) { (0..2).map { FactoryGirl.create(:user) } }
+
   context 'db' do
     context 'columns' do
       it { should have_db_column(:name).of_type(:string) }
+      it { should have_db_column(:image).of_type(:string) }
     end
   end
 
@@ -15,11 +19,12 @@ RSpec.describe Project, type: :model do
 
   describe 'Validation' do
     context 'of valid parameters' do
-      let(:owner) { FactoryGirl.create(:owner) }
-      let!(:members) { (0..4).map { FactoryGirl.create(:user) } }
-      let(:valid_project) { FactoryGirl.create(:project, owner: owner) }
+      let(:valid_project) { FactoryGirl.build(:project, owner: owner) }
 
-      before { valid_project.members << members }
+      before do
+        valid_project.save
+        valid_project.members << members
+      end
 
       it 'checks name presence' do
         expect(valid_project).to validate_presence_of(:name)
@@ -48,10 +53,9 @@ RSpec.describe Project, type: :model do
     end
 
     context 'of invalid parameters' do
-      let(:owner) { FactoryGirl.build(:owner) }
       let(:valid_project) { FactoryGirl.build(:project, name: 'Mockit', owner: owner) }
       let(:other_project) { FactoryGirl.build(:project, name: 'Mockit', owner: owner) }
-      let(:invalid_project) { FactoryGirl.build(:project, name: '#####', owner: owner) }
+      let(:invalid_project) { FactoryGirl.build(:invalid_project, owner: owner) }
 
       before do
         valid_project.save
