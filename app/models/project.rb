@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   has_many :invitations, dependent: :destroy
   has_many :mockups, dependent: :destroy
   has_and_belongs_to_many :members, class_name: 'User', dependent: :delete_all
-  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+  belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
 
   validates_presence_of :owner
   validates_uniqueness_of :name
