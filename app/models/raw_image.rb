@@ -1,6 +1,6 @@
 class RawImage < ActiveRecord::Base
   acts_as_paranoid
-  mount_uploader :name, ImageUploader
+  mount_uploader :name, RawImageUploader
   validates_processing_of :name
 
   has_one :mockup

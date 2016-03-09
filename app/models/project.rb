@@ -14,5 +14,13 @@ class Project < ActiveRecord::Base
             length: { in: 3..50 },
             format: { with: /\A[a-zA-Z0-9]+\z/ }
 
+  validate :project_name_uniqueness_per_user
+
   scope :pending_invitations, -> () { project.invitations.where(status: :pending) }
+
+  def project_name_uniqueness_per_user
+    if self.owner.projects.find_by(name: self.name)
+      errors.add(:base, "Project's name must be unique per user")
+    end
+  end
 end
