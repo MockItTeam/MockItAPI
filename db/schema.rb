@@ -32,17 +32,14 @@ ActiveRecord::Schema.define(version: 20160305122701) do
 
   create_table "mockups", force: :cascade do |t|
     t.string   "description"
+    t.text     "json_elements"
     t.integer  "raw_image_id"
     t.integer  "owner_id"
     t.integer  "project_id"
-    t.integer  "status",        default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.text     "json_elements"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.datetime "deleted_at"
   end
-
-  add_index "mockups", ["status"], name: "index_mockups_on_status", using: :btree
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", null: false
@@ -87,9 +84,9 @@ ActiveRecord::Schema.define(version: 20160305122701) do
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.integer  "owner_id",   null: false
+    t.string   "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "image"
     t.datetime "deleted_at"
   end
 

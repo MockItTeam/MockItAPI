@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
   validates_uniqueness_of :name
   validates :name,
             presence: true,
-            length: { in: 3..20 },
+            length: { in: 3..50 },
             format: { with: /\A[a-zA-Z0-9]+\z/ }
 
   scope :pending_invitations, -> () { project.invitations.where(status: :pending) }

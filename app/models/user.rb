@@ -13,10 +13,9 @@ class User < ActiveRecord::Base
 
   validates :username,
             presence: true,
-            length: {in: 3..20},
+            length: {in: 3..50},
             uniqueness: {case_sensitive: false},
-            format: {with: /\A[a-z]+\z/,
-                     message: 'Only a-z (lowercase) allowed'}
+            format: {with: /\A[a-z]+\z/}
 
   private
 

@@ -1,23 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:owner) { FactoryGirl.create(:owner) }
+  let(:members) { (0..2).map { FactoryGirl.create(:user) } }
 
   context 'db' do
     context 'columns' do
       it { should have_db_column(:name).of_type(:string) }
+      it { should have_db_column(:image).of_type(:string) }
     end
   end
 
   context 'Attributes' do
     it 'has name' do
-      expect(FactoryGirl.build(:project, name: 'Mockit', owner: user)).to have_attributes(name: 'Mockit')
+      expect(FactoryGirl.build(:project, name: 'Mockit', owner: FactoryGirl.create(:owner))).to have_attributes(name: 'Mockit')
     end
   end
 
   describe 'Validation' do
     context 'of valid parameters' do
-      let(:valid_project) { FactoryGirl.create(:project, owner: user) }
+      let(:valid_project) { FactoryGirl.build(:project, owner: owner) }
+
+      before do
+        valid_project.save
+        valid_project.members << members
+      end
 
       it 'checks name presence' do
         expect(valid_project).to validate_presence_of(:name)
@@ -34,12 +41,21 @@ RSpec.describe Project, type: :model do
       it 'checks validity of name' do
         expect(valid_project).to be_valid
       end
+
+      it 'check owner of project' do
+        expect(valid_project.owner).to eq owner
+      end
+
+      it 'checks members list of project' do
+        expect(valid_project.members.count).to eq members.count
+        expect(valid_project.members).to eq members
+      end
     end
 
     context 'of invalid parameters' do
-      let(:valid_project) { FactoryGirl.build(:project, name: 'Mockit', owner: user) }
-      let(:other_project) { FactoryGirl.build(:project, name: 'Mockit', owner: user) }
-      let(:invalid_project) { FactoryGirl.build(:project, name: '#####', owner: user) }
+      let(:valid_project) { FactoryGirl.build(:project, name: 'Mockit', owner: owner) }
+      let(:other_project) { FactoryGirl.build(:project, name: 'Mockit', owner: owner) }
+      let(:invalid_project) { FactoryGirl.build(:invalid_project, owner: owner) }
 
       before do
         valid_project.save
