@@ -7,6 +7,7 @@ gem 'rails', '4.2.5' # Latest stable
 gem 'pg' # Use Postgresql as database
 gem 'active_model_serializers', '~> 0.10.0.rc4' # ActiveModel::Serializer implementation and Rails hooks
 gem 'carrierwave' # Classier solution for file uploads for Rails
+gem 'carrierwave-aws'
 gem 'mini_magick' # A ruby wrapper for ImageMagick or GraphicsMagick command line
 gem 'kaminari' # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Rails 3 and 4
 gem 'chronic' # Chronic is a pure Ruby natural language date parser.
