@@ -3,6 +3,7 @@ class CreateProjects < ActiveRecord::Migration
     create_table :projects do |t|
       t.string :name
       t.integer :owner_id, null: false, index: true
+      t.string :image
 
       t.timestamps null: false
     end
