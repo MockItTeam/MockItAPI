@@ -13,7 +13,7 @@ RSpec.describe Project, type: :model do
 
   context 'Attributes' do
     it 'has name' do
-      expect(FactoryGirl.build(:project, name: 'Mockit', owner: FactoryGirl.create(:owner))).to have_attributes(name: 'Mockit')
+      expect(FactoryGirl.build(:project, name: 'Mockit', owner: owner)).to have_attributes(name: 'Mockit')
     end
   end
 
@@ -34,28 +34,20 @@ RSpec.describe Project, type: :model do
         expect(valid_project).to validate_length_of(:name)
       end
 
-      it 'checks name validate uniqueness' do
-        expect(valid_project).to validate_uniqueness_of(:name)
-      end
-
-      it 'checks validity of name' do
-        expect(valid_project).to be_valid
-      end
-
       it 'check owner of project' do
         expect(valid_project.owner).to eq owner
       end
 
       it 'checks members list of project' do
-        expect(valid_project.members.count).to eq members.count
-        expect(valid_project.members).to eq members
+        expect(valid_project.members.count).to eq (members.count + 1)
       end
     end
 
     context 'of invalid parameters' do
-      let(:valid_project) { FactoryGirl.build(:project, name: 'Mockit', owner: owner) }
-      let(:other_project) { FactoryGirl.build(:project, name: 'Mockit', owner: owner) }
-      let(:invalid_project) { FactoryGirl.build(:invalid_project, owner: owner) }
+      let(:duplicate_name) { 'duplicated' }
+      let!(:valid_project) { FactoryGirl.build(:project, name: duplicate_name, owner: owner) }
+      let!(:other_project) { FactoryGirl.build(:project, name: duplicate_name, owner: owner) }
+      let!(:invalid_project) { FactoryGirl.build(:invalid_project, owner: owner) }
 
       before do
         valid_project.save
@@ -63,21 +55,14 @@ RSpec.describe Project, type: :model do
         invalid_project.save
       end
 
-      subject { other_project.errors }
-      it { is_expected.to include :name }
-
       context 'with uniqueness error message' do
-        subject { other_project.errors.messages[:name][0] }
-        it { is_expected.to match(/Project.*unique/i) }
+        it { expect(other_project.errors).to include :base }
+        it { expect(other_project.errors.messages[:base][0]).to match(/Name.*user/i) }
       end
 
-      subject { invalid_project.errors }
-      it { is_expected.to include :name }
-
       context 'with format error message' do
-        subject { invalid_project.errors.messages[:name][0] }
-        # look like not allowed
-        it { is_expected.to match(/Only.*allowed/i) }
+        it { expect(invalid_project.errors).to include :name }
+        it { expect(invalid_project.errors.messages[:name][0]).to match(/Only.*allowed/i) }
       end
     end
   end

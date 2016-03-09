@@ -12,13 +12,13 @@
             "type": "object",
             "required": [
               "name",
-              "image",
+              "image_url",
               "created_at",
               "updated_at"
             ],
             "properties": {
               "name": { "type": "string" },
-              "image": { "type": ["string", "null"] },
+              "image_url": { "type": ["string", "null"] },
               "created_at": { "type": "string" },
               "updated_at": { "type": "string" }
             }
