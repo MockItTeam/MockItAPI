@@ -3,9 +3,10 @@ class CreateMockups < ActiveRecord::Migration
     create_table :mockups do |t|
       t.string :description
       t.text :json_elements
-      t.references :raw_image
-      t.integer :owner_id
-      t.references :project
+      t.integer :status, default: 0, index: true
+      t.references :raw_image,index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true
+      t.references :project, index: true, foreign_key: true
 
       t.timestamps null: false
     end
