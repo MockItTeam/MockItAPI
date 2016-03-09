@@ -5,7 +5,6 @@ class Mockup < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
   belongs_to :project
 
-  validates :description, length: { in: 0..100 }
-  validates :description, format: { with: /\A[a-zA-Z0-9\s]+\z/,
-                             message: "Only a-z, A-Z, 0-9 and white-space allowed" }
+  validates :description, length: {in: 0..100}
+  validates :description, format: {with: /\A[a-zA-Z0-9\s]+\z/}
 end

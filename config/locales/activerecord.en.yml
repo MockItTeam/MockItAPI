@@ -13,3 +13,7 @@ en:
           attributes:
             username:
               invalid: Only a-z (lowercase) allowed
+        mockup:
+          attributes:
+            description:
+              invalid: Only a-z, A-Z, 0-9 and white-space allowed
