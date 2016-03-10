@@ -6,7 +6,7 @@ class Mockup < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
   belongs_to :project
 
-  validates_associated :project
+  validates_presence_of :project, :owner
   validates :description, length: {in: 0..100}
   validates :description, format: {with: /\A[a-zA-Z0-9\s]+\z/}
 

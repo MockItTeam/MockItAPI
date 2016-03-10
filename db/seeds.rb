@@ -10,7 +10,8 @@ project = FactoryGirl.create(:project, owner: owner)
 project.members << members
 
 # Projects for mockit user
-(0..4).map { FactoryGirl.create(:project, owner: owner) }
+projects = (0..4).map { FactoryGirl.create(:project, owner: owner) }
+projects.each { |project| project.members << owner }
 
 (0..4).map do
   user = members.sample

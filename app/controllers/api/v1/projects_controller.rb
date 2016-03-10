@@ -28,7 +28,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   end
 
   def update
-    if @project.update_attributes(project_params)
+    if @project.update_attributes(update_project_params)
       render json: @project, status: :ok
     else
       render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
@@ -37,7 +37,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
 
   def destroy
     if @project.destroy
-      head :ok
+      head :no_content
     else
       render json: {errors: [@position.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
@@ -46,6 +46,10 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   private
 
   def project_params
-    jsonapi_params.require(:project).permit(:name)
+    jsonapi_params.require(:project).permit(:name, :image)
+  end
+
+  def update_project_params
+    jsonapi_params.require(:project).permit(:name, :image, :user_id, :member_ids => [])
   end
 end
