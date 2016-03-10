@@ -63,7 +63,7 @@ RSpec.describe User, type: :model do
       context 'with format error message' do
         subject { invalid_user.errors.messages[:username][0] }
         # look like not allowed
-        it { is_expected.to match(/Only.*allowed/i) }
+        it { is_expected.to match(/only.*allowed/i) }
       end
     end
   end

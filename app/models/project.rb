@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
 
   validates_presence_of :owner
-  validate :project_name_uniqueness_per_user
+  validates_uniqueness_of :name, scope: :owner
   validates :name,
             presence: true,
             length: { in: 3..50 },
@@ -16,17 +16,11 @@ class Project < ActiveRecord::Base
 
   after_create :set_owner_to_member
 
-  scope :pending_invitations, -> () { project.invitations.where(status: :pending) }
+  scope :pending_invitations, -> () { self.invitations.where(status: :pending) }
 
   private
 
   def set_owner_to_member
     self.members << self.owner
-  end
-
-  def project_name_uniqueness_per_user
-    if self.owner.projects.find_by(name: self.name)
-      errors.add(:base, "Name must be unique per user")
-    end
   end
 end
