@@ -7,12 +7,13 @@ en:
         project:
           attributes:
             name:
-              invalid: Only a-z, A-Z, 0-9 allowed
+              invalid: only a-z, A-Z, 0-9 allowed
+              taken: must be unique per user
         user:
           attributes:
             username:
-              invalid: Only a-z (lowercase) allowed
+              invalid: only a-z (lowercase) allowed
         mockup:
           attributes:
             description:
-              invalid: Only a-z, A-Z, 0-9 and white-space allowed
+              invalid: only a-z, A-Z, 0-9 and white-space allowed

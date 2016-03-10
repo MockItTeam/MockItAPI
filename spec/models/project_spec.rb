@@ -57,12 +57,12 @@ RSpec.describe Project, type: :model do
 
       context 'with uniqueness error message' do
         it { expect(other_project.errors).to include :base }
-        it { expect(other_project.errors.messages[:base][0]).to match(/Name.*user/i) }
+        it { expect(other_project.errors.messages[:base][0]).to match(/must.*user/i) }
       end
 
       context 'with format error message' do
         it { expect(invalid_project.errors).to include :name }
-        it { expect(invalid_project.errors.messages[:name][0]).to match(/Only.*allowed/i) }
+        it { expect(invalid_project.errors.messages[:name][0]).to match(/only.*allowed/i) }
       end
     end
   end
