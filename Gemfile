@@ -25,6 +25,11 @@ gem 'mina'
 gem 'mina-puma', :require => false
 gem 'puma', '~> 3.1.0'
 
+# Assets
+gem 'ember-cli-rails' # Integrate Ember CLI with rails
+gem 'jquery-rails' # Use jquery as the JavaScript library
+gem 'sass-rails' # SASS
+
 # CORS
 gem 'rack-cors', :require => 'rack/cors'
 
@@ -45,6 +50,8 @@ group :development, :test do
   gem 'shoulda-matchers' # Tests common Rails functionalities
   gem 'database_cleaner' # Use Database Cleaner
   gem 'json_matchers' # Tests common Rails functionalities
+  gem 'capybara' # Integration testing
+  gem 'poltergeist' # Headless browser
 
   gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring' # Spring speeds up development by keeping your application running in the background.
