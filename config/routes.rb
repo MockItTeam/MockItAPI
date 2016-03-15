@@ -16,4 +16,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show]
     resources :invitations
   end
+
+  # Ember route
+  mount_ember_app :frontend, to: '/', controller: 'application', action: 'frontend'
 end

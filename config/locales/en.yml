@@ -1,4 +1,6 @@
 en:
+  application:
+    name: Mockit
   authroization:
     unauthorized: unauthorized
   errors:
