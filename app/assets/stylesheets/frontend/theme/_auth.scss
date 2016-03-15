@@ -1,0 +1,5 @@
+.layout-form.is-auth {
+  body {
+    @include gradient-radial(map-get($brand-orange, 'light'), map-get($brand-orange, 'lighter'));
+  }
+}

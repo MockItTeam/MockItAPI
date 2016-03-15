@@ -1,0 +1,35 @@
+.layout-form {
+  width: 100%;
+  height: 100%;
+
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
+
+  body {
+    //background: map-get($brand-gray, 'lighter');
+
+    @include media-breakpoint-up(md) {
+      height: inherit;
+      display: block;
+    }
+  }
+
+  // Ember root element
+  body > .ember-view {
+    @include media-breakpoint-up(md) {
+      height: 100%;
+      width: 100%;
+      display: table;
+    }
+  }
+}
+
+.layout-form main {
+  padding: 0;
+
+  @include media-breakpoint-up(md) {
+    vertical-align: middle;
+    display: table-cell;
+  }
+}
