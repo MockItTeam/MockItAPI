@@ -39,7 +39,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
     if @project.destroy
       head :no_content
     else
-      render json: {errors: [@position.errors.full_messages.to_sentence]}, status: :unprocessable_entity
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 

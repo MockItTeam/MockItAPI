@@ -11,12 +11,10 @@ class Project < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :owner
   validates :name,
             presence: true,
-            length: { in: 3..50 },
-            format: { with: /\A[a-zA-Z0-9]+\z/ }
+            length: {in: 3..50},
+            format: {with: /\A[a-zA-Z0-9]+\z/}
 
   after_create :set_owner_to_member
-
-  scope :pending_invitations, -> () { self.invitations.where(status: :pending) }
 
   private
 
