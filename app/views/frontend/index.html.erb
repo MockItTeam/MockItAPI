@@ -1,0 +1,15 @@
+<%= render_ember_app :frontend do |head, body| %>
+    <% head.append do %>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title><%= t('application.name') %></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <%= stylesheet_link_tag 'frontend/application', media: 'all' %>
+        <%= render partial: 'application/head' %>
+        <%= csrf_meta_tags %>
+    <% end %>
+    <% body.append do %>
+        <%= javascript_include_tag 'frontend/application' %>
+    <% end %>
+<% end %>
