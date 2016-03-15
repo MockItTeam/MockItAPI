@@ -34,6 +34,10 @@ RSpec.describe Project, type: :model do
         expect(valid_project).to validate_length_of(:name)
       end
 
+      it 'check project is valid' do
+        expect(valid_project).to be_valid
+      end
+
       it 'check owner of project' do
         expect(valid_project.owner).to eq owner
       end
@@ -56,8 +60,8 @@ RSpec.describe Project, type: :model do
       end
 
       context 'with uniqueness error message' do
-        it { expect(other_project.errors).to include :base }
-        it { expect(other_project.errors.messages[:base][0]).to match(/must.*user/i) }
+        it { expect(other_project.errors).to include :name }
+        it { expect(other_project.errors.messages[:name][0]).to match(/must.*user/i) }
       end
 
       context 'with format error message' do

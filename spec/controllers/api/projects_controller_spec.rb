@@ -7,7 +7,6 @@ RSpec.describe Api::V1::ProjectsController, type: :controller do
   let(:access_token) { FactoryGirl.create(:access_token, application: application, resource_owner_id: owner.id) }
   let(:member_access_token) { FactoryGirl.create(:access_token, application: application, resource_owner_id: members.sample.id) }
   let!(:projects) { (0..2).map { FactoryGirl.create(:project, owner: owner) } }
-  let!(:mockups) { (0..2).map { FactoryGirl.create(:mockup, project: projects.sample, owner: members.sample) } }
 
   before do
     request.accept = 'application/json'
@@ -87,7 +86,7 @@ RSpec.describe Api::V1::ProjectsController, type: :controller do
       it { expect(JSON.parse(response.body)['data']['relationships']['owner']['data']['id']).not_to eq owner.id }
     end
 
-    context 'kick other  project members' do
+    context 'kick other project members' do
       let(:kick_project_member_relationships) { {members: {data: [{type: 'users', id: members.sample.id}]}} }
       before { patch :update, id: projects.sample.id, data: valid_project.merge({relationships: kick_project_member_relationships}), access_token: access_token.token }
 
