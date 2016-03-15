@@ -32,7 +32,9 @@ module.exports = function(environment) {
   };
 
   ENV['ember-simple-auth'] = {
-    authenticationRoute: 'sessions.new'
+    authenticationRoute: 'sessions.new',
+    routeAfterAuthentication: 'projects',
+    routeIfAlreadyAuthenticated: 'projects'
   }
 
 

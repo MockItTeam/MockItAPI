@@ -9,9 +9,8 @@ const {
   } = DS;
 
 export default DS.JSONAPIAdapter.extend(DataAdapterMixin, FormDataAdapterMixin, {
-  host: ENV.host,
   namespace: 'api/v1',
-  authorizer: 'authorizer:oauth2',
+  authorizer: 'authorizer:application',
 
   // allows the multiword paths in urls to be underscored
   pathForType: function (type) {
