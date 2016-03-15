@@ -36,6 +36,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'     # Adds Underscore JS to the Rails asset pipeline
   gem 'rails-assets-jquery.cookie'  # Adds jquery-cookie to the Rails asset pipeline
   gem 'rails-assets-animate-sass'   # Animate.sass for the Rails assets pipeline
+  gem 'rails-assets-tether'
 end
 
 group :development do
