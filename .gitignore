@@ -40,3 +40,4 @@ bower.json
 
 .idea
 .idea/*
+node_modules
