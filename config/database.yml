@@ -10,16 +10,16 @@ development:
   database: mockit_development
   username: postgres
   password:
-  host: localhost
-  port: 5432
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
 
 test:
   <<: *default
   database: mockit_test
   username: postgres
   password:
-  host: localhost
-  port: 5432
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
 
 
 production:

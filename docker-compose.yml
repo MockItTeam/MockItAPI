@@ -1,0 +1,5 @@
+db:
+  image: postgres:9.5.1
+  container_name: mockit_db
+  ports:
+    - "5432:5432"
