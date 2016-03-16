@@ -1,0 +1,20 @@
+<h3>Invitation</h3>
+{{#if invitation.errors }}
+  {{#each invitation.errors as |error|}}
+    {{error.message}}
+  {{/each}}
+{{/if}}
+
+<form {{action 'inviteUser' on='submit'}}>
+    <label for="memberName">Add member</label>
+  {{ input name="memberName" placeholder="Name" value=member_name }}
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+{{#each invitations as |invitation|}}
+  {{invitation.recipient.username}}
+  {{#if canCancel }}
+      <button {{action 'cancelInvite' invitation}} class='cancel-button'>Cancel</button>
+  {{/if}}
+  <br>
+{{/each}}
