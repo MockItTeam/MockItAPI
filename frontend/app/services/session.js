@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 import ESASession from 'ember-simple-auth/services/session';
 
 const { service } = Ember.inject;

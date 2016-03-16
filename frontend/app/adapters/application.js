@@ -1,7 +1,7 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
-import ENV from "../config/environment";
-import FormDataAdapterMixin from "../mixins/form-data-adapter-mixin"
+import FormDataAdapterMixin from "../mixins/form-data-adapter-mixin";
 
 const {
   InvalidError,

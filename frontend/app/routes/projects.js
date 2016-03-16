@@ -1,4 +1,9 @@
 import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import $ from 'jquery';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, {});
+export default Ember.Route.extend({
+
+  activate() {
+    $('html').attr('class', 'layout-frontend is-project');
+  }
+});

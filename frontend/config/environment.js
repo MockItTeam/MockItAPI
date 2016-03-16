@@ -33,9 +33,9 @@ module.exports = function(environment) {
 
   ENV['ember-simple-auth'] = {
     authenticationRoute: 'sessions.new',
-    routeAfterAuthentication: 'projects',
-    routeIfAlreadyAuthenticated: 'projects'
-  }
+    routeAfterAuthentication: 'protected.projects.index',
+    routeIfAlreadyAuthenticated: 'protected.projects.index'
+  };
 
 
   if (environment === 'development') {
