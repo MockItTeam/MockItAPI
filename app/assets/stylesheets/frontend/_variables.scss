@@ -66,9 +66,6 @@ $brand-info: map-get($brand-blue, 'lighter');
 $brand-warning: #ecdb94;
 $brand-danger: #ef8e8e;
 
-$color-linkedin: #2a7bb9;
-$color-google: #d34836;
-
 // Base
 $border-radius: 0.1875rem;
 $border-radius-lg: $border-radius;
@@ -107,14 +104,5 @@ $modal-inner-padding: 1.25rem;
 $navbar-dark-color: map-get($brand-purple, 'dark');
 $navbar-dark-hover-color: map-get($brand-purple, 'light');
 $navbar-border-radius: 0;
+$navbar-height: 3.75rem;
 
-// Dropdowns
-$dropdown-border: map-get($brand-mischka, 'light');
-$dropdown-divider-bg: map-get($brand-mischka, 'lighter');
-$dropdown-link-color: map-get($brand-waterloo, 'light');
-$dropdown-link-hover-color: map-get($brand-waterloo, 'primary');
-$dropdown-link-hover-bg: #fff;
-$dropdown-link-active-color: map-get($brand-waterloo, 'dark');
-$dropdown-link-active-bg: #fff;
-$dropdown-link-disabled-color: map-get($brand-waterloo, 'lighter');
-$dropdown-header-color: map-get($brand-waterloo, 'darker');
