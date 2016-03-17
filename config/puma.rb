@@ -7,7 +7,7 @@ rackup DefaultRackup
 environment ENV['RACK_ENV'] || 'development'
 port        ENV['PORT']     || 3000
 
-stdout_redirect '/var/www/mockitAPI/shared/log/stdout', '/var/www/mockitAPI/shared/log/stderr'
+# stdout_redirect '/var/www/mockitAPI/shared/log/stdout', '/var/www/mockitAPI/shared/log/stderr'
 
 on_worker_boot do
   # worker specific setup

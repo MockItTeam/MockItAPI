@@ -1,0 +1,18 @@
+<br><br>
+<h3>Owner</h3>
+{{project.owner.username}}
+<br>
+<h3>Member</h3>
+{{#each project.members as |member|}}
+  {{#unless member.isOwner}}
+    {{member.username}}
+    {{#if canKick }}
+      <button {{action 'kickMember' member}} class='kick-button'>Kick</button>
+    {{/if}}
+
+    {{#if canAssign }}
+      <button {{action 'assignOwner' member}} class='assign-button'>Assign</button>
+    {{/if}}
+  {{/unless}}
+  <br>
+{{/each}}

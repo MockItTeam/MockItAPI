@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   scope 'api/v1', module: 'api/v1' do
     resources :projects
-    resources :users, only: [:show]
+    resources :users, only: [:index, :show]
+    resources :invitations
   end
+
+  # Ember route
+  mount_ember_app :frontend, to: '/', controller: 'application', action: 'frontend'
 end

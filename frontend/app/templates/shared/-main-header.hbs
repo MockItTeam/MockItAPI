@@ -1,0 +1,12 @@
+<nav class='app-navbar navbar navbar-dark'>
+
+  {{#link-to 'application' class='navbar-brand'}}
+    <span>Mockit</span>
+  {{/link-to}}
+
+  <div class='sign-out-container'>
+    <a {{action 'signout'}} class='nav-link' href="#">
+      Sign Out
+    </a>
+  </div>
+</nav>

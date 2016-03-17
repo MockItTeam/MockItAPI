@@ -28,6 +28,8 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   end
 
   def update
+    # in case of change project owner
+    @project.user_id = jsonapi_params[:project][:owner_id] if jsonapi_params[:project][:owner_id]
     if @project.update_attributes(update_project_params)
       render json: @project, status: :ok
     else
@@ -39,7 +41,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
     if @project.destroy
       head :no_content
     else
-      render json: {errors: [@position.errors.full_messages.to_sentence]}, status: :unprocessable_entity
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 
@@ -50,6 +52,6 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   end
 
   def update_project_params
-    jsonapi_params.require(:project).permit(:name, :image, :user_id, :member_ids => [])
+    jsonapi_params.require(:project).permit(:name, :image, :member_ids => [])
   end
 end

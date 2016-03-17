@@ -25,8 +25,19 @@ gem 'mina'
 gem 'mina-puma', :require => false
 gem 'puma', '~> 3.1.0'
 
-# CORS
-gem 'rack-cors', :require => 'rack/cors'
+# Assets
+gem 'ember-cli-rails' # Integrate Ember CLI with rails
+gem 'jquery-rails' # Use jquery as the JavaScript library
+gem 'sass-rails' # SASS
+gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'font-awesome-sass'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-underscore'     # Adds Underscore JS to the Rails asset pipeline
+  gem 'rails-assets-jquery.cookie'  # Adds jquery-cookie to the Rails asset pipeline
+  gem 'rails-assets-animate-sass'   # Animate.sass for the Rails assets pipeline
+  gem 'rails-assets-tether'
+end
 
 group :development do
   gem 'better_errors' # Better error page for Rails and other Rack apps
@@ -45,6 +56,8 @@ group :development, :test do
   gem 'shoulda-matchers' # Tests common Rails functionalities
   gem 'database_cleaner' # Use Database Cleaner
   gem 'json_matchers' # Tests common Rails functionalities
+  gem 'capybara' # Integration testing
+  gem 'poltergeist' # Headless browser
 
   gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring' # Spring speeds up development by keeping your application running in the background.

@@ -59,7 +59,7 @@ class Api::V1::ApiController < ActionController::Base
           relation_model = value[:data][:type].classify.downcase rescue nil
           relationship_id = value[:data][:id] rescue nil
           if relation_model.present? && relationship_id.present?
-            flatten_params.merge!({:"#{relation_model}_id" => relationship_id.to_i})
+            flatten_params.merge!({:"#{type.classify.downcase rescue nil}_id" => relationship_id.to_i})
           end
         end
       end

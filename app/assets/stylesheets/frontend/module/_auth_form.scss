@@ -1,0 +1,16 @@
+.auth-form-container {
+  $form-size-md: 25.25em;
+  $header-height: 4.5em;
+
+  width: 100%;
+  margin: 0 auto;
+  padding: $grid-gutter-width $grid-gutter-width/2;
+
+  @include media-breakpoint-up(md) {
+    max-width: $form-size-md;
+  }
+
+  form {
+    padding: $grid-gutter-width;
+  }
+}

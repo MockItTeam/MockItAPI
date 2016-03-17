@@ -1,0 +1,108 @@
+// Fonts
+
+// Colors
+$brand-orange: (
+  primary: #ef8333,
+  dark: #ce612b,
+  darker: #a34620,
+  light: #f29e59,
+  lighter: #f5b883
+);
+
+$brand-red: (
+  primary: #e13d3d,
+  dark: #c33329,
+  darker: #9c271f,
+  light: #eb6263,
+  lighter: #ef8e8e
+);
+
+$brand-blue: (
+  primary: #5b99dd,
+  dark: #3a80cd,
+  darker: #1965b9,
+  light: #82b3ea,
+  lighter: #b4d3f6
+);
+
+$brand-purple: (
+  primary: #3d3d6b,
+  dark: #262657,
+  darker: #0d1039,
+  light: #565483,
+  lighter: #7a789e,
+  lightest: #d0cee0
+);
+
+$brand-waterloo: (
+  primary: #787c9e,
+  dark: #575c87,
+  darker: #3a406c,
+  light: #9ea0b7,
+  lighter: #cbccd8
+);
+
+$brand-mischka: (
+  primary: #d1cbda,
+  dark: #b1acc3,
+  darker: #8b83a7,
+  light: #d0cee0,
+  lighter: #f1f0f4
+);
+
+$brand-gray: (
+  primary: #9995a6,
+  dark: #514f58,
+  darker: #35343c,
+  light: #a1a2a6,
+  lighter: #f2f3f8
+);
+
+$body-color: #000;
+
+$brand-primary: map-get($brand-orange, 'primary');
+$brand-success: #86D3B0;
+$brand-info: map-get($brand-blue, 'lighter');
+$brand-warning: #ecdb94;
+$brand-danger: #ef8e8e;
+
+// Base
+$border-radius: 0.1875rem;
+$border-radius-lg: $border-radius;
+$border-radius-sm: $border-radius;
+
+// Form inputs
+$input-height: 2.5rem;
+$input-bg: #f9f7fc;
+$input-bg-disabled: #fff;
+$input-color: map-get($brand-mischka, 'darker');
+$input-border: map-get($brand-mischka, 'primary');
+$input-box-shadow: map-get($brand-mischka, 'primary');
+$input-color-placeholder: rgba(map-get($brand-mischka, 'darker'), 0.8);
+$input-border-focus: map-get($brand-blue, 'primary');
+$input-box-shadow-focus: 0 0 2px 0 map-get($brand-waterloo, 'lighter');
+
+// Buttons
+$btn-font-height: 1em;
+$btn-primary-border: transparent;
+$btn-danger-bg: map-get($brand-red, 'lighter');
+
+// Links
+$link-color: map-get($brand-mischka, 'dark');
+$link-hover-color: map-get($brand-mischka, 'darker');
+$link-active-color: map-get($brand-mischka, 'primary');
+$link-hover-decoration: underline;
+
+// Modals
+$modal-sm: 23rem;
+$modal-backdrop-bg: map-get($brand-purple, 'dark');
+$modal-backdrop-opacity: .9;
+$modal-title-padding: 1.25rem;
+$modal-inner-padding: 1.25rem;
+
+// Navbar
+$navbar-dark-color: map-get($brand-purple, 'dark');
+$navbar-dark-hover-color: map-get($brand-purple, 'light');
+$navbar-border-radius: 0;
+$navbar-height: 3.75rem;
+

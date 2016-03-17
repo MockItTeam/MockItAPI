@@ -58,22 +58,19 @@ RSpec.describe Invitation, type: :model do
     end
 
     context 'of invalid parameters' do
-      let(:invalid_invitation) { FactoryGirl.build(:invitation) }
+      let(:invalid_invitation) { FactoryGirl.build(:invitation, project: project) }
 
       before { invalid_invitation.save }
 
       subject { invalid_invitation.errors }
-      it { is_expected.to include :sender, :recipient, :project }
+      it { is_expected.to include :sender, :recipient }
 
       context 'with error message' do
         subject { invalid_invitation.errors.messages[:sender][0] }
-        it { is_expected.to match(/can't.*blank/i) }
+        it { is_expected.to match(/not.*founded/i) }
 
         subject { invalid_invitation.errors.messages[:recipient][0] }
-        it { is_expected.to match(/can't.*blank/i) }
-
-        subject { invalid_invitation.errors.messages[:project][0] }
-        it { is_expected.to match(/can't.*blank/i) }
+        it { is_expected.to match(/not.*founded/i) }
       end
     end
   end

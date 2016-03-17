@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actionmailer (4.2.5)
       actionpack (= 4.2.5)
@@ -42,6 +43,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
+    autoprefixer-rails (6.3.1)
+      execjs
+      json
     awesome_print (1.6.1)
     aws-sdk (2.2.15)
       aws-sdk-resources (= 2.2.15)
@@ -56,12 +60,21 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap (4.0.0.alpha3)
+      autoprefixer-rails (>= 6.0.3)
+      sass (>= 3.4.19)
     builder (3.2.2)
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
     byebug (8.2.2)
     cancancan (1.13.1)
+    capybara (2.5.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -71,6 +84,11 @@ GEM
       aws-sdk (~> 2.0)
       carrierwave (~> 0.7)
     chronic (0.10.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cliver (0.3.2)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     concurrent-ruby (1.0.0)
     css_parser (1.3.7)
@@ -87,8 +105,15 @@ GEM
     diff-lcs (1.2.5)
     doorkeeper (3.1.0)
       railties (>= 3.2)
+    ember-cli-rails (0.7.2)
+      cocaine (~> 0.5.8)
+      ember-cli-rails-assets (>= 0.6.1)
+      html_page (~> 0.1.0)
+      railties (>= 3.2, < 5)
+    ember-cli-rails-assets (0.6.1)
     erubis (2.7.0)
     excon (0.45.4)
+    execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.6.0)
@@ -97,12 +122,19 @@ GEM
     ffaker (2.2.0)
     figaro (1.1.1)
       thor (~> 0.14)
+    font-awesome-sass (4.5.0)
+      sass (>= 3.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    html_page (0.1.0)
     i18n (0.7.0)
     intercom-rails (0.2.30)
       activesupport (> 3.0)
     jmespath (1.1.3)
+    jquery-rails (4.1.0)
+      rails-dom-testing (~> 1.0)
+      railties (>= 4.2.0)
+      thor (>= 0.14, < 2.0)
     json (1.8.3)
     json-schema (2.2.5)
     json_matchers (0.5.0)
@@ -127,6 +159,7 @@ GEM
     mini_magick (4.4.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
+    multi_json (1.11.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     open4 (1.3.4)
@@ -134,11 +167,15 @@ GEM
     paranoia (2.1.5)
       activerecord (~> 4.0)
     pg (0.18.4)
+    poltergeist (1.8.1)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     puma (3.1.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
-    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.3.2)
@@ -153,6 +190,12 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.5)
       sprockets-rails
+    rails-assets-animate-sass (0.6.6)
+    rails-assets-jquery (2.2.1)
+    rails-assets-jquery.cookie (1.4.1)
+      rails-assets-jquery (>= 1.2)
+    rails-assets-tether (1.2.0)
+    rails-assets-underscore (1.8.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -199,6 +242,13 @@ GEM
     rspec-retry (0.4.5)
       rspec-core
     rspec-support (3.4.1)
+    sass (3.4.21)
+    sass-rails (5.0.4)
+      railties (>= 4.0.0, < 5.0)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (>= 1.1, < 3)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     spring (1.6.3)
@@ -211,11 +261,17 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.1)
     thread_safe (0.3.5)
+    tilt (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uniform_notifier (1.9.0)
     warden (1.2.6)
       rack (>= 1.0)
+    websocket-driver (0.6.3)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -225,19 +281,24 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
+  bootstrap (~> 4.0.0.alpha3)
   bullet
   byebug
   cancancan (~> 1.10)
+  capybara
   carrierwave
   carrierwave-aws
   chronic
   database_cleaner
   devise
   doorkeeper
+  ember-cli-rails
   factory_girl_rails
   ffaker
   figaro
+  font-awesome-sass
   intercom-rails
+  jquery-rails
   json_matchers
   kaminari
   mandrill-api
@@ -246,15 +307,20 @@ DEPENDENCIES
   mini_magick
   paranoia (~> 2.1.3)
   pg
+  poltergeist
   puma (~> 3.1.0)
   quiet_assets
-  rack-cors
   rack-timeout
   rails (= 4.2.5)
+  rails-assets-animate-sass!
+  rails-assets-jquery.cookie!
+  rails-assets-tether!
+  rails-assets-underscore!
   rails_12factor
   roadie-rails
   rspec-rails
   rspec-retry
+  sass-rails
   shoulda-matchers
   spring
 

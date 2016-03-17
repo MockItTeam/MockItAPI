@@ -1,0 +1,16 @@
+.app-navbar {
+  display: table;
+  position: fixed;
+  width: 100%;
+  padding: 0.625rem 1rem;
+  background: map-get($brand-purple, 'dark');
+
+  @include media-breakpoint-up(md) {
+    position: static;
+  }
+
+  .sign-out-container {
+    @include pull-right();
+    height: 2.5rem;
+  }
+}

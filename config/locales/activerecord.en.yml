@@ -1,5 +1,9 @@
 en:
   activerecord:
+    attributes:
+      invitation:
+        recipient: Invitee
+        sender: Inviter
     exception:
       not_found: Not Found
     errors:
@@ -7,12 +11,18 @@ en:
         project:
           attributes:
             name:
-              invalid: Only a-z, A-Z, 0-9 allowed
+              invalid: only a-z, A-Z, 0-9 allowed
+              taken: must be unique per user
         user:
           attributes:
             username:
-              invalid: Only a-z (lowercase) allowed
+              invalid: only a-z (lowercase) allowed
+        invitation:
+          attributes:
+            recipient:
+              blank: is not founded
+              taken: is invited already
         mockup:
           attributes:
             description:
-              invalid: Only a-z, A-Z, 0-9 and white-space allowed
+              invalid: only a-z, A-Z, 0-9 and white-space allowed
