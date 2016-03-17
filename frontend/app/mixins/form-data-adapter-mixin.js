@@ -17,8 +17,6 @@ export default Ember.Mixin.create({
       let aFormData = new FormData();
       let formDataRequired = false;
 
-      console.log(originalData);
-
       // recursive object walker
       var objectWalker = function(object, key) { // deliberately choose var for inner scope accessibility
         if ((object instanceof Object) && !(object instanceof File)) { // if object walkable

@@ -9,20 +9,22 @@ export default Ember.Component.extend({
 
     accept(invitation) {
       invitation.set('status', 'accepted');
-      invitation.save().then(() => {
-        this.sendAction('afterAccept');
-      }, () => {
-        this.set('success', undefined);
-      });
+      invitation.save()
+        .then(() => {
+          this.sendAction('afterAccepted');
+        }, () => {
+          this.set('success', undefined);
+        });
     },
 
     refuse(invitation) {
       invitation.set('status', 'refused');
-      invitation.save().then(() => {
-        this.set('success', 'success');
-      }, () => {
-        this.set('success', undefined);
-      });
+      invitation.save()
+        .then(() => {
+          this.sendAction('afterRefused');
+        }, () => {
+          this.set('success', undefined);
+        });
     }
   }
 });

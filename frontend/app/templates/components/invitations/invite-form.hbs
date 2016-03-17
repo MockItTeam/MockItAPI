@@ -1,4 +1,8 @@
 <h3>Invitation</h3>
+{{#if success }}
+  {{success}}
+{{/if}}
+
 {{#if invitation.errors }}
   {{#each invitation.errors as |error|}}
     {{error.message}}
@@ -6,15 +10,16 @@
 {{/if}}
 
 <form {{action 'inviteUser' on='submit'}}>
-    <label for="memberName">Add member</label>
+  <label for="memberName">Add member</label>
   {{ input name="memberName" placeholder="Name" value=member_name }}
-    <button type="submit" class="btn btn-primary">Add</button>
+  <button type="submit" class="btn btn-primary">Add</button>
 </form>
 
 {{#each invitations as |invitation|}}
-  {{invitation.recipient.username}}
+  {{invitation.recipient_name}}
   {{#if canCancel }}
-      <button {{action 'cancelInvite' invitation}} class='cancel-button'>Cancel</button>
+    <button {{action 'cancelInvite' invitation}} class='cancel-button'>Cancel</button>
   {{/if}}
   <br>
 {{/each}}
+

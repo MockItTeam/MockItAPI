@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   store: service('store'),
   sessionUser: service('session'),
 
-  _checkDirtyAttributes: Ember.on('willRender', function(){
+  _checkDirtyAttributes: Ember.on('willRender', function() {
     this.set('canSave', this.get('project').get('hasDirtyAttributes'));
   }),
 
@@ -16,19 +16,20 @@ export default Ember.Component.extend({
     },
 
     save(project) {
-      if(project.get('hasDirtyAttributes')) {
-        project.save().then(() => {
-          this.set('success', 'Project updated');
-        }, () => {
-          this.set('success', undefined);
-        })
+      if (project.get('hasDirtyAttributes')) {
+        project.save()
+          .then(() => {
+            this.set('success', 'Project updated');
+          }, () => {
+            this.set('success', undefined);
+          })
       }
     },
 
     preview(files) {
       let project = this.get('project');
 
-      if(files[0]) {
+      if (files[0]) {
         project.set('image', files[0]);
 
         var reader = new FileReader();
@@ -41,21 +42,23 @@ export default Ember.Component.extend({
     },
 
     uploadImage(project) {
-      project.save().then(() => {
-        this.set('success', 'Upload succesful');
-      }, () => {
-        this.set('success', undefined);
-      })
+      project.save()
+        .then(() => {
+          this.set('success', 'Upload succesful');
+        }, () => {
+          this.set('success', undefined);
+        })
     },
 
     destroy(project) {
       project.deleteRecord();
-      project.get('isDeleted');
-      project.save().then(() => {
-        this.sendAction('afterDeleted');
-      }, () => {
-        this.set('success', undefined);
-      })
+
+      project.save()
+        .then(() => {
+          this.sendAction('afterDeleted');
+        }, () => {
+          this.set('success', undefined);
+        })
     }
 
   }

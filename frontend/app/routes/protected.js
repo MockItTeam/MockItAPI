@@ -7,7 +7,9 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   session: service('session'),
 
   redirect() {
-    this.transitionTo('protected.projects.index');
+    if (window.location.pathname === '/app') {
+      this.transitionTo('protected.projects.index');
+    }
   },
 
   actions: {

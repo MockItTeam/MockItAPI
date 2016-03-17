@@ -9,6 +9,14 @@ export default DS.Model.extend({
     inverse: 'owner'
   }),
 
+  senders: DS.hasMany('invitation', {
+    inverse: 'sender'
+  }),
+
+  recipients: DS.hasMany('invitation', {
+    inverse: 'recipient'
+  }),
+
   projects: DS.hasMany('project', {
     inverse: 'members'
   })

@@ -8,12 +8,14 @@
 {{#each project.members as |member|}}
   {{member.username}}
 
-  {{#if canKick }}
-    <button {{action 'kickMember' member}} class='kick-button'>Kick</button>
-  {{/if}}
+  {{#unless member.isOwner}}
+    {{#if canKick }}
+      <button {{action 'kickMember' member}} class='kick-button'>Kick</button>
+    {{/if}}
 
-  {{#if canAssign }}
-    <button {{action 'assignOwner' member}} class='assign-button'>Assign</button>
-  {{/if}}
+    {{#if canAssign }}
+      <button {{action 'assignOwner' member}} class='assign-button'>Assign</button>
+    {{/if}}
+  {{/unless}}
   <br>
 {{/each}}
