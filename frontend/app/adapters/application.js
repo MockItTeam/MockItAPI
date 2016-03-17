@@ -1,7 +1,7 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
-import ENV from "../config/environment";
-import FormDataAdapterMixin from "../mixins/form-data-adapter-mixin"
+import FormDataAdapterMixin from "../mixins/form-data-adapter-mixin";
 
 const {
   InvalidError,
@@ -9,9 +9,8 @@ const {
   } = DS;
 
 export default DS.JSONAPIAdapter.extend(DataAdapterMixin, FormDataAdapterMixin, {
-  host: ENV.host,
   namespace: 'api/v1',
-  authorizer: 'authorizer:oauth2',
+  authorizer: 'authorizer:application',
 
   // allows the multiword paths in urls to be underscored
   pathForType: function (type) {

@@ -194,6 +194,7 @@ GEM
     rails-assets-jquery (2.2.1)
     rails-assets-jquery.cookie (1.4.1)
       rails-assets-jquery (>= 1.2)
+    rails-assets-tether (1.2.0)
     rails-assets-underscore (1.8.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -313,6 +314,7 @@ DEPENDENCIES
   rails (= 4.2.5)
   rails-assets-animate-sass!
   rails-assets-jquery.cookie!
+  rails-assets-tether!
   rails-assets-underscore!
   rails_12factor
   roadie-rails
