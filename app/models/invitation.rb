@@ -7,7 +7,7 @@ class Invitation < ActiveRecord::Base
   belongs_to :project
 
   validates_presence_of :sender, :recipient, :project
-  validates_uniqueness_of :recipient_id, scope: [:sender, :status]
+  validates_uniqueness_of :recipient, scope: [:sender, :status]
   validate :is_project_owner, :self_member_invitation, on: :create
   validate :status_transition, on: :update, if: :status_changed?
 

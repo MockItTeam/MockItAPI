@@ -67,10 +67,10 @@ RSpec.describe Invitation, type: :model do
 
       context 'with error message' do
         subject { invalid_invitation.errors.messages[:sender][0] }
-        it { is_expected.to match(/can't.*blank/i) }
+        it { is_expected.to match(/not.*founded/i) }
 
         subject { invalid_invitation.errors.messages[:recipient][0] }
-        it { is_expected.to match(/can't.*blank/i) }
+        it { is_expected.to match(/not.*founded/i) }
       end
     end
   end

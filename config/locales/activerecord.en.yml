@@ -1,5 +1,9 @@
 en:
   activerecord:
+    attributes:
+      invitation:
+        recipient: Invitee
+        sender: Inviter
     exception:
       not_found: Not Found
     errors:
@@ -15,7 +19,8 @@ en:
               invalid: only a-z (lowercase) allowed
         invitation:
           attributes:
-            recipient_id:
+            recipient:
+              blank: is not founded
               taken: is invited already
         mockup:
           attributes:

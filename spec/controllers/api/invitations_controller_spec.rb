@@ -67,9 +67,9 @@ RSpec.describe Api::V1::InvitationsController, type: :controller do
     let(:sample_recipient) { FactoryGirl.create(:user) }
     let(:sample_recipient_token) { FactoryGirl.create(:access_token, application: application, resource_owner_id: sample_recipient.id) }
     let(:sample_project) { projects.sample }
-    let(:valid_invitation) { {type: 'invitations', attributes: {recipient_id: sample_recipient.id}} }
+    let(:valid_invitation) { {type: 'invitations', attributes: {}} }
 
-    let(:invitation_relationships) { {project: {data: {type: 'projects', id: sample_project.id}}} }
+    let(:invitation_relationships) { {project: {data: {type: 'projects', id: sample_project.id}}, recipient: {data: {type: 'users', id: sample_recipient.id}}} }
 
     context 'when all params is valid' do
       before { post :create, data: valid_invitation.merge({relationships: invitation_relationships}), access_token: access_token.token }
@@ -83,16 +83,19 @@ RSpec.describe Api::V1::InvitationsController, type: :controller do
     end
 
     context 'when invalid recipient' do
-      let(:invalid_invitation) { {type: 'invitations', attributes: {recipient_id: ''}} }
-      before { post :create, data: invalid_invitation.merge({relationships: invitation_relationships}), access_token: access_token.token }
+      let(:invalid_invitation) { {type: 'invitations', attributes: {}} }
+      let(:invalid_invitation_relationships) { {project: {data: {type: 'projects', id: sample_project.id}}, recipient: {data: {type: 'users', id: ''}}} }
+
+      before { post :create, data: invalid_invitation.merge({relationships: invalid_invitation_relationships}), access_token: access_token.token }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(JSON.parse(response.body)).to have_key('errors') }
-      it { expect(JSON.parse(response.body)['errors'][0]).to match(/can't.*blank/i) }
+      it { expect(JSON.parse(response.body)['errors'][0]).to match(/Invitee.*founded/i) }
     end
 
     context 'when sender is not project owner' do
-      let(:invalid_invitation) { {type: 'invitations', attributes: {recipient_id: sample_recipient.id}} }
+      let(:invalid_invitation) { {type: 'invitations', attributes: {}} }
+
       before { post :create, data: invalid_invitation.merge({relationships: invitation_relationships}), access_token: sample_recipient_token.token }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
@@ -101,12 +104,14 @@ RSpec.describe Api::V1::InvitationsController, type: :controller do
     end
 
     context 'when recipient is invited already' do
-      let(:invalid_invitation) { {type: 'invitations', attributes: {recipient_id: invite_members.sample.id}} }
-      before { post :create, data: invalid_invitation.merge({relationships: invitation_relationships}), access_token: access_token.token }
+      let(:invalid_invitation) { {type: 'invitations', attributes: {}} }
+      let(:exist_invitation_relationships) { {project: {data: {type: 'projects', id: sample_project.id}}, recipient: {data: {type: 'users', id: invite_members.sample.id}}} }
+
+      before { post :create, data: invalid_invitation.merge({relationships: exist_invitation_relationships}), access_token: access_token.token }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(JSON.parse(response.body)).to have_key('errors') }
-      it { expect(JSON.parse(response.body)['errors'][0]).to eq 'Recipient is invited already' }
+      it { expect(JSON.parse(response.body)['errors'][0]).to match(/is.*already/i) }
     end
   end
 
