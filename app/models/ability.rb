@@ -6,7 +6,6 @@ class Ability
 
     can :manage, Project, user_id: user.id
     can [:read, :update], Project, id: user.project_ids
-    can [:read], Project, invitations: { recipient_id: user.id }
 
     can [:read], User
     can [:read, :update, :destroy], User, id: user.id

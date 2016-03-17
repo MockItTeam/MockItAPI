@@ -14,6 +14,8 @@ class Invitation < ActiveRecord::Base
   before_create :set_default_status
   after_save :after_status_transition, if: :status_changed?
 
+  default_scope { where(status: 'pending') }
+
   def self.search(options)
     query = where(nil)
     query = query.where(recipient_id: options[:user_id]) if options[:user_id].present?
@@ -56,5 +58,6 @@ class Invitation < ActiveRecord::Base
 
   def after_status_transition
     self.project.members << self.recipient if self.status == 'accepted'
+    destroy
   end
 end
