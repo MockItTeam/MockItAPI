@@ -1,17 +1,27 @@
+{{#if success}}
+  {{success}}
+{{/if}}
+
+{{#if project.errors }}
+  {{#each project.errors as |error|}}
+      {{error.message}}
+  {{/each}}
+{{/if}}
+
 <h3 {{action "toggleEdit"}}>{{project.name}}</h3>
 {{#if isShowingProjectName}}
-    <p>{{input value=project.name name=project_name id=project_name class="toggle-input"}}</p>
+  <p>{{input value=project.name name=project_name id=project_name class="toggle-input"}}</p>
 {{/if}}
 
 <div class="image-upload-container">
-    <div class="image-preview">
-        <div class="image-container">
-            <img src="{{project.image_url}}">
-        </div>
+  <div class="image-preview">
+    <div class="image-container">
+      <img src="{{project.image_url}}">
     </div>
-    {{#x-file-input value=project.image name='image' action='preview' on='change'}}
-        <span>browse</span>
-    {{/x-file-input}}
+  </div>
+  {{#x-file-input value=project.image name='image' action='preview' on='change'}}
+    <span>browse</span>
+  {{/x-file-input}}
 </div>
 <button {{action 'save' project}} disabled={{if canSave null 'disabled'}}>Save</button>
 <button {{action 'destroy' project}}>Delete</button>

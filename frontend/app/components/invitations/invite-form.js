@@ -25,7 +25,6 @@ export default Ember.Component.extend({
         .then((recipient) => {
           invitation.set('recipient', recipient[0]);
 
-
           invitation.save()
             .then(() => {
               this.set('success', username + ' is invited.');

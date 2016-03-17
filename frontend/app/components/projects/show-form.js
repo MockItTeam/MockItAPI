@@ -3,10 +3,6 @@ const { service } = Ember.inject;
 
 export default Ember.Component.extend({
   sessionUser: service('session'),
-  
-  _checkDirtyAttributes: Ember.on('willRender', function() {
-    this.set('canSave', this.get('project').get('hasDirtyAttributes'));
-  }),
 
   _checkIsOwnerProject: Ember.on('didReceiveAttrs', 'willRender', function() {
     this.get('sessionUser.currentUser').then((currentUser) => {
@@ -57,7 +53,7 @@ export default Ember.Component.extend({
 
       project.save()
         .then(() => {
-          this.set('success', 'Kick member success');
+          this.set('success', 'You kick ' + member + ' out of project members.');
         }, () => {
           this.set('success', undefined);
         })
@@ -66,17 +62,16 @@ export default Ember.Component.extend({
     assignOwner(member) {
       let project = this.get('project');
 
-      project.get('members').removeObject(member);
-
       project.get('owner')
         .then((owner) => {
+          project.get('members').removeObject(member);
           project.get('members').pushObject(owner);
           project.set('owner', member);
         });
       
       project.save()
         .then(() => {
-          this.set('success', 'success');
+          this.set('success', 'Now ' + member + 'is project owner.');
         }, () => {
           this.set('success', undefined);
         })

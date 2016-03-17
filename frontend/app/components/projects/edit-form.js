@@ -1,10 +1,7 @@
 import Ember from 'ember'
 import $ from 'jquery';
-const { service } = Ember.inject;
 
 export default Ember.Component.extend({
-  store: service('store'),
-  sessionUser: service('session'),
 
   _checkDirtyAttributes: Ember.on('willRender', function() {
     this.set('canSave', this.get('project').get('hasDirtyAttributes'));
