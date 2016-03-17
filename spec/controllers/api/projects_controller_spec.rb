@@ -62,10 +62,11 @@ RSpec.describe Api::V1::ProjectsController, type: :controller do
   end
 
   describe 'PATCH #update' do
+    let(:sample_project) { FactoryGirl.create(:project, owner: owner) }
     let(:valid_project) { {type: 'projects', attributes: {name: 'Change'}} }
     let(:invalid_project) { {type: 'projects', attributes: {name: '####'}} }
 
-    let(:same_name_project) { {type: 'projects', attributes: {name: projects.sample.name}} }
+    let(:same_name_project) { {type: 'projects', attributes: {name: sample_project.name}} }
 
     let(:project_relationships) { {owner: {data: {type: 'users', id: owner.id}}} }
 
