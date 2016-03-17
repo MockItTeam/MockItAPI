@@ -27,9 +27,10 @@ class Api::V1::InvitationsController < Api::V1::ApiController
   end
 
   def create
-    @invitation = Invitation.new(invitation_params)
+    @invitation = Invitation.new(create_invitation_params)
+    @invitation.sender = current_user
 
-    if @invitation.check_invitation(current_user.id) && @invitation.save
+    if @invitation.save
       render json: @invitation, status: :created
     else
       render json: {errors: [@invitation.errors.full_messages.to_sentence]}, status: :unprocessable_entity
@@ -37,7 +38,7 @@ class Api::V1::InvitationsController < Api::V1::ApiController
   end
 
   def update
-    if @invitation.update_attributes(update_invitation_params)
+    if @invitation.can_change_status(current_user.id) && @invitation.update_attributes(update_invitation_params)
       render json: @invitation, status: :ok
     else
       render json: {errors: [@invitation.errors.full_messages.to_sentence]}, status: :unprocessable_entity
@@ -54,8 +55,8 @@ class Api::V1::InvitationsController < Api::V1::ApiController
 
   private
 
-  def invitation_params
-    jsonapi_params.require(:invitation).permit(:sender_id, :recipient_id, :project_id)
+  def create_invitation_params
+    jsonapi_params.require(:invitation).permit(:recipient_id, :project_id)
   end
 
   def update_invitation_params

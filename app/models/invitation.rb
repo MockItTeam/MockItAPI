@@ -7,10 +7,12 @@ class Invitation < ActiveRecord::Base
   belongs_to :project
 
   validates_presence_of :sender, :recipient, :project
-  validates_uniqueness_of :recipient_id, scope: :sender
+  validates_uniqueness_of :recipient_id, scope: [:sender, :status]
+  validate :is_project_owner, :self_member_invitation, on: :create
+  validate :status_transition, on: :update, if: :status_changed?
 
   before_create :set_default_status
-  after_save :check_status
+  after_save :after_status_transition, if: :status_changed?
 
   def self.search(options)
     query = where(nil)
@@ -19,26 +21,40 @@ class Invitation < ActiveRecord::Base
     query
   end
 
-  def check_invitation(user_id)
-    self_invitation ||= self.recipient_id == user_id
-    self_member ||= self.project.member_ids.include?(self.recipient_id)
-
-    errors.add(:base, 'You are not must invite yourself') if self_invitation
-    errors.add(:base, "#{self.recipient.username} are a project member already") if self_member
-
-    !self_invitation && !self_member
+  def can_change_status(user_id)
+    if self.project.owner.id == user_id
+      errors.add(:base, 'Project owner cannot change invitation status')
+      false
+    else
+      true
+    end
   end
 
   private
+
+  def is_project_owner
+    errors.add(:base, 'Cannot invite other user, because you are not project owner') unless self.sender == self.project.owner
+  end
+
+  def self_member_invitation
+    if self.project.owner == self.sender
+      errors.add(:base, 'You cannot invite yourself') if self.recipient == self.sender
+      errors.add(:base, "#{self.recipient.username.capitalize} is a project member already") if self.project.member_ids.include?(self.recipient_id)
+    end
+  end
+
+  def status_transition
+    if (status_was == 'accepted' && (status == 'pending' || status == 'refused')) ||
+      (status_was == 'refused' && (status == 'pending' || status == 'accepted'))
+      errors.add(:status, "cannot change from #{status_was} to #{status}")
+    end
+  end
 
   def set_default_status
     self.status = :pending
   end
 
-  def check_status
-    if self.status == 'accepted'
-      self.project.members << self.recipient
-      destroy
-    end
+  def after_status_transition
+    self.project.members << self.recipient if self.status == 'accepted'
   end
 end

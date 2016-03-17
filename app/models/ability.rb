@@ -11,8 +11,7 @@ class Ability
     can [:read], User
     can [:read, :update, :destroy], User, id: user.id
 
-
-    can [:create, :destroy], Invitation, project: { user_id: user.id }
-    can [:read, :update], Invitation
+    can :manage, Invitation, project: { user_id: user.id }
+    can [:read, :create, :update], Invitation
   end
 end

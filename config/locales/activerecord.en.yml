@@ -13,6 +13,10 @@ en:
           attributes:
             username:
               invalid: only a-z (lowercase) allowed
+        invitation:
+          attributes:
+            recipient_id:
+              taken: is invited already
         mockup:
           attributes:
             description:
