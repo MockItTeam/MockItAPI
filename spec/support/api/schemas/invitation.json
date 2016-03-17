@@ -1,9 +1,9 @@
 {
   "type": "object",
-  "required": ["data", "links", "meta"],
+  "required": ["data"],
   "properties": {
     "data": {
-      "type": "array",
+      "type": "object",
       "items": {
         "type": "object",
         "required": ["id", "type", "attributes", "relationships"],
