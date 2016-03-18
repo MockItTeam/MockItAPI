@@ -8,11 +8,11 @@ class Api::V1::InvitationsController < Api::V1::ApiController
   def index
     filters = {}
     filters[:user_id] = params[:user_id] unless params[:user_id].blank?
-    filters[:status] = params[:status] unless params[:status].blank?
 
     @invitations = Invitation
                      .accessible_by(current_ability)
                      .search(filters)
+                     .pending
                      .page(@page)
                      .per(@per_page)
 

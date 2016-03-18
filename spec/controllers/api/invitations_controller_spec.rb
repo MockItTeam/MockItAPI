@@ -23,17 +23,6 @@ RSpec.describe Api::V1::InvitationsController, type: :controller do
       it { expect(JSON.parse(response.body)['data'].size).to eq invitations.length }
     end
 
-    context 'when filter status is set to specific value' do
-      let(:sample_status) { invitations.sample.status }
-      let(:sample_invitations) { invitations.select { |invitation| sample_status.eql? invitation.status } }
-
-      before { get :index, status: Invitation.statuses[sample_status], access_token: access_token.token }
-
-      it do
-        expect(JSON.parse(response.body)['data'].length).to eq sample_invitations.length
-      end
-    end
-
     context 'when filter user_id is set to specific value' do
       let(:sample_recipient_id) { invitations.sample.recipient_id }
       let(:sample_invitations) { invitations.select { |invitation| sample_recipient_id.eql? invitation.recipient_id } }
