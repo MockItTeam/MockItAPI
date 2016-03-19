@@ -6,21 +6,25 @@ export default Ember.Component.extend({
 
   _checkIsOwnerProject: Ember.on('didReceiveAttrs', 'willRender', function() {
     this.get('sessionUser.currentUser').then((currentUser) => {
-      this.set('canKick', currentUser.get('id') == this.get('project.owner.id'));
-      this.set('canAssign', currentUser.get('id') == this.get('project.owner.id'));
+      this.get('project.owner').then((owner) => {
+        this.set('canKick', currentUser.get('id') == owner.get('id'));
+        this.set('canAssign', currentUser.get('id') == owner.get('id'));
+      });
     });
   }),
 
-  _cannotKickOrAssignOwner: Ember.on('init', 'didReceiveAttrs', 'willRender', function() {
+  _cannotKickOrAssignOwner: Ember.on('didReceiveAttrs', 'willRender', function() {
     this.get('project.members').then((members) => {
       members.forEach((member) => {
-        if (member.get('username') == this.get('project.owner.username')) {
-          member.set('isOwner', true);
-        } else {
-          member.set('isOwner', false);
-        }
+        this.get('project.owner').then((owner) => {
+          if (member.get('username') == owner.get('username')) {
+            member.set('isOwner', true);
+          } else {
+            member.set('isOwner', false);
+          }
+        });
       });
-    })
+    });
   }),
 
   actions: {

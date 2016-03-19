@@ -1,0 +1,23 @@
+.draggable-el-container {
+
+  .ui-draggable {
+    cursor: pointer;
+  }
+
+  .new-draggable-el {
+    position: absolute;
+    border: 1px solid black;
+  }
+}
+
+.droppable-el-container {
+
+  .droppable-el {
+    position: relative;
+    border: 1px solid black;
+    resize: both;
+    overflow: auto;
+  }
+}
+
+
