@@ -48,7 +48,7 @@ class Mockup < ActiveRecord::Base
 
   def image_processing
 
-    result = %x(python #{Rails.root}/elementDetector/main.py -f #{self.raw_image.name.url})
+    result = %x(python ~/ElementDetector/main.py -f #{self.raw_image.name.url})
     unless result.nil?
       self.json_elements = result
       self.status = 'created'
