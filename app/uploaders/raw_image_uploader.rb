@@ -2,6 +2,7 @@
 
 class RawImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
+  include ::CarrierWave::Backgrounder::Delay
   storage :file
 
   def store_dir
