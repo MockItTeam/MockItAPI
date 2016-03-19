@@ -12,9 +12,10 @@ Rails.application.routes.draw do
   use_doorkeeper
 
   scope 'api/v1', module: 'api/v1' do
-    resources :projects
+    resources :projects, only: [:index, :show, :create, :update, :destroy]
     resources :users, only: [:index, :show]
-    resources :invitations
+    resources :invitations, only: [:index, :show, :create, :update, :destroy]
+    resources :mockups, only: [:index, :show, :create, :update, :destroy]
   end
 
   # Ember route
