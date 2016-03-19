@@ -17,6 +17,15 @@
     {{#if canAssign }}
       <button {{action 'assignOwner' member}} class='assign-button'>Assign</button>
     {{/if}}
+    <br>
   {{/unless}}
+{{/each}}
+<br>
+<h3>Mockups</h3>
+{{#each project.mockups as |mockup|}}
+  {{#link-to 'protected.projects.detail.mockups.detail' mockup.id }}
+    {{mockup.description}}
+  {{/link-to}}
   <br>
 {{/each}}
+<br>
