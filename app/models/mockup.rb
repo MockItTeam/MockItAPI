@@ -8,7 +8,7 @@ class Mockup < ActiveRecord::Base
 
   validates_presence_of :project, :owner
   validates_presence_of :json_elements, unless: :raw_image?
-  validate :json_format
+  validate :json_format, unless: :raw_image?
 
   validates :description,
             length: {in: 0..100},
