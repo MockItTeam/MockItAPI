@@ -9,6 +9,7 @@ class Mockup < ActiveRecord::Base
   validates_presence_of :project, :owner
   validates_presence_of :json_elements, unless: :raw_image?
   validate :json_format, unless: :raw_image?
+  validate :status_created?, on: :update
 
   validates :description,
             length: {in: 0..100},
@@ -29,6 +30,10 @@ class Mockup < ActiveRecord::Base
     else
       self.status = :created
     end
+  end
+
+  def status_created?
+    errors.add(:base, 'Cannot update, because this mockup is not created or still in progress.') unless self.status == 'created'
   end
 
   def raw_image?
