@@ -40,6 +40,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   def update
     # in case of change project owner
     @project.user_id = jsonapi_params[:project][:owner_id] if jsonapi_params[:project][:owner_id]
+
     if @project.update_attributes(update_project_params)
       render json: @project, status: :ok
     else
