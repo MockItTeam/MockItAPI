@@ -33,7 +33,11 @@ class Api::V1::MockupsController < Api::V1::ApiController
   end
 
   def update
-
+    if @mockup.update_attributes(update_mockup_params)
+      render json: @mockup, status: :ok
+    else
+      render json: {errors: [@mockup.errors.full_messages.to_sentence]}, status: :unprocessable_entity
+    end
   end
 
   def destroy
