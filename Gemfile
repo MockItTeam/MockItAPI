@@ -31,6 +31,10 @@ gem 'sass-rails' # SASS
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'font-awesome-sass'
 
+# Delay job
+gem 'delayed_job_active_record'
+gem 'carrierwave_backgrounder'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'     # Adds Underscore JS to the Rails asset pipeline
   gem 'rails-assets-jquery.cookie'  # Adds jquery-cookie to the Rails asset pipeline
