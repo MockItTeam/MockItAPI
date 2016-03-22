@@ -3,10 +3,9 @@
 class RawImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include ::CarrierWave::Backgrounder::Delay
-  storage :file
 
   def store_dir
-    '/var/images/'
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   # Create different versions of your uploaded files:
