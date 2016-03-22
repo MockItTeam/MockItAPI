@@ -33,7 +33,7 @@ class Mockup < ActiveRecord::Base
   end
 
   def status_created?
-    errors.add(:base, 'Cannot update, because this mockup is not created or still in progress.') unless self.status == 'created'
+    errors.add(:base, 'Cannot update, because this mockup is not created or still in progress.') unless self.status == :created
   end
 
   def raw_image?
@@ -45,24 +45,24 @@ class Mockup < ActiveRecord::Base
   end
 
   def change_status
-    self.status = 'in_progress'
-    save!
+    self.status = :in_progress
+    save!(validate: false)
   end
 
-  handle_asynchronously :change_status, :run_at => Proc.new { 10.seconds.from_now }
+  handle_asynchronously :change_status
 
   def image_processing
 
     result = %x(python ~/ElementDetector/main.py -f #{self.raw_image.name.url})
     unless result.nil?
       self.json_elements = result
-      self.status = 'created'
+      self.status = :created
     else
-      self.status = 'error'
+      self.status = :error
     end
 
-    save!
+    save!(validate: false)
   end
 
-  handle_asynchronously :image_processing, :priority => 1, :run_at => Proc.new { 20.seconds.from_now }
+  handle_asynchronously :image_processing, :priority => 1, :run_at => Proc.new { 1.seconds.from_now }
 end
