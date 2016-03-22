@@ -6,14 +6,14 @@ class Mockup < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
   belongs_to :project
 
-  validates_presence_of :project, :owner
+  # validates_presence_of :project, :owner
   validates_presence_of :json_elements, unless: :raw_image?
   validate :json_format, unless: :raw_image?
   validate :status_created?, on: :update
 
-  validates :description,
-            length: {in: 0..100},
-            format: {with: /\A[a-zA-Z0-9\s]+\z/}
+  # validates :description,
+  #           length: {in: 0..100},
+  #           format: {with: /\A[a-zA-Z0-9\s]+\z/}
 
   before_create :set_default_status
   after_create :image_processing, :change_status, if: :raw_image?
