@@ -6,17 +6,17 @@ class Mockup < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
   belongs_to :project
 
-  # validates_presence_of :project, :owner
+  validates_presence_of :project, :owner
   validates_presence_of :json_elements, unless: :raw_image?
   validate :json_format, unless: :raw_image?
   validate :status_created?, on: :update
 
-  # validates :description,
-  #           length: {in: 0..100},
-  #           format: {with: /\A[a-zA-Z0-9\s]+\z/}
+  validates :description,
+            length: {in: 0..100},
+            format: {with: /\A[a-zA-Z0-9\s]+\z/}
 
   before_create :set_default_status
-  after_create :image_processing, :change_status, if: :raw_image?
+  after_create :change_status,:image_processing, if: :raw_image?
 
   def attach_raw_image(raw_image, owner)
     self.raw_image = RawImage.new(name: raw_image, owner: owner)
@@ -52,8 +52,7 @@ class Mockup < ActiveRecord::Base
   handle_asynchronously :change_status
 
   def image_processing
-
-    result = %x(python ~/ElementDetector/main.py -f #{self.raw_image.name.url})
+    result = %x(python ~/ElementDetector/main.py -f "#{self.raw_image.name.url}")
     unless result.nil?
       self.json_elements = result
       self.status = :created
