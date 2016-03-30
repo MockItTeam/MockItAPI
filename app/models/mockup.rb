@@ -26,7 +26,6 @@ class Mockup < ActiveRecord::Base
   def set_default_status
     if raw_image?
       self.status = :pending
-
     else
       self.status = :created
     end

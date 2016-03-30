@@ -23,7 +23,7 @@ class Api::V1::MockupsController < Api::V1::ApiController
   def create
     @mockup = Mockup.new(create_mockup_params)
     # case create mockup by image
-    @mockup.attach_raw_image(jsonapi_params[:mockup][:raw_image], current_user) if jsonapi_params[:mockup][:raw_image]
+    @mockup.attach_raw_image(jsonapi_params[:mockup][:image], current_user) if jsonapi_params[:mockup][:image]
 
     if @mockup.save
       render json: @mockup, status: :created

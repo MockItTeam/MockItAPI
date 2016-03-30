@@ -9,7 +9,6 @@
     {{#if canKick }}
       <button {{action 'kickMember' member}} class='kick-button'>Kick</button>
     {{/if}}
-
     {{#if canAssign }}
       <button {{action 'assignOwner' member}} class='assign-button'>Assign</button>
     {{/if}}
@@ -25,3 +24,12 @@
   <br>
 {{/each}}
 <br>
+<span {{action "toggleAddOption"}}>add</span>
+{{#if isShowingAddOption}}
+    <p><span {{action "createNewMockup"}}>create mockup</span></p>
+    <p><span {{action "toggleAddMockup"}}>upload mockup</span></p>
+    {{#if isShowingAddMockup}}
+      <p>{{mockups.new-form project=project}}</p>
+    {{/if}}
+{{/if}}
+<br><br>

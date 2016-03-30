@@ -3,6 +3,7 @@ const { service } = Ember.inject;
 
 export default Ember.Component.extend({
   sessionUser: service('session'),
+  store: service('store'),
 
   _checkIsOwnerProject: Ember.on('didReceiveAttrs', 'willRender', function() {
     this.get('sessionUser.currentUser').then((currentUser) => {
@@ -28,6 +29,14 @@ export default Ember.Component.extend({
   }),
 
   actions: {
+    toggleAddOption(){
+      this.toggleProperty('isShowingAddOption');
+    },
+
+    toggleAddMockup(){
+      this.toggleProperty('isShowingAddMockup');
+    },
+
     save(project) {
       if (project.get('hasDirtyAttributes')) {
         project.save()
@@ -72,10 +81,23 @@ export default Ember.Component.extend({
           project.get('members').pushObject(owner);
           project.set('owner', member);
         });
-      
+
       project.save()
         .then(() => {
           this.set('success', 'Now ' + member + 'is project owner.');
+        }, () => {
+          this.set('success', undefined);
+        })
+    },
+
+    createNewMockup() {
+      let mockup = this.get('store').createRecord('mockup',
+        {
+          project: this.get('project')
+        });
+      mockup.save()
+        .then((mockup) => {
+          this.transitionTo('protected.projects.detail.mockups.detail', mockup.id);
         }, () => {
           this.set('success', undefined);
         })
