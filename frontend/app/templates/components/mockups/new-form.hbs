@@ -1,0 +1,12 @@
+Description: {{input value=image_description}}
+<div class="image-upload-container">
+    <div class="image-preview">
+        <div class="image-container">
+            <img src="">
+        </div>
+    </div>
+  {{#x-file-input value=image_file name='image' action='preview' on='change'}}
+      <span>browse</span>
+  {{/x-file-input}}
+</div>
+<button {{action 'upload_mockup'}}>Upload</button>
