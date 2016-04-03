@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import Draggable from 'ember-jqueryui/components/ui-draggable';
 import ElementFactory from '../../utils/element-factory';
-import $ from 'jquery';
 
 export default Draggable.extend({
   classNames: ['new-draggable-el'],
@@ -41,10 +40,5 @@ export default Draggable.extend({
         }
       })
     }
-  },
-
-  echo() {
-    console.log('asdasd');
-    return true;
   }
 });
