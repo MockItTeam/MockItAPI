@@ -2,7 +2,7 @@
 
 class RawImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  include ::CarrierWave::Backgrounder::Delay
+  include ::CarrierWave::Backgrounder::Delay unless Rails.env.test?
   storage :file
 
   def store_dir
