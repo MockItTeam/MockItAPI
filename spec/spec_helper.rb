@@ -22,4 +22,9 @@ RSpec.configure do |config|
   config.verbose_retry = true
   # show exception that triggers a retry if verbose_retry is set to true
   config.display_try_failure_messages = true
+
+  # run retry only on features
+  config.around :each do |ex|
+    ex.run_with_retry retry: 3, retry_wait: 1
+  end
 end

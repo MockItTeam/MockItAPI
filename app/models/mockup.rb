@@ -7,7 +7,6 @@ class Mockup < ActiveRecord::Base
   belongs_to :project
 
   validates_presence_of :project, :owner
-  validates_presence_of :json_elements, unless: :raw_image?
   validate :json_format, unless: :raw_image?
   validate :status_created?, on: :update
 
@@ -27,13 +26,14 @@ class Mockup < ActiveRecord::Base
   def set_default_status
     if raw_image?
       self.status = :pending
+
     else
       self.status = :created
     end
   end
 
   def status_created?
-    errors.add(:base, 'Cannot update, because this mockup is not created or still in progress.') unless self.status == :created
+    errors.add(:base, 'Cannot update, because this mockup is not created or still in progress.') unless self.status == 'created'
   end
 
   def raw_image?
