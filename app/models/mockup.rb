@@ -7,15 +7,16 @@ class Mockup < ActiveRecord::Base
   belongs_to :project
 
   validates_presence_of :project, :owner
-  validate :json_format, unless: :raw_image?
+  validate :json_format, on: :update, unless: :raw_image?
   validate :status_created?, on: :update
 
   validates :description,
             length: {in: 0..100},
             format: {with: /\A[a-zA-Z0-9\s]+\z/}
 
+  before_validation :set_default_name
   before_create :set_default_status
-  after_create :change_status,:image_processing, if: :raw_image?
+  after_create :change_status, :image_processing, if: :raw_image?
 
   def attach_raw_image(raw_image, owner)
     self.raw_image = RawImage.new(name: raw_image, owner: owner)
@@ -28,6 +29,16 @@ class Mockup < ActiveRecord::Base
       self.status = :pending
     else
       self.status = :created
+    end
+  end
+
+  def set_default_name
+    unless self.description
+      i = 1
+      begin
+        self.description = "Untitled #{i}"
+        i += 1
+      end while (self.class.exists?(description: self.description))
     end
   end
 

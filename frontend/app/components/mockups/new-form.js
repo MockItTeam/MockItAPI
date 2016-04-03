@@ -18,7 +18,7 @@ export default Ember.Component.extend({
         });
       mockup.save()
         .then((mockup) => {
-          this.transitionTo('protected.projects.detail.mockups.detail', mockup.id);
+          // this.transitionTo('protected.projects.detail.mockups.detail', mockup.id);
         }, () => {
           this.set('success', undefined);
         });
