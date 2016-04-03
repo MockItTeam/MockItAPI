@@ -17,6 +17,7 @@ export default Ember.Route.extend({
   },
 
   actions: {
+
     didTransition() {
       let mockup = this.modelFor('protected.projects.detail.mockups.detail');
 
