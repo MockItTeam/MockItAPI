@@ -27,7 +27,6 @@ export default Draggable.extend({
 
     if (element.renderable) {
       element.render(this.$());
-
       this.$().draggable({
         stop(event, ui) {
           var finalxPos = parseInt($(this).css('left'));
