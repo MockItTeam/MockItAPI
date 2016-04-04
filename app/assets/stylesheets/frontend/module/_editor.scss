@@ -3,11 +3,12 @@
   .ui-draggable {
     cursor: pointer;
   }
+}
 
-  .new-draggable-el {
-    position: absolute;
-    border: 1px solid black;
-  }
+.new-draggable-el {
+  cursor: pointer;
+  position: absolute;
+  border: 1px solid black;
 }
 
 .droppable-el-container {
