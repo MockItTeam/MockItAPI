@@ -1,3 +1,8 @@
+// Import fonts
+@import './gooddog';
+@import './novecentosans_widebold';
+@import './novecentosans_widelight';
+
 @import './variables';
 
 @import 'bootstrap';
@@ -5,6 +10,7 @@
 @import 'font-awesome';
 
 // Base styling e.g.tables, buttons
+@import './base/*';
 
 // Layouts
 @import './layout/default';
@@ -13,6 +19,7 @@
 // Modules
 @import './module/auth_form';
 @import './module/app_navbar';
+@import './module/app_main';
 @import './module/input_form';
 
 // Themes

@@ -1,12 +1,16 @@
 <nav class='app-navbar navbar navbar-dark'>
 
-  {{#link-to 'application' class='navbar-brand'}}
-    <span>Mockit</span>
-  {{/link-to}}
+  <div class='app-name'>
+    {{#link-to 'application' class='navbar-brand'}}
+      <span>Mockit</span>
+    {{/link-to}}
+  </div>
 
-  <div class='sign-out-container'>
-    <a {{action 'signout'}} class='nav-link' href="#">
-      Sign Out
-    </a>
+  <div class='user-navigation'>
+    {{#if session.isAuthenticated }}
+      <div class='logout-navigation'>
+        <a {{action 'signout'}} class='nav-link' href="#">Sign Out</a>
+      </div>
+    {{/if}}
   </div>
 </nav>
