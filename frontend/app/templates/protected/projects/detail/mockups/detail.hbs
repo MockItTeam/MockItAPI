@@ -1,17 +1,1 @@
-<div class='editor-container'>
-  <div class='draggable-el-container'>
-    {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' onStart='dragged' class='draggable-el'}}
-
-    {{/ui-draggable}}
-  </div>
-
-  <div class='droppable-el-container'>
-    {{#ui-droppable onDrop='dropped' class='droppable-el'}}
-      {{#each model.json_elements.elements as |e|}}
-        {{#editor.new-element e=e onStart='dragged'}}
-
-        {{/editor.new-element}}
-      {{/each}}
-    {{/ui-droppable}}
-  </div>
-</div>
+{{editor.editor-form mockup=model}}
