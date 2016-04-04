@@ -23,6 +23,7 @@ class Element {
   constructor(obj) {
     this.x = obj.x;
     this.y = obj.y;
+    this.z = obj.z;
     this.width = obj.width;
     this.height = obj.height;
     this.renderable = true;
@@ -43,11 +44,11 @@ class Element {
         jquery.removeClass("dragging");
       }
     }).css({
-      "z-order": this.z,
-      top: this.y,
-      left: this.x,
-      width: this.width,
-      height: this.height,
+      'z-index': this.z,
+      'top': this.y,
+      'left': this.x,
+      'width': this.width,
+      'height': this.height
     });
   }
 
