@@ -2,45 +2,30 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  deactivate() {
+    let mockup = this.modelFor('protected.projects.detail.mockups.detail');
+    mockup.set('json_elements', JSON.stringify(mockup.get('json_elements')));
+  },
+
   model(params) {
     return this.store.findRecord('mockup', params.mockup_id, {reload: true})
       .then((mockup) => {
-        mockup.set('json_elements', JSON.parse(mockup.get('json_elements')));
+        let json_elements = mockup.get('json_elements')? JSON.parse(mockup.get('json_elements')) : {};
+        mockup.set('json_elements', json_elements);
         return mockup;
       });
   },
 
   actions: {
     didTransition() {
-      let serialized_json = this.modelFor('protected.projects.detail.mockups.detail');
+      let mockup = this.modelFor('protected.projects.detail.mockups.detail');
 
       Ember.run.schedule('afterRender', this, () => {
         $('.droppable-el').css({
-          'width': serialized_json.json_elements.width,
-          'height': serialized_json.json_elements.height
+          'width': mockup.get('json_elements').width,
+          'height': mockup.get('json_elements').height
         });
       });
-    },
-
-    dropped: Ember.on('didTransition', function (event, ui, _self) {
-      _self.$().droppable({
-        accept: '.draggable-el',
-        drop(event, ui) {
-          var newClone = $(ui.helper)
-            .clone()
-            .removeClass('draggable-el')
-            .addClass('new-draggable-el')
-            .draggable({
-              cursor: 'pointer',
-              helper: 'original'
-            }).css('position', 'absolute');
-          $(this).append(newClone);
-        }
-      });
-    }),
-
-    dragged: Ember.on('didTransition', function (event, ui, _self) {
-
-    })
+    }
   }
 });

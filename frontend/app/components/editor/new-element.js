@@ -24,8 +24,27 @@ export default Draggable.extend({
 
   didInsertElement() {
     let element = ElementFactory.createElement(this.get('e'));
+    let _self = this;
+
     if (element.renderable) {
       element.render(this.$());
+
+      this.$().draggable({
+        stop(event, ui) {
+          var finalxPos = parseInt($(this).css('left'));
+          var finalyPos = parseInt($(this).css('top'));
+
+          _self.set('x', finalxPos);
+          _self.set('y', finalyPos);
+
+          _self.sendAction('notifyDragged', _self, _self.get('e'));
+        }
+      })
     }
+  },
+
+  echo() {
+    console.log('asdasd');
+    return true;
   }
 });
