@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   validates :password,
             presence: {if: :password_required?},
+            confirmation: { if: :password_required? },
             numericality: true,
             length: {is: 4}
 
