@@ -46,11 +46,11 @@ export default Ember.Component.extend({
   },
 
   onMessage(data) {
-    this.set('mockup.json_elements.elements', data);
+    this._saveChangeMockup(data);
   },
 
   actions: {
-    dropped: Ember.on('willRender', function(event, ui, _self) {
+    dropped: Ember.on('willRender', function (event, ui, _self) {
       _self.$().droppable({
         accept: '.draggable-el',
         drop(event, ui) {
@@ -65,22 +65,33 @@ export default Ember.Component.extend({
       });
     }),
 
-    dragged: Ember.on('willRender', function(event, ui, _self) {
+    dragged: Ember.on('willRender', function (event, ui, _self) {
 
     }),
 
     notifyDragged(element, old_element) {
-      let json_elements = this.get('mockup.json_elements.elements');
+      let json_elements = this.get('mockup.json_elements');
 
-      for (var i = 0; i < json_elements.length; i++) {
-        if (json_elements[i].id == old_element.id) {
-          json_elements[i].x = element.get('x');
-          json_elements[i].y = element.get('y');
+      for (var i = 0; i < json_elements.elements.length; i++) {
+        if (json_elements.elements[i].id == old_element.id) {
+          json_elements.elements[i].x = element.get('x');
+          json_elements.elements[i].y = element.get('y');
           break;
         }
       }
 
       this.get('socketIORef').emit('message', json_elements);
     }
+  },
+
+  _saveChangeMockup(json_elements) {
+    let mockup = this.get('mockup');
+    mockup.set('json_elements', JSON.stringify(json_elements));
+    mockup.save().then(() => {
+
+    }, () => {
+
+    });
+    mockup.set('json_elements', json_elements);
   }
 });
