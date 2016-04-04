@@ -7,6 +7,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('sessions.new', {path: '/signin'});
+  this.route('registrations.new', {path: '/signup'});
 
   this.route('protected', {path: '/app'}, function() {
 

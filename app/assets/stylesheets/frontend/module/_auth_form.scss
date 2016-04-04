@@ -21,7 +21,7 @@
     }
   }
 
-  .btn-login {
+  .btn-login, .btn-signup {
     @include pull-right();
   }
 }
