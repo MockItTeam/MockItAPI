@@ -1,5 +1,61 @@
-{{#each projects as |project|}}
-  {{#link-to 'protected.projects.detail' project.id}}
-    {{project.name}}
-  {{/link-to}}
-{{/each}}
+<form class='form-body'>
+  <fieldset class='belongs-project-list'>
+    <legend>
+      your projects <span>( {{belongsProjectsCount}} )</span>
+    </legend>
+
+    {{#if belongsProjects}}
+      {{#each belongsProjects as |project|}}
+        <div class='project-card'>
+          {{#link-to 'protected.projects.detail' project.id}}
+            <div class='project-image-container hidden-sm-down'>
+              <img class='project-image' src='{{project.image_url}}'/>
+              <div class='plaster plaster-top-right'></div>
+              <div class='plaster plaster-top-left'></div>
+              <div class='plaster plaster-bottom-right'></div>
+              <div class='plaster plaster-bottom-left'></div>
+            </div>
+            <div class='project-name'>
+              project {{project.name}}
+            </div>
+          {{/link-to}}
+        </div>
+      {{/each}}
+
+      {{shared.nav-pagination model=belongsProjects pagination=belongsProjects.meta type='belongs' paginationAction='applyPagination'}}
+
+    {{else}}
+      <div class='blank-state'>
+        <div class='content-container'>
+          <p>Don't have any projects</p>
+        </div>
+      </div>
+    {{/if}}
+  </fieldset>
+
+
+  <fieldset class='participate-project-list'>
+    <legend>
+      shared projects <span>( {{sharedProjectsCount}} )</span>
+    </legend>
+
+    {{#if sharedProjects}}
+      {{#each sharedProjects as |project|}}
+        <div class='project-card'>
+          {{#link-to 'protected.projects.detail' project.id class='project-link'}}
+            project {{project.name}}
+          {{/link-to}}
+        </div>
+      {{/each}}
+
+      {{shared.nav-pagination model=sharedProjects pagination=sharedProjects.meta type='shared' paginationAction='applyPagination'}}
+
+    {{else}}
+      <div class='blank-state'>
+        <div class='content-container'>
+          <p>Don't have any projects</p>
+        </div>
+      </div>
+    {{/if}}
+  </fieldset>
+</form>

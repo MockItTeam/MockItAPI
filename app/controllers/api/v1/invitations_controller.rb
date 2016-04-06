@@ -17,9 +17,7 @@ class Api::V1::InvitationsController < Api::V1::ApiController
                      .per(@per_page)
 
 
-    render json: @invitations,
-           meta: pagination_dict(@invitations),
-           status: :ok
+    render json: @invitations, status: :ok
   end
 
   def show

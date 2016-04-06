@@ -21,6 +21,13 @@
     }
   }
 
+  .additional-label {
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+
   .btn-login, .btn-signup {
     @include pull-right();
   }

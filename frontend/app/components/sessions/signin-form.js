@@ -24,15 +24,19 @@ export default Ember.Component.extend({
         });
     },
 
-    moveOnMax(data, event) {
+    typePin(data, event) {
       let field = event.target;
       let fieldId = parseInt(field.id);
 
-      if (field.value.length == 1 && fieldId < 4) {
+      if (field.value.length == 1 && event.keyCode != 8) {
         this.get('password')[fieldId] = data;
         fieldId += 1;
-        $('#' + fieldId).focus();
+      } else {
+        this.get('password')[fieldId] = '';
+        fieldId -= 1;
       }
+
+      $('#' + fieldId).focus();
     }
   },
 

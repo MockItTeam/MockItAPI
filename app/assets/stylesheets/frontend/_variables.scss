@@ -2,7 +2,7 @@
 $font-family-sans-serif: 'novecentosans_widebold';
 $font-family-navbar-brand: 'gooddog';
 $font-family-additional-label: 'novecentosans_widelight';
-$font-size-navbar-brand: 2em;
+$font-size-navbar-brand: 1.5em;
 
 // Colors
 $black: #000;
@@ -21,14 +21,15 @@ $color-dark-gray: #5c5c5c;
 $brand-primary: $color-charlie;
 
 // Button
-$btn-primary-color: $color-echo;
+$btn-secondary-border: $color-bravo;
 
 // Navbar
-$navbar-height: 3.5rem;
+$navbar-height: 3.75rem;
 $navbar-border-radius: 0;
 
 // Links
 $link-hover-decoration: none;
+$link-color: $color-alpha;
 
 // Form
 $font-form-size-base: 1.25em;
@@ -38,3 +39,7 @@ $input-color: $black;
 
 // Global
 $border-radius-base: 0.5rem;
+
+// Custom Components
+$user-card-avatar-width: 2.625rem;
+$user-card-avatar-height: 2rem;

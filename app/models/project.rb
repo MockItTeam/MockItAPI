@@ -16,6 +16,12 @@ class Project < ActiveRecord::Base
 
   after_create :set_owner_to_member
 
+  def self.search(options)
+    query = where(nil)
+    query = query.where(user_id: options[:owner]) if options[:owner].present?
+    query
+  end
+
   private
 
   def set_owner_to_member

@@ -2,32 +2,32 @@ form {
   font-size: $font-form-size-base;
   color: $white;
 
-  .form-control {
+  input {
     font-size: $font-form-size-md;
   }
 
-  .form-label {
+  label {
 
     @include media-breakpoint-up(md) {
       text-align: right;
     }
   }
 
-  .additional-label {
+  span {
     color: $color-bravo;
     font-family: $font-family-additional-label;
     font-size: $font-form-size-sm;
-
-    @include media-breakpoint-up(md) {
-      display: block;
-    }
   }
 
-  .pin-form-control {
+  input[type='password'] {
     display: inline-block;
     padding: 10px;
     width: 40px;
     height: 40px;
     text-align: center;
   }
+}
+
+form fieldset {
+  padding: $grid-gutter-width/3 0;
 }

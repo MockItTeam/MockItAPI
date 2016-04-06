@@ -20,18 +20,16 @@ class Api::V1::ApiController < ActionController::Base
 
   def page_params
     @page = params[:page] || 1
-    @per_page = params[:per_page] || 25
+    @per_page = params[:per_page] || 3
   end
 
   def pagination_dict(object)
     {
-      pagination: {
-        current_page: object.current_page,
-        next_page: object.next_page,
-        prev_page: object.prev_page,
-        total_pages: object.total_pages,
-        total_count: object.total_count
-      }
+      current_page: object.current_page,
+      next_page: object.next_page,
+      prev_page: object.prev_page,
+      total_pages: object.total_pages,
+      total_count: object.total_count
     }
   end
 

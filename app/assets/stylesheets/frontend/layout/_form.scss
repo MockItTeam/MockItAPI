@@ -26,6 +26,7 @@
   .navbar-container {
     width: 100%;
     position: absolute;
+    height: $navbar-height;
     top: 0;
     left: 0;
     z-index: 10;
@@ -34,6 +35,12 @@
 
       @include media-breakpoint-up(md) {
         text-align: center;
+        float: left;
+        width: 100%;
+
+        .navbar-brand {
+          float: none;
+        }
       }
     }
   }

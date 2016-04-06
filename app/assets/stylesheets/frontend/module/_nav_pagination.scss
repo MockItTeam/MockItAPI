@@ -1,0 +1,11 @@
+.pagination {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  margin: 0;
+
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}

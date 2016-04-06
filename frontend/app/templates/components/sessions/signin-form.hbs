@@ -31,22 +31,16 @@
       </label>
 
       <div class='col-xs-8 col-sm-8 col-md-6'>
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='0' key-up='moveOnMax'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='1' key-up='moveOnMax'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='2' key-up='moveOnMax'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='3' key-up='moveOnMax'}}
+        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='0' key-up='typePin'}}
+        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='1' key-up='typePin'}}
+        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='2' key-up='typePin'}}
+        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='3' key-up='typePin'}}
 
-        <div class='additional-label form-link'>
-          {{#link-to 'sessions.new'}}
-            FORGOT YOUR PIN?
-          {{/link-to}}
-        </div>
-
-        <div class='additional-label form-link'>
+        <span class='additional-label form-link'>
           {{#link-to 'registrations.new'}}
             DON'T HAVE ACCOUNT? CREATE ONE
           {{/link-to}}
-        </div>
+        </span>
       </div>
 
       <div class='col-xs-4 col-sm-4 col-md-3'>

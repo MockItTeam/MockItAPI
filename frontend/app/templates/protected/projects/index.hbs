@@ -1,3 +1,17 @@
-{{projects.project-list projects=model.projects}}
+<div class='project-container'>
+  {{#link-to 'protected.projects.new' tagName='button' class='btn btn-secondary-outline btn-create'}}
+    <div class='btn-icon'>
+      <span class='fa fa-plus'></span>
+    </div>
+    <div class='btn-text'> CREATE PROJECT</div>
+  {{/link-to}}
 
-{{invitations.incoming-form invitations=model.invitations afterAccepted='afterAccepted' afterRefused='afterRefused'}}
+  <div class='project-list-container'>
+    {{projects.project-list
+    belongsProjects=model.belongsProjects
+    sharedProjects=model.sharedProjects
+    applyPagination='applyPagination'}}
+  </div>
+</div>
+
+{{!invitations.incoming-form invitations=model.invitations afterAccepted='afterAccepted' afterRefused='afterRefused'}}

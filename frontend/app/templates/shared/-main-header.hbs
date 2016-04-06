@@ -6,11 +6,28 @@
     {{/link-to}}
   </div>
 
-  <div class='user-navigation'>
-    {{#if session.isAuthenticated }}
-      <div class='logout-navigation'>
-        <a {{action 'signout'}} class='nav-link' href="#">Sign Out</a>
+  {{#if session.isAuthenticated }}
+    <div class='user-navigation dropdown'>
+      <div class='user-card-container hidden-sm-down' data-toggle='dropdown'>
+        {{shared.current-user tagName='' user=session.currentUser}}
       </div>
-    {{/if}}
-  </div>
+
+      <div class="mobile-menu-container hidden-md-up" data-toggle="dropdown">
+        <i class='fa fa-bars fa-lg hamburger-menu'></i>
+      </div>
+
+      <div class='dropdown-menu'>
+        {{#link-to 'protected.projects.index'}}
+          <i class='fa fa-folder'></i>
+          Projects
+        {{/link-to}}
+        <div class="dropdown-divider"></div>
+        <a {{action 'signout'}} class='nav-link' href="#">
+          <i class='fa fa-sign-out'></i>
+          Sign Out
+        </a>
+      </div>
+
+    </div>
+  {{/if}}
 </nav>

@@ -11,6 +11,6 @@ class ProjectSerializer < ActiveModel::Serializer
   has_many :mockups
 
   def image_url
-    object.image.url
+    object.image.medium.url
   end
 end

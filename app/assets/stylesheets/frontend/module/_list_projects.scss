@@ -1,0 +1,80 @@
+.project-list-container {
+  padding: $grid-gutter-width/3;
+
+  .project-card {
+    background: $white;
+    padding: $grid-gutter-width/2;
+    margin-bottom: $grid-gutter-width/2;
+    border: 0;
+    width: 100%;
+    @include border-radius(.75rem);
+
+    .project-name {
+      color: $color-alpha;
+      @include text-truncate();
+
+      @include media-breakpoint-up(md){
+        padding: $grid-gutter-width/2;
+      }
+    }
+
+    .project-image-container {
+      position: relative;
+
+      .project-image {
+        border: 1px solid $color-dark-gray;
+      }
+
+      .plaster {
+        position: absolute;
+        width: 40px;
+        height: 10px;
+        background: $color-bravo;
+      }
+
+      .plaster-top-right {
+        top: 0;
+        right: 7%;
+        -ms-transform: rotate(-140deg);
+        -webkit-transform: rotate(-140deg);
+        transform: rotate(-140deg);
+      }
+
+      .plaster-top-left {
+        top: 0;
+        left: 7%;
+        -ms-transform: rotate(140deg);
+        -webkit-transform: rotate(140deg);
+        transform: rotate(140deg);
+      }
+
+      .plaster-bottom-right {
+        bottom: 0;
+        right: 7%;
+        -ms-transform: rotate(-40deg);
+        -webkit-transform: rotate(-40deg);
+        transform: rotate(-40deg);
+      }
+
+      .plaster-bottom-left {
+        bottom: 0;
+        left: 7%;
+        -ms-transform: rotate(40deg);
+        -webkit-transform: rotate(40deg);
+        transform: rotate(40deg);
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      @include make-col();
+      margin-right: $grid-gutter-width/2;
+      max-width: 15rem;
+      height: 14rem;
+      text-align: center;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    @include make-row();
+  }
+}
