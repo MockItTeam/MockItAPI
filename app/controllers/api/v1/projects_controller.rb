@@ -1,6 +1,5 @@
 class Api::V1::ProjectsController < Api::V1::ApiController
   before_action :authenticate_user!
-  before_action :page_params
 
   load_resource except: [:index, :create]
   authorize_resource
@@ -8,16 +7,13 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   def index
     filters = {}
     filters[:owner] = params[:owner] unless params[:owner].blank?
+    filters[:member] = params[:member] unless params[:member].blank?
 
     @projects = Project
                   .accessible_by(current_ability)
                   .search(filters)
-                  .page(@page)
-                  .per(@per_page)
 
-    render json: @projects,
-           meta: pagination_dict(@projects),
-           status: :ok
+    render json: @projects, status: :ok
   end
 
   def show

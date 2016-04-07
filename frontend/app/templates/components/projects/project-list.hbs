@@ -22,8 +22,6 @@
         </div>
       {{/each}}
 
-      {{shared.nav-pagination model=belongsProjects pagination=belongsProjects.meta type='belongs' paginationAction='applyPagination'}}
-
     {{else}}
       <div class='blank-state'>
         <div class='content-container'>
@@ -47,8 +45,6 @@
           {{/link-to}}
         </div>
       {{/each}}
-
-      {{shared.nav-pagination model=sharedProjects pagination=sharedProjects.meta type='shared' paginationAction='applyPagination'}}
 
     {{else}}
       <div class='blank-state'>

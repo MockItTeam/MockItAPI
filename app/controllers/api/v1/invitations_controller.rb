@@ -1,6 +1,5 @@
 class Api::V1::InvitationsController < Api::V1::ApiController
   before_action :authenticate_user!
-  before_action :page_params
 
   load_resource expect: [:index, :create]
   authorize_resource
@@ -13,8 +12,6 @@ class Api::V1::InvitationsController < Api::V1::ApiController
                      .accessible_by(current_ability)
                      .search(filters)
                      .pending
-                     .page(@page)
-                     .per(@per_page)
 
 
     render json: @invitations, status: :ok

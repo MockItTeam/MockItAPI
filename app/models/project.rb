@@ -18,7 +18,12 @@ class Project < ActiveRecord::Base
 
   def self.search(options)
     query = where(nil)
-    query = query.where(user_id: options[:owner]) if options[:owner].present?
+    query = where(user_id: options[:owner]) if options[:owner].present?
+
+    if options[:member].present?
+      projects = where.not(user_id: options[:member]).select {|p| p.members.ids.include?(options[:member].to_i)}
+      query = where(id: projects.map(&:id))
+    end
     query
   end
 

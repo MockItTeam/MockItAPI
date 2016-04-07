@@ -9,7 +9,6 @@ gem 'active_model_serializers', '~> 0.10.0.rc4' # ActiveModel::Serializer implem
 gem 'carrierwave' # Classier solution for file uploads for Rails
 gem 'carrierwave-aws'
 gem 'mini_magick' # A ruby wrapper for ImageMagick or GraphicsMagick command line
-gem 'kaminari' # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Rails 3 and 4
 gem 'chronic' # Chronic is a pure Ruby natural language date parser.
 gem 'paranoia', '~> 2.1.3' # Paranoia is a re-implementation of acts_as_paranoid for Rails 3 and Rails 4. Soft-deletion of records
 gem 'ffaker' # A library for generating fake data such as names, addresses, and phone numbers.
