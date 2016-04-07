@@ -51,17 +51,68 @@ export default Ember.Component.extend({
 
   actions: {
     dropped: Ember.on('willRender', function (event, ui, _self) {
+      let self = this;
       _self.$().droppable({
         accept: '.draggable-el',
         drop(event, ui) {
-          var newClone = ui.helper
-            .clone()
-            .removeClass('draggable-el')
-            .addClass('new-draggable-el')
-            .draggable();
+          let json = { "id":1000,
+            "type":"TextArea",
+            "x":ui.position.left,
+            "y":ui.position.top,
+            "z":1,
+            "width":ui.draggable.children().css('width'),
+            "height":ui.draggable.children().css('height'),
+            "children_id":[]
+          };
 
-          $(this).append(newClone);
+          let json_elements = self.get('mockup.json_elements');
+          json_elements.elements.push(json);
+          self.get('socketIORef').emit('message', json_elements);
+          self._saveChangeMockup(json_elements);
+
+          // console.log(ui.width);
+          // var newClone = ui.helper
+          //   .clone()
+          //   .removeClass('draggable-el')
+          //   .addClass('new-draggable-el')
+          //   .draggable({
+          //     drag: function (e, ui) {
+          //       var currentLoc = $(this).position();
+          //       var prevLoc = $(this).data('prevLoc');
+          //       if (!prevLoc) {
+          //         prevLoc = ui.originalPosition;
+          //       }
+          //
+          //       var ol = currentLoc.left-prevLoc.left;
+          //       var ot = currentLoc.top-prevLoc.top;
+          //
+          //       $('.ui-selected').each(function () {
+          //         var p = $(this).position();
+          //         var l = p.left;
+          //         var t = p.top;
+          //         $(this).css('left', l + ol);
+          //         $(this).css('top', t + ot);
+          //       })
+          //       $(this).data('prevLoc', currentLoc);
+          //     }
+          //   });
+          // $(this).append(newClone);
         }
+      });
+      _self.$().selectable({
+        // stop: function() {
+        //   $('.ui-selectee', this).each(function(){
+        //     if ($('.ui-selectee').parent().is( 'div' ) ) {
+        //       $('.ui-selectee li').unwrap('<div />');
+        //     }
+        //
+        //
+        //   });
+        //
+        //   $('.ui-selected').wrapAll('<div class=\"draggable\" />');
+        //
+        //   // $('.draggable').draggable({ revert : true });
+        // }
       });
     }),
 
@@ -71,7 +122,6 @@ export default Ember.Component.extend({
 
     notifyDragged(element, old_element) {
       let json_elements = this.get('mockup.json_elements');
-
       for (var i = 0; i < json_elements.elements.length; i++) {
         if (json_elements.elements[i].id == old_element.id) {
           json_elements.elements[i].x = element.get('x');
@@ -87,11 +137,7 @@ export default Ember.Component.extend({
   _saveChangeMockup(json_elements) {
     let mockup = this.get('mockup');
     mockup.set('json_elements', JSON.stringify(json_elements));
-    mockup.save().then(() => {
-
-    }, () => {
-
-    });
+    mockup.save();
     mockup.set('json_elements', json_elements);
   }
 });
