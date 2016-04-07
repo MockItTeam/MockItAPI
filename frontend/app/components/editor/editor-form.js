@@ -54,7 +54,7 @@ export default Ember.Component.extend({
     let json_elements = this.get('mockup.json_elements');
     let id = 0;
     let check = false;
-    while(!check){
+    while (!check) {
       id++;
       check = true;
       for (var i = 0; i < json_elements.elements.length; i++) {
@@ -67,20 +67,41 @@ export default Ember.Component.extend({
     return id;
   },
 
+  mockupObserver: Ember.observer(
+    'json_elements',
+    function() {
+      let mockup = this.get('mockup');
+      if(mockup.get('hasDirtyAttributes')) {
+        //set json_elements for record in database
+        mockup.set('json_elements', this.get('json_elements'));
+        mockup.save();
+        //set json_elements for use in editor
+        mockup.set('json_elements', JSON.parse(mockup.get('json_elements')));
+      }
+    }
+  ),
+
+  _saveChangeMockup(json_elements) {
+    console.log('ice');
+    let mockup = this.get('mockup');
+    this.set('json_elements', JSON.stringify(json_elements));
+  },
+
   actions: {
     dropped: Ember.on('willRender', function (event, ui, _self) {
       let self = this;
       _self.$().droppable({
         accept: '.draggable-el',
         drop(event, ui) {
-          let json = { "id":self._findSuitableId(),
-            "type":"TextArea",
-            "x":ui.position.left,
-            "y":ui.position.top,
-            "z":1,
-            "width":ui.draggable.children().css('width'),
-            "height":ui.draggable.children().css('height'),
-            "children_id":[]
+          let json = {
+            "id": self._findSuitableId(),
+            "type": "TextArea",
+            "x": ui.position.left,
+            "y": ui.position.top,
+            "z": 1,
+            "width": ui.draggable.children().css('width'),
+            "height": ui.draggable.children().css('height'),
+            "children_id": []
           };
 
           let json_elements = self.get('mockup.json_elements');
@@ -96,25 +117,15 @@ export default Ember.Component.extend({
 
     }),
 
-    notifyDragged(element, old_element) {
+    notifyDragged() {
       let json_elements = this.get('mockup.json_elements');
       for (var i = 0; i < json_elements.elements.length; i++) {
-        if (json_elements.elements[i].id == old_element.id) {
-          json_elements.elements[i].x = element.get('x');
-          json_elements.elements[i].y = element.get('y');
-          break;
-        }
+        let x = parseInt($("[component_id="+json_elements.elements[i].id+"]").css('left'));
+        let y = parseInt($("[component_id="+json_elements.elements[i].id+"]").css('top'));
+        json_elements.elements[i].x = x;
+        json_elements.elements[i].y = y;
       }
-
       this.get('socketIORef').emit('message', json_elements);
     }
-  },
-
-  _saveChangeMockup(json_elements) {
-    console.log('ice');
-    let mockup = this.get('mockup');
-    mockup.set('json_elements', JSON.stringify(json_elements));
-    mockup.save();
-    mockup.set('json_elements', json_elements);
   }
 });
