@@ -21,6 +21,7 @@ class ElementFactory {
 class Element {
 
   constructor(obj) {
+    this.id = obj.id;
     this.x = obj.x;
     this.y = obj.y;
     this.z = obj.z;
@@ -49,7 +50,8 @@ class Element {
       'left': this.x,
       'width': this.width,
       'height': this.height
-    });
+    }).attr('component_id', this.id);
+    ;
   }
 
 }
