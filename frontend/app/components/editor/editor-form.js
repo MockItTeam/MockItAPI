@@ -50,13 +50,30 @@ export default Ember.Component.extend({
     this._saveChangeMockup(data);
   },
 
+  _findSuitableId(){
+    let json_elements = this.get('mockup.json_elements');
+    let id = 0;
+    let check = false;
+    while(!check){
+      id++;
+      check = true;
+      for (var i = 0; i < json_elements.elements.length; i++) {
+        if (json_elements.elements[i].id == id) {
+          check = false;
+          break;
+        }
+      }
+    }
+    return id;
+  },
+
   actions: {
     dropped: Ember.on('willRender', function (event, ui, _self) {
       let self = this;
       _self.$().droppable({
         accept: '.draggable-el',
         drop(event, ui) {
-          let json = { "id":1000,
+          let json = { "id":self._findSuitableId(),
             "type":"TextArea",
             "x":ui.position.left,
             "y":ui.position.top,
@@ -72,6 +89,7 @@ export default Ember.Component.extend({
           self._saveChangeMockup(json_elements);
         }
       });
+      _self.$().selectable();
     }),
 
     dragged: Ember.on('willRender', function (event, ui, _self) {
@@ -93,6 +111,7 @@ export default Ember.Component.extend({
   },
 
   _saveChangeMockup(json_elements) {
+    console.log('ice');
     let mockup = this.get('mockup');
     mockup.set('json_elements', JSON.stringify(json_elements));
     mockup.save();
