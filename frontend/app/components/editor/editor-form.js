@@ -69,50 +69,7 @@ export default Ember.Component.extend({
           json_elements.elements.push(json);
           self.get('socketIORef').emit('message', json_elements);
           self._saveChangeMockup(json_elements);
-
-          // console.log(ui.width);
-          // var newClone = ui.helper
-          //   .clone()
-          //   .removeClass('draggable-el')
-          //   .addClass('new-draggable-el')
-          //   .draggable({
-          //     drag: function (e, ui) {
-          //       var currentLoc = $(this).position();
-          //       var prevLoc = $(this).data('prevLoc');
-          //       if (!prevLoc) {
-          //         prevLoc = ui.originalPosition;
-          //       }
-          //
-          //       var ol = currentLoc.left-prevLoc.left;
-          //       var ot = currentLoc.top-prevLoc.top;
-          //
-          //       $('.ui-selected').each(function () {
-          //         var p = $(this).position();
-          //         var l = p.left;
-          //         var t = p.top;
-          //         $(this).css('left', l + ol);
-          //         $(this).css('top', t + ot);
-          //       })
-          //       $(this).data('prevLoc', currentLoc);
-          //     }
-          //   });
-          // $(this).append(newClone);
         }
-      });
-      _self.$().selectable({
-        // stop: function() {
-        //   $('.ui-selectee', this).each(function(){
-        //     if ($('.ui-selectee').parent().is( 'div' ) ) {
-        //       $('.ui-selectee li').unwrap('<div />');
-        //     }
-        //
-        //
-        //   });
-        //
-        //   $('.ui-selected').wrapAll('<div class=\"draggable\" />');
-        //
-        //   // $('.draggable').draggable({ revert : true });
-        // }
       });
     }),
 
