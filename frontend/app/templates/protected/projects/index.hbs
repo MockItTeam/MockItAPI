@@ -7,11 +7,12 @@
   {{/link-to}}
 
   <div class='project-list-container'>
-    {{projects.project-list
-    belongsProjects=model.belongsProjects
-    sharedProjects=model.sharedProjects
-    applyPagination='applyPagination'}}
+    {{projects.project-list projects=model.projects queryFilter='applyQueryFilter' searchProject='applySearchProject'}}
   </div>
 </div>
 
-{{!invitations.incoming-form invitations=model.invitations afterAccepted='afterAccepted' afterRefused='afterRefused'}}
+<div class='invitation-list-container'>
+  {{#each model.invitations as |i|}}
+    {{invitations.invitation-item invitation=i afterAccepted='afterAccepted' afterRefused='afterRefused'}}
+  {{/each}}
+</div>

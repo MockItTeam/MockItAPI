@@ -1,7 +1,7 @@
-.project-list-container {
+.mockup-list-container {
   padding: $grid-gutter-width/3;
 
-  .project-card {
+  .mockup-card {
     background: $white;
     padding: $grid-gutter-width/2;
     margin-bottom: $grid-gutter-width/2;
@@ -9,7 +9,7 @@
     width: 100%;
     @include border-radius(.75rem);
 
-    .project-name {
+    .mockup-name {
       color: $color-alpha;
 
       @include media-breakpoint-up(md){
@@ -18,10 +18,10 @@
       }
     }
 
-    .project-image-container {
+    .mockup-image-container {
       position: relative;
 
-      .project-image {
+      .mockup-image {
         border: 1px solid $color-dark-gray;
         width: 150px;
         height: 150px;

@@ -26,6 +26,33 @@ form {
     height: 40px;
     text-align: center;
   }
+
+  .filter-group {
+    @include media-breakpoint-up(md) {
+      @include pull-right();
+
+      > div {
+        @include make-col();
+      }
+    }
+  }
+
+  .form-search {
+    position: relative;
+
+    &::before {
+      font-family: FontAwesome;
+      font-size: 1em;
+      color: $color-alpha;
+      content: '\f002';
+      position: absolute;
+      padding-left: $grid-gutter-width/2;
+    }
+
+    input {
+      padding-left: 3rem;
+    }
+  }
 }
 
 form fieldset {

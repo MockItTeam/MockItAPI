@@ -1,15 +1,37 @@
 <form class='form-body'>
-  <fieldset class='belongs-project-list'>
+  <fieldset class='project-list'>
     <legend>
-      your projects <span>( {{belongsProjectsCount}} )</span>
+      Projects <span>( {{projects.length}} )</span>
+
+      <div class='filter-group'>
+        <div class='form-group form-search'>
+          {{input class='form-control' name='search-project' value=projectSearch placeholder='search by name' key-up='searchProject'}}
+        </div>
+
+        <div class='form-group'>
+          {{#x-select action='filterProjects' class='form-control c-select' default='all'}}
+            {{#x-option value='all'}}All{{/x-option}}
+            {{#x-option value='yours'}}Yours{{/x-option}}
+            {{#x-option value='shared'}}Shared{{/x-option}}
+          {{/x-select}}
+        </div>
+      </div>
     </legend>
 
-    {{#if belongsProjects}}
-      {{#each belongsProjects as |project|}}
+    {{#if projects}}
+      {{#each projects as |project|}}
         <div class='project-card'>
           {{#link-to 'protected.projects.detail' project.id}}
             <div class='project-image-container hidden-sm-down'>
-              <img class='project-image' src='{{project.image_url}}'/>
+              {{#unless project.image_url}}
+                <div class='blank-state project-image'>
+                  <div class='content-container'>
+                    <p>Insert cover photo</p>
+                  </div>
+                </div>
+              {{else}}
+                <img class='project-image' src='{{project.image_url}}'/>
+              {{/unless}}
               <div class='plaster plaster-top-right'></div>
               <div class='plaster plaster-top-left'></div>
               <div class='plaster plaster-bottom-right'></div>
@@ -18,30 +40,6 @@
             <div class='project-name'>
               project {{project.name}}
             </div>
-          {{/link-to}}
-        </div>
-      {{/each}}
-
-    {{else}}
-      <div class='blank-state'>
-        <div class='content-container'>
-          <p>Don't have any projects</p>
-        </div>
-      </div>
-    {{/if}}
-  </fieldset>
-
-
-  <fieldset class='participate-project-list'>
-    <legend>
-      shared projects <span>( {{sharedProjectsCount}} )</span>
-    </legend>
-
-    {{#if sharedProjects}}
-      {{#each sharedProjects as |project|}}
-        <div class='project-card'>
-          {{#link-to 'protected.projects.detail' project.id class='project-link'}}
-            project {{project.name}}
           {{/link-to}}
         </div>
       {{/each}}
