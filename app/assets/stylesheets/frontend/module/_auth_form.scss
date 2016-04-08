@@ -1,16 +1,34 @@
 .auth-form-container {
-  $form-size-md: 25.25em;
-  $header-height: 4.5em;
+  $form-size-md: 45em;
 
   width: 100%;
   margin: 0 auto;
-  padding: $grid-gutter-width $grid-gutter-width/2;
+  padding: ($navbar-height + $grid-gutter-width) $grid-gutter-width;
 
   @include media-breakpoint-up(md) {
     max-width: $form-size-md;
   }
 
-  form {
-    padding: $grid-gutter-width;
+  .form-link {
+    padding-top: $grid-gutter-width/3;
+
+    > a {
+      color: $color-bravo;
+
+      &:hover {
+        border-bottom: 1px solid $color-bravo;
+      }
+    }
+  }
+
+  .additional-label {
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  .btn-login, .btn-signup {
+    @include pull-right();
   }
 }

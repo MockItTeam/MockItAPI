@@ -1,0 +1,83 @@
+
+.card-container {
+
+  @include media-breakpoint-up(md) {
+    @include make-container();
+  }
+}
+
+.card {
+  background: $white;
+  padding: $grid-gutter-width/2;
+  margin-bottom: $grid-gutter-width/2;
+  border: 0;
+  width: 100%;
+  @include border-radius(.75rem);
+
+  .name {
+    color: $color-alpha;
+
+    @include media-breakpoint-up(md) {
+      @include text-truncate();
+      padding: $grid-gutter-width/2;
+    }
+  }
+
+  .image-container {
+    position: relative;
+
+    .image {
+      border: 1px solid $color-dark-gray;
+      width: 150px;
+      height: 150px;
+    }
+
+    .plaster {
+      position: absolute;
+      width: 40px;
+      height: 10px;
+      background: $color-bravo;
+      opacity: 0.3;
+    }
+
+    .plaster-top-right {
+      top: 0;
+      right: 7%;
+      -ms-transform: rotate(-140deg);
+      -webkit-transform: rotate(-140deg);
+      transform: rotate(-140deg);
+    }
+
+    .plaster-top-left {
+      top: 0;
+      left: 7%;
+      -ms-transform: rotate(140deg);
+      -webkit-transform: rotate(140deg);
+      transform: rotate(140deg);
+    }
+
+    .plaster-bottom-right {
+      bottom: 0;
+      right: 7%;
+      -ms-transform: rotate(-40deg);
+      -webkit-transform: rotate(-40deg);
+      transform: rotate(-40deg);
+    }
+
+    .plaster-bottom-left {
+      bottom: 0;
+      left: 7%;
+      -ms-transform: rotate(40deg);
+      -webkit-transform: rotate(40deg);
+      transform: rotate(40deg);
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    @include make-col();
+    margin: $grid-gutter-width/3;
+    max-width: 15rem;
+    height: 14rem;
+    text-align: center;
+  }
+}

@@ -7,6 +7,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('sessions.new', {path: '/signin'});
+  this.route('registrations.new', {path: '/signup'});
 
   this.route('protected', {path: '/app'}, function() {
 
@@ -14,7 +15,7 @@ Router.map(function() {
     this.route('projects', function() {
       this.route('index', {path: ''});
       this.route('detail', {path: '/:project_id'});
-      this.route('new');
+      this.route('new', {path: '/create'});
     });
   });
 });

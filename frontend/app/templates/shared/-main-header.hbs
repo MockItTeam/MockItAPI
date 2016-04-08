@@ -1,12 +1,33 @@
 <nav class='app-navbar navbar navbar-dark'>
 
-  {{#link-to 'application' class='navbar-brand'}}
-    <span>Mockit</span>
-  {{/link-to}}
-
-  <div class='sign-out-container'>
-    <a {{action 'signout'}} class='nav-link' href="#">
-      Sign Out
-    </a>
+  <div class='app-name'>
+    {{#link-to 'application' class='navbar-brand'}}
+      <span>Mockit</span>
+    {{/link-to}}
   </div>
+
+  {{#if session.isAuthenticated }}
+    <div class='user-navigation dropdown'>
+      <div class='user-card-container hidden-sm-down' data-toggle='dropdown'>
+        {{shared.current-user tagName='' user=session.currentUser}}
+      </div>
+
+      <div class="mobile-menu-container hidden-md-up" data-toggle="dropdown">
+        <i class='fa fa-bars fa-lg hamburger-menu'></i>
+      </div>
+
+      <div class='dropdown-menu'>
+        {{#link-to 'protected.projects.index' (query-params condition=null)}}
+          <i class='fa fa-folder'></i>
+          Projects
+        {{/link-to}}
+        <div class="dropdown-divider"></div>
+        <a {{action 'signout'}} class='nav-link' href="#">
+          <i class='fa fa-sign-out'></i>
+          Sign Out
+        </a>
+      </div>
+
+    </div>
+  {{/if}}
 </nav>

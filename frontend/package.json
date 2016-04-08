@@ -42,6 +42,7 @@
     "ember-scroll-to": "0.5.1",
     "ember-simple-auth": "1.1.0-beta.3",
     "emberx-file-input": "1.0.0",
+    "emberx-select": "2.1.1",
     "loader.js": "^4.0.0"
   }
 }

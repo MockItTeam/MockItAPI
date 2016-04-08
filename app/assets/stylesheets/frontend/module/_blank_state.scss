@@ -1,0 +1,27 @@
+.blank-state {
+  width: 100%;
+  padding: $grid-gutter-width;
+  background: $color-light-gray;
+  @include border-radius(.5rem);
+
+  .content-container {
+    width: 100%;
+    text-align: center;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    @include make-container();
+    display: table;
+    max-width: 15rem;
+    height: 14rem;
+
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}

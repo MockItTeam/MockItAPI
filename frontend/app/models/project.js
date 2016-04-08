@@ -8,7 +8,7 @@ export default DS.Model.extend({
   updated_at: DS.attr('date'),
 
   owner: DS.belongsTo('user', {
-    inverse: 'ownerTo'
+    inverse: 'project'
   }),
 
   members: DS.hasMany('user', {
