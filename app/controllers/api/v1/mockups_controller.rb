@@ -8,11 +8,11 @@ class Api::V1::MockupsController < Api::V1::ApiController
     @mockups = Mockup
                  .accessible_by(current_ability)
 
-    render json: @mockups, status: :ok
+    render json: @mockups, include: %w(raw_image), status: :ok
   end
 
   def show
-    render json: @mockup, status: :ok
+    render json: @mockup, include: %w(raw_image), status: :ok
   end
 
   def create
