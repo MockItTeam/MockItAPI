@@ -1,7 +1,9 @@
 <form class='form-body'>
   <fieldset class='project-list'>
     <legend>
-      Projects <span>( {{projects.length}} )</span>
+      <div class='legend-header'>
+        Projects <span>( {{projects.length}} )</span>
+      </div>
 
       <div class='filter-group'>
         <div class='form-group form-search'>
@@ -19,31 +21,32 @@
     </legend>
 
     {{#if projects}}
-      {{#each projects as |project|}}
-        <div class='project-card'>
-          {{#link-to 'protected.projects.detail' project.id}}
-            <div class='project-image-container hidden-sm-down'>
-              {{#unless project.image_url}}
-                <div class='blank-state project-image'>
-                  <div class='content-container'>
-                    <p>Insert cover photo</p>
+      <div class='card-container'>
+        {{#each projects as |project|}}
+          <div class='card'>
+            {{#link-to 'protected.projects.detail' project.id}}
+              <div class='image-container hidden-sm-down'>
+                {{#unless project.image_url}}
+                  <div class='blank-state image'>
+                    <div class='content-container'>
+                      <p>Insert cover photo</p>
+                    </div>
                   </div>
-                </div>
-              {{else}}
-                <img class='project-image' src='{{project.image_url}}'/>
-              {{/unless}}
-              <div class='plaster plaster-top-right'></div>
-              <div class='plaster plaster-top-left'></div>
-              <div class='plaster plaster-bottom-right'></div>
-              <div class='plaster plaster-bottom-left'></div>
-            </div>
-            <div class='project-name'>
-              project {{project.name}}
-            </div>
-          {{/link-to}}
-        </div>
-      {{/each}}
-
+                {{else}}
+                  <img class='image' src='{{project.image_url}}'/>
+                {{/unless}}
+                <div class='plaster plaster-top-right'></div>
+                <div class='plaster plaster-top-left'></div>
+                <div class='plaster plaster-bottom-right'></div>
+                <div class='plaster plaster-bottom-left'></div>
+              </div>
+              <div class='name'>
+                project {{project.name}}
+              </div>
+            {{/link-to}}
+          </div>
+        {{/each}}
+      </div>
     {{else}}
       <div class='blank-state'>
         <div class='content-container'>

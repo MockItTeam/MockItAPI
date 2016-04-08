@@ -26,10 +26,17 @@ form {
     height: 40px;
     text-align: center;
   }
+}
 
-  .filter-group {
+form fieldset {
+  padding: $grid-gutter-width/3 0;
+
+  legend {
+    border-bottom: 2px solid $white;
+
     @include media-breakpoint-up(md) {
-      @include pull-right();
+      display: table;
+      @include clearfix();
 
       > div {
         @include make-col();
@@ -37,24 +44,38 @@ form {
     }
   }
 
-  .form-search {
-    position: relative;
+  .legend-header {
+    padding-bottom: $grid-gutter-width/3;
 
-    &::before {
-      font-family: FontAwesome;
-      font-size: 1em;
-      color: $color-alpha;
-      content: '\f002';
-      position: absolute;
-      padding-left: $grid-gutter-width/2;
-    }
-
-    input {
-      padding-left: 3rem;
+    @include media-breakpoint-up(md) {
+      padding-bottom: 0;
     }
   }
 }
 
-form fieldset {
-  padding: $grid-gutter-width/3 0;
+.filter-group {
+  @include media-breakpoint-up(md) {
+    @include pull-right();
+
+    > div {
+      @include make-col();
+    }
+  }
+}
+
+.form-search {
+  position: relative;
+
+  &::before {
+    font-family: FontAwesome;
+    font-size: 1em;
+    color: $color-alpha;
+    content: '\f002';
+    position: absolute;
+    padding-left: $grid-gutter-width/2;
+  }
+
+  input {
+    padding-left: 3rem;
+  }
 }
