@@ -1,6 +1,5 @@
 class Api::V1::MockupsController < Api::V1::ApiController
   before_action :authenticate_user!
-  before_action :page_params
 
   load_resource except: [:index, :create]
   authorize_resource
@@ -8,12 +7,8 @@ class Api::V1::MockupsController < Api::V1::ApiController
   def index
     @mockups = Mockup
                  .accessible_by(current_ability)
-                 .page(@page)
-                 .per(@per_page)
 
-    render json: @mockups,
-           meta: pagination_dict(@mockups),
-           status: :ok
+    render json: @mockups, status: :ok
   end
 
   def show
