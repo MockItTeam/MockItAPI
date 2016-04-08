@@ -8,7 +8,7 @@ class RawImageSerializer < ActiveModel::Serializer
   belongs_to :owner
 
   def owner_name
-    object.user.username
+    object.owner.username
   end
 
   def image_url
