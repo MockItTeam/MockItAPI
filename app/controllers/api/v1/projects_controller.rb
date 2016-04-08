@@ -6,8 +6,14 @@ class Api::V1::ProjectsController < Api::V1::ApiController
 
   def index
     filters = {}
-    filters[:owner] = params[:owner] unless params[:owner].blank?
-    filters[:member] = params[:member] unless params[:member].blank?
+
+    unless params[:condition].blank?
+      condition = params[:condition]
+      filters[:owner] = current_user.id if condition == 'owner'
+      filters[:member] = current_user.id if condition == 'member'
+    end
+
+    filters[:name] = params[:name] unless params[:name].blank?
 
     @projects = Project
                   .accessible_by(current_ability)

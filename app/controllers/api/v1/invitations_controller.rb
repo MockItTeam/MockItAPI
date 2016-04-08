@@ -6,7 +6,10 @@ class Api::V1::InvitationsController < Api::V1::ApiController
 
   def index
     filters = {}
-    filters[:user_id] = params[:user_id] unless params[:user_id].blank?
+
+    unless params[:condition].blank?
+      filters[:user_id] = current_user.id if params[:condition] == 'recipient'
+    end
 
     @invitations = Invitation
                      .accessible_by(current_ability)
