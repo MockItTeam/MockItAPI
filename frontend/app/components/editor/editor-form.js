@@ -67,6 +67,18 @@ export default Ember.Component.extend({
     return id;
   },
 
+  didInsertElement() {
+    let self = this;
+    Ember.$('body').on('keydown', function (e) {
+      alert(e.which);
+      e.preventDefault();
+      // detect backspace and delete
+      if (e.which == 8 || e.which == 46) {
+        self._removeMockupComponent();
+      }
+    });
+  },
+
   mockupObserver: Ember.observer(
     'json_elements',
     function() {
@@ -82,9 +94,15 @@ export default Ember.Component.extend({
   ),
 
   _saveChangeMockup(json_elements) {
-    console.log('ice');
     let mockup = this.get('mockup');
     this.set('json_elements', JSON.stringify(json_elements));
+  },
+
+  _removeMockupComponent(){
+    console.log('ice');
+    $(".ui-selected").each(function(){
+      console.log(this.id);
+    });
   },
 
   actions: {
@@ -120,8 +138,9 @@ export default Ember.Component.extend({
     notifyDragged() {
       let json_elements = this.get('mockup.json_elements');
       for (var i = 0; i < json_elements.elements.length; i++) {
-        let x = parseInt($("[component_id="+json_elements.elements[i].id+"]").css('left'));
-        let y = parseInt($("[component_id="+json_elements.elements[i].id+"]").css('top'));
+        let element = $("[component_id="+json_elements.elements[i].id+"]");
+        let x = parseInt(element.css('left'));
+        let y = parseInt(element.css('top'));
         json_elements.elements[i].x = x;
         json_elements.elements[i].y = y;
       }

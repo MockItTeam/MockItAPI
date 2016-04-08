@@ -39,7 +39,6 @@ class Element {
       },
       start: function( event, ui ) {
         jquery.addClass("dragging");
-
       },
       stop: function( event, ui ) {
         jquery.removeClass("dragging");
