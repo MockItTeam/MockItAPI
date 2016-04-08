@@ -28,6 +28,7 @@ export default Draggable.extend({
     if (element.renderable) {
       element.render(this.$());
       this.$().draggable({
+
         stop(event, ui) {
           _self.sendAction('notifyDragged');
         },
@@ -52,7 +53,33 @@ export default Draggable.extend({
           $(this).data('prevLoc', currentLoc);
         }
 
-      })
+      });
+
+      this.$().bind( "mousedown", function ( e ) {
+        if($('.ui-selected').length <= 1){
+          $(this).addClass('ui-selected');
+          $('.ui-selected').removeClass('ui-selected');
+          $(this).addClass('ui-selected');
+        }
+      });
+
+      this.$().bind( "click", function ( e ) {
+        if($(this).hasClass('dragging')){
+          $(this).addClass('ui-selected');
+        }
+        if($(this).hasClass('ui-selected')){
+          if(!$(this).hasClass('ui-draggable-dragging')) {
+            $('.ui-selected').removeClass('ui-selected');
+            $(this).addClass('ui-selected');
+          }
+        }
+        else{
+          if(!$(this).hasClass('ui-draggable-dragging')) {
+            $('.ui-selected').removeClass('ui-selected');
+          }
+          $(this).addClass('ui-selected');
+        }
+      });
     }
   }
 });
