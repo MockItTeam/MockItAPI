@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [
-                     :sessions,
-                     :registrations,
-                     :confirmations,
-                     :passwords]
+    :sessions,
+    :registrations,
+    :confirmations,
+    :passwords]
 
   devise_scope :user do
     post '/api/v1/users', to: 'registrations#create'
@@ -20,4 +20,5 @@ Rails.application.routes.draw do
 
   # Ember route
   mount_ember_app :frontend, to: '/', controller: 'application', action: 'frontend'
+  get '/var/images/:name', to: 'api/v1/raw_images#show', defaults: {format: %w(jpg jpeg gif png)}
 end
