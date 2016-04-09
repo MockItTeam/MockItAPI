@@ -10,8 +10,8 @@ class Mockup < ActiveRecord::Base
   validate :json_format, unless: :raw_image?
   validate :status_created?, on: :update
 
-  validates :description,
-            length: {in: 0..100},
+  validates :name,
+            length: {in: 0..20},
             format: {with: /\A[a-zA-Z0-9\s]+\z/}
 
   before_create :set_default_status

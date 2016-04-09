@@ -1,6 +1,6 @@
 class MockupSerializer < ActiveModel::Serializer
   attributes :id,
-             :description,
+             :name,
              :json_elements,
              :status,
              :created_at,
