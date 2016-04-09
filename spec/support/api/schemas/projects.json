@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "required": ["data", "links", "meta"],
+  "required": ["data"],
   "properties": {
     "data": {
       "type": "array",
