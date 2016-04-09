@@ -26,8 +26,9 @@ RSpec.describe Api::V1::InvitationsController, type: :controller do
     context 'when filter user_id is set to specific value' do
       let(:sample_recipient_id) { invitations.sample.recipient_id }
       let(:sample_invitations) { invitations.select { |invitation| sample_recipient_id.eql? invitation.recipient_id } }
+      let(:recipient_access_token) { FactoryGirl.create(:access_token, application: application, resource_owner_id: sample_recipient_id) }
 
-      before { get :index, user_id: sample_recipient_id, access_token: access_token.token }
+      before { get :index, condition: 'recipient', access_token: recipient_access_token.token }
 
       it do
         expect(JSON.parse(response.body)['data'].length).to eq sample_invitations.length
@@ -94,7 +95,8 @@ RSpec.describe Api::V1::InvitationsController, type: :controller do
 
     context 'when recipient is invited already' do
       let(:invalid_invitation) { {type: 'invitations', attributes: {}} }
-      let(:exist_invitation_relationships) { {project: {data: {type: 'projects', id: sample_project.id}}, recipient: {data: {type: 'users', id: invite_members.sample.id}}} }
+      let(:sample_invitation) { invitations.sample }
+      let(:exist_invitation_relationships) { {project: {data: {type: 'projects', id: sample_invitation.project_id}}, recipient: {data: {type: 'users', id: sample_invitation.recipient_id}}} }
 
       before { post :create, data: invalid_invitation.merge({relationships: exist_invitation_relationships}), access_token: access_token.token }
 
