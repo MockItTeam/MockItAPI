@@ -1,0 +1,77 @@
+.members-list-container {
+  padding: $grid-gutter-width/3;
+
+  .member-list {
+
+    .filter-group {
+
+      @include media-breakpoint-up(md) {
+        @include pull-left();
+      }
+    }
+
+    .legend-header {
+      padding-bottom: $grid-gutter-width/2;
+      width: 100%;
+    }
+
+    .btn-icon {
+      padding: 0;
+    }
+
+    .member-card {
+      position: relative;
+      background: $white;
+      border: 0;
+      width: 100%;
+      color: $color-alpha;
+      @include border-radius(.75rem);
+
+      .user-card-container {
+
+        .user-avatar,
+        .hamburger-menu {
+          padding: 0 $grid-gutter-width/2;
+        }
+
+        .hamburger-menu {
+          width: 100%;
+          text-align: right;
+        }
+
+        .user-initial {
+          line-height: 2.2em;
+          font-size: .75em;
+          background: $color-bravo;
+          font-family: 'novecentosans_widebold';
+        }
+
+        .user-info {
+          max-width: 9rem;
+          @include text-truncate();
+        }
+      }
+
+      &:hover {
+        background: $color-bravo;
+
+        .btn-icon span,
+        .user-initial {
+          background: white;
+          color: $color-bravo;
+        }
+      }
+
+      .dropdown-menu {
+
+        i {
+          margin: 0 .5rem;
+        }
+      }
+
+      @include media-breakpoint-up(md) {
+        max-width: 20rem;
+      }
+    }
+  }
+}

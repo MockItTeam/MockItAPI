@@ -1,0 +1,44 @@
+<div class='members-list-container'>
+
+  {{#if model.success}}
+    <div class='form-group'>
+      <div class='alert alert-success'>
+        <p>{{model.success}}</p>
+      </div>
+    </div>
+  {{/if}}
+
+  <form class='form-body'>
+    <fieldset class='member-list'>
+      <legend>
+        <div class='legend-header'>
+          Project {{model.name}}'s team
+        </div>
+
+        <div class='filter-group'>
+          <div class='form-group filter-header col-xs-12 col-sm-12 col-md-4'>
+            Add member
+          </div>
+          <div class='form-group form-search col-xs-9 col-sm-9 col-md-6'>
+            {{input class='form-control' name='search-user' value=mockupSearch placeholder='username'}}
+          </div>
+
+          <div class='form-group col-xs-3 col-sm-3 col-md-2'>
+            <button class='btn btn-icon'>
+              <span class='fa fa-plus'></span>
+            </button>
+          </div>
+        </div>
+      </legend>
+
+      {{#if model.members}}
+        <div class='member-card-container'>
+          {{#each model.members as |member|}}
+            {{projects.members-form owner=model.owner member=member transferOwner='applyTransferOwner' kickMember='applyKickMember'}}
+          {{/each}}
+        </div>
+      {{/if}}
+
+    </fieldset>
+  </form>
+</div>

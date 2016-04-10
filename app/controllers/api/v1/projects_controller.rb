@@ -23,7 +23,7 @@ class Api::V1::ProjectsController < Api::V1::ApiController
   end
 
   def show
-    render json: @project, status: :ok
+    render json: @project, include: %w(members), status: :ok
   end
 
   def create
