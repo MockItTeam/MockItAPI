@@ -7,7 +7,7 @@ class Mockup < ActiveRecord::Base
   belongs_to :project
 
   validates_presence_of :project, :owner
-  validate :json_format, unless: :raw_image?
+  validate :json_format, on: :update, unless: :raw_image?
   validate :status_created?, on: :update
 
   validates :name,
