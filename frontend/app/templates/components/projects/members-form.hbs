@@ -1,0 +1,32 @@
+<div class='member-card form-group'>
+  <div class='user-card-container'>
+    <div class="user-avatar">
+      <span class="user-initial">{{member.firstLetter}}</span>
+    </div>
+    <div class="user-info">
+      {{member.username}}
+    </div>
+
+    {{#if isOwner}}
+      {{#if canManage}}
+        <div class='hamburger-menu dropdown'>
+          <button class='btn btn-icon' data-toggle="dropdown">
+            <span class='fa fa-bars'></span>
+          </button>
+
+          <div class='dropdown-menu'>
+            <a {{action 'transferOwner' member}} class='nav-link' href="#">
+              <i class='icon icon-plus fa fa-plus'></i>
+              Transfer owner
+            </a>
+            <div class='dropdown-divider'></div>
+            <a {{action 'kickMember' member}} href="#">
+              <i class='icon icon-minus fa fa-minus'></i>
+              Kick
+            </a>
+          </div>
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+</div>
