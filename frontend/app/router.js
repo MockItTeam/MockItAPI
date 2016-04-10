@@ -18,6 +18,7 @@ Router.map(function() {
         this.route('mockups', function() {
           this.route('detail', {path: '/:mockup_id'});
         });
+        this.route('members');
       });
 
       this.route('new', {path: '/create'});

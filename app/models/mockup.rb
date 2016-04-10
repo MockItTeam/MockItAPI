@@ -17,6 +17,8 @@ class Mockup < ActiveRecord::Base
   before_create :set_default_status
   after_create :change_status,:image_processing, if: :raw_image?
 
+  scope :recently, -> { order(updated_at: :desc) }
+
   def attach_raw_image(raw_image, owner)
     self.raw_image = RawImage.new(name: raw_image, owner: owner)
   end

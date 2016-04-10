@@ -1,14 +1,12 @@
-<div class='project-container'>
-  {{#link-to 'protected.projects.new' tagName='button' class='btn btn-secondary-outline btn-create'}}
+<div class='project-list-container'>
+  {{#link-to 'protected.projects.new' tagName='button' class='btn btn-secondary-outline btn-outline'}}
     <div class='btn-icon'>
       <span class='fa fa-plus'></span>
     </div>
-    <div class='btn-text'> CREATE PROJECT</div>
+    <div class='btn-text'> Create Project</div>
   {{/link-to}}
 
-  <div class='project-list-container'>
-    {{projects.project-list projects=model.projects queryFilter='applyQueryFilter' searchProject='applySearchProject'}}
-  </div>
+  {{projects.project-list projects=model.projects queryFilter='applyQueryFilter' searchProject='applySearchProject'}}
 </div>
 
 <div class='invitation-list-container'>
