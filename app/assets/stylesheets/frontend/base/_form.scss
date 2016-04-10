@@ -35,11 +35,11 @@ form fieldset {
     border-bottom: 2px solid $white;
 
     @include media-breakpoint-up(md) {
-      display: table;
       @include clearfix();
 
       > div {
         @include make-col();
+        padding: 0;
       }
     }
   }
@@ -54,12 +54,14 @@ form fieldset {
 }
 
 .filter-group {
+  @include make-row();
+
+  > div {
+    @include make-col();
+  }
+
   @include media-breakpoint-up(md) {
     @include pull-right();
-
-    > div {
-      @include make-col();
-    }
   }
 }
 
@@ -73,6 +75,7 @@ form fieldset {
     content: '\f002';
     position: absolute;
     padding-left: $grid-gutter-width/2;
+    z-index: 100;
   }
 
   input {
