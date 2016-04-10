@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "attributes", "relationships"],
+        "properties": {
+          "attributes": {
+            "type": "object",
+            "required": [
+              "name",
+              "json_elements",
+              "status",
+              "created_at",
+              "updated_at"
+            ],
+            "properties": {
+              "name": { "type": "string" },
+              "json_elements": { "type": ["string", "null"] },
+              "status": { "type": "string"},
+              "created_at": { "type": "string" },
+              "updated_at": { "type": "string" }
+            }
+          },
+          "relationships": {
+            "type": "object",
+            "required": ["project", "owner", "raw_image"],
+            "properties": {
+              "project": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "required": ["id", "type"],
+                    "properties": {
+                      "id": { "type": "string" },
+                      "type": { "type": "string" }
+                    }
+                  }
+                }
+              },
+              "owner": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "required": ["id", "type"],
+                    "properties": {
+                      "id": { "type": "string" },
+                      "type": { "type": "string" }
+                    }
+                  }
+                }
+              },
+              "raw_image": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "required": ["id", "type"],
+                    "properties": {
+                      "id": { "type": "string" },
+                      "type": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

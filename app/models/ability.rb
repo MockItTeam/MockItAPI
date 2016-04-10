@@ -14,6 +14,7 @@ class Ability
     can [:read, :create, :update], Invitation
 
     can :manage, Mockup, user_id: user.id
+    can :manage, Mockup, project: {user_id: user.id}
     can [:read, :update], Mockup, project: {id: user.project_ids}
 
     can :manage, RawImage, user_id: user.id
