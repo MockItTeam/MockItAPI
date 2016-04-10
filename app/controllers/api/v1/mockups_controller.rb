@@ -46,10 +46,10 @@ class Api::V1::MockupsController < Api::V1::ApiController
   private
 
   def create_mockup_params
-    jsonapi_params.require(:mockup).permit(:project_id, :description, :json_elements).merge(owner: current_user)
+    jsonapi_params.require(:mockup).permit(:project_id, :name, :json_elements).merge(owner: current_user)
   end
 
   def update_mockup_params
-    jsonapi_params.require(:mockup).permit(:description, :json_elements)
+    jsonapi_params.require(:mockup).permit(:name, :json_elements)
   end
 end
