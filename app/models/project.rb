@@ -24,7 +24,7 @@ class Project < ActiveRecord::Base
       query = where(id: projects.map(&:id))
     end
     query = where("name LIKE ?", "%#{options[:name]}%") if options[:name].present?
-    query
+    query.order(updated_at: :desc)
   end
 
   private

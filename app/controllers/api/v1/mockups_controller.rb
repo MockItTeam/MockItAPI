@@ -7,6 +7,7 @@ class Api::V1::MockupsController < Api::V1::ApiController
   def index
     @mockups = Mockup
                  .accessible_by(current_ability)
+                 .recently
 
     render json: @mockups, include: %w(raw_image), status: :ok
   end
