@@ -1,77 +1,70 @@
-.members-list-container {
-  padding: $grid-gutter-width/3;
+.member-list {
 
-  .member-list {
+  .btn-icon {
+    padding: 0;
+  }
 
-    .filter-group {
+  .app-card {
+    position: relative;
 
-      @include media-breakpoint-up(md) {
-        @include pull-left();
+    @include media-breakpoint-down(sm) {
+      display: table;
+      table-layout: fixed;
+
+      > div {
+        display: table-cell;
+        vertical-align: middle;
       }
     }
 
-    .legend-header {
-      padding-bottom: $grid-gutter-width/2;
-      width: 100%;
-    }
+    .app-card-image-container {
 
-    .btn-icon {
-      padding: 0;
-    }
-
-    .member-card {
-      position: relative;
-      background: $white;
-      border: 0;
-      width: 100%;
-      color: $color-alpha;
-      @include border-radius(.75rem);
-
-      .user-card-container {
-
-        .user-avatar,
-        .hamburger-menu {
-          padding: 0 $grid-gutter-width/2;
-        }
-
-        .hamburger-menu {
-          width: 100%;
-          text-align: right;
-        }
-
-        .user-initial {
-          line-height: 2.2em;
-          font-size: .75em;
-          background: $color-bravo;
-          font-family: 'novecentosans_widebold';
-        }
-
-        .user-info {
-          max-width: 9rem;
-          @include text-truncate();
-        }
-      }
-
-      &:hover {
-        background: $color-bravo;
-
-        .btn-icon span,
-        .user-initial {
-          background: white;
-          color: $color-bravo;
-        }
-      }
-
-      .dropdown-menu {
-
-        i {
-          margin: 0 .5rem;
-        }
-      }
-
-      @include media-breakpoint-up(md) {
-        max-width: 20rem;
+      @include media-breakpoint-down(sm) {
+        padding: 0;
+        width: 20%;
+        text-align: left;
       }
     }
+
+    .app-card-name {
+
+      @include media-breakpoint-down(sm) {
+        width: 60%;
+        text-align: left;
+      }
+    }
+  }
+}
+
+.member-image {
+  text-transform: uppercase;
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  line-height: 2em;
+  text-align: center;
+  font-size: .85em;
+  color: $white;
+  overflow: hidden;
+  @include border-radius(50%);
+  background: $color-bravo;
+
+  @include media-breakpoint-up(md) {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    font-size: 5em;
+    line-height: 1.5;
+  }
+}
+
+.member-menu {
+  width: 20%;
+  text-align: right;
+
+  @include media-breakpoint-up(md) {
+    position: absolute;
+    top: -5%;
+    right: -5%;
   }
 }

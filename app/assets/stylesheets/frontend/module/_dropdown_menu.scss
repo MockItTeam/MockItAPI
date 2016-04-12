@@ -1,8 +1,17 @@
-.dropdown-menu {
+.dropdown-menu,
+.dropdown-menu.manage-user {
+  left: auto;
+  right: 0;
+}
+
+.dropdown-menu.manage-user {
   min-width: 200px;
 
-  @include media-breakpoint-down(md) {
-    left: auto;
-    right: 0;
+  > a {
+    padding: 0 $grid-gutter-width/3;
+  }
+
+  @include media-breakpoint-up(md) {
+    left: 70%;
   }
 }

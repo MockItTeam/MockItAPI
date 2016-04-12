@@ -1,0 +1,13 @@
+<div class='app-card-image-container'>
+  <div class='member-image'>{{invitation.recipient.firstLetter}}</div>
+</div>
+
+<div class='app-card-name'>{{invitation.recipient_name}}</div>
+
+{{#if canCancel}}
+  <div class='invitation-menu'>
+    <button class='btn btn-icon btn-delete' {{action 'cancelInvitation' invitation}}>
+      <span class='fa fa-times'></span>
+    </button>
+  </div>
+{{/if}}

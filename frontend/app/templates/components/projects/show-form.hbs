@@ -39,11 +39,11 @@
     </legend>
 
     {{#if mockups}}
-      <div class='card-container'>
+      <div class='app-card-container'>
         {{#each mockups as |mockup|}}
-          <div class='card'>
+          <div class='app-card'>
             {{#link-to 'protected.projects.detail.mockups.detail' mockup.id}}
-              <div class='image-container hidden-sm-down'>
+              <div class='app-card-image-container hidden-sm-down'>
                 {{#unless mockup.raw_image.image_url}}
                   <div class='blank-state image'>
                     <div class='content-container'>
@@ -58,7 +58,7 @@
                 <div class='plaster plaster-bottom-right'></div>
                 <div class='plaster plaster-bottom-left'></div>
               </div>
-              <div class='name'>
+              <div class='app-card-name'>
                 Mockup {{mockup.name}}
               </div>
             {{/link-to}}
