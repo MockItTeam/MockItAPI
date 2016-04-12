@@ -1,0 +1,31 @@
+{{#if success}}
+  <div class='form-group'>
+    <div class='alert alert-success'>
+      <p>{{success}}</p>
+    </div>
+  </div>
+{{/if}}
+
+<form class='form-body'>
+  <fieldset class='member-list'>
+    <legend>
+      <div class='legend-header'>
+        Project {{project.name}}'s team
+      </div>
+    </legend>
+
+    <div class='app-card-container'>
+      {{#if project.members}}
+        {{#each project.members as |member|}}
+          {{members.member-card owner=project.owner member=member transferOwner='applyTransferOwner' kickMember='applyKickMember'}}
+        {{/each}}
+      {{else}}
+        <div class='blank-state'>
+          <div class='content-container'>
+            <p>Don't have any members</p>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </fieldset>
+</form>

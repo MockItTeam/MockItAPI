@@ -2,6 +2,7 @@ import Ember from 'ember'
 const { service } = Ember.inject;
 
 export default Ember.Component.extend({
+  classNames: ['app-card'],
   sessionUser: service('session'),
 
   _checkMemberIsYou: Ember.on(
