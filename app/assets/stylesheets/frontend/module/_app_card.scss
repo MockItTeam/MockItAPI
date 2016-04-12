@@ -1,29 +1,30 @@
-.card-container {
+.app-card-container {
 
   @include media-breakpoint-up(md) {
     @include make-container();
   }
 }
 
-.card {
+.app-card {
   background: $white;
-  padding: $grid-gutter-width/2;
+  padding: .5rem $grid-gutter-width;
   margin-bottom: $grid-gutter-width/2;
   border: 0;
   width: 100%;
   @include border-radius(.75rem);
 
-  .name {
+  .app-card-name {
     color: $color-alpha;
+    @include text-truncate();
 
-    @include media-breakpoint-up(md) {
-      @include text-truncate();
-      padding: $grid-gutter-width/2;
+    @include media-breakpoint-down(sm) {
+      max-width: 13.75rem;
     }
   }
 
-  .image-container {
+  .app-card-image-container {
     position: relative;
+    padding: $grid-gutter-width/3;
 
     .image {
       border: 1px solid $color-dark-gray;
@@ -40,32 +41,32 @@
     }
 
     .plaster-top-right {
-      top: 0;
-      right: 7%;
+      top: 5%;
+      right: 5%;
       -ms-transform: rotate(-140deg);
       -webkit-transform: rotate(-140deg);
       transform: rotate(-140deg);
     }
 
     .plaster-top-left {
-      top: 0;
-      left: 7%;
+      top: 5%;
+      left: 5%;
       -ms-transform: rotate(140deg);
       -webkit-transform: rotate(140deg);
       transform: rotate(140deg);
     }
 
     .plaster-bottom-right {
-      bottom: 0;
-      right: 7%;
+      bottom: 5%;
+      right: 5%;
       -ms-transform: rotate(-40deg);
       -webkit-transform: rotate(-40deg);
       transform: rotate(-40deg);
     }
 
     .plaster-bottom-left {
-      bottom: 0;
-      left: 7%;
+      bottom: 5%;
+      left: 5%;
       -ms-transform: rotate(40deg);
       -webkit-transform: rotate(40deg);
       transform: rotate(40deg);
@@ -75,7 +76,7 @@
   @include media-breakpoint-up(md) {
     @include make-col();
     margin: $grid-gutter-width/3;
-    max-width: 15rem;
+    max-width: 14rem;
     height: 14rem;
     text-align: center;
   }

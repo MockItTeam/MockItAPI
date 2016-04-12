@@ -21,7 +21,7 @@ class Api::V1::InvitationsController < Api::V1::ApiController
   end
 
   def show
-    render json: @invitation, status: :ok
+    render json: @invitation, include: %w(sender recipient), status: :ok
   end
 
   def create
