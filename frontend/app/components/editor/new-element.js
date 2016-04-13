@@ -27,21 +27,35 @@ export default Draggable.extend({
 
     if (element.renderable) {
       element.render(this.$());
+
+      var initSelection = function(obj) {
+        // if start new dragging on un-selected, remove all previous selections.
+          if (!obj.hasClass('ui-selected')) {
+            $('.ui-selected').removeClass('ui-selected');
+          }
+
+          // mark new selection
+          obj.addClass('ui-selected');
+      }
+
       this.$().draggable({
 
         stop(event, ui) {
           _self.sendAction('notifyDragged');
         },
 
+        containment: ".droppable-el",
+
         drag: function (e, ui) {
+
           var currentLoc = $(this).position();
           var prevLoc = $(this).data('prevLoc');
           if (!prevLoc) {
             prevLoc = ui.originalPosition;
           }
 
-          var ol = currentLoc.left-prevLoc.left;
-          var ot = currentLoc.top-prevLoc.top;
+          var ol = currentLoc.left - prevLoc.left;
+          var ot = currentLoc.top - prevLoc.top;
 
           $('.ui-selected').each(function () {
             var p = $(this).position();
@@ -51,35 +65,15 @@ export default Draggable.extend({
             $(this).css('top', t + ot);
           })
           $(this).data('prevLoc', currentLoc);
-        }
+        },
 
+        start: function(e, ui) {
+          initSelection($(this));
+        }
+      }).click(function() {
+        initSelection($(this));
       });
 
-      this.$().bind( "mousedown", function ( e ) {
-        if($('.ui-selected').length <= 1){
-          $(this).addClass('ui-selected');
-          $('.ui-selected').removeClass('ui-selected');
-          $(this).addClass('ui-selected');
-        }
-      });
-
-      this.$().bind( "click", function ( e ) {
-        if($(this).hasClass('dragging')){
-          $(this).addClass('ui-selected');
-        }
-        if($(this).hasClass('ui-selected')){
-          if(!$(this).hasClass('ui-draggable-dragging')) {
-            $('.ui-selected').removeClass('ui-selected');
-            $(this).addClass('ui-selected');
-          }
-        }
-        else{
-          if(!$(this).hasClass('ui-draggable-dragging')) {
-            $('.ui-selected').removeClass('ui-selected');
-          }
-          $(this).addClass('ui-selected');
-        }
-      });
     }
   }
 });

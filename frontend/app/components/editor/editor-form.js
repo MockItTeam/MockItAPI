@@ -69,14 +69,37 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     let self = this;
+
     Ember.$('body').on('keydown', function (e) {
-      alert(e.which);
       e.preventDefault();
       // detect backspace and delete
       if (e.which == 8 || e.which == 46) {
         self._removeMockupComponent();
       }
     });
+
+    Ember.$('.droppable-el').droppable({
+        accept: '.draggable-el',
+        drop(event, ui) {
+          let json = {
+            "id": self._findSuitableId(),
+            "type": "TextArea",
+            "x": ui.position.left,
+            "y": ui.position.top,
+            "z": 1,
+            "width": ui.draggable.children().css('width'),
+            "height": ui.draggable.children().css('height'),
+            "children_id": []
+          };
+
+          let json_elements = self.get('mockup.json_elements');
+          json_elements.elements.push(json);
+          self.get('socketIORef').emit('message', json_elements);
+          self._saveChangeMockup(json_elements);
+        }
+      });
+    Ember.$('.droppable-el').selectable();
+
   },
 
   mockupObserver: Ember.observer(
@@ -108,27 +131,7 @@ export default Ember.Component.extend({
   actions: {
     dropped: Ember.on('willRender', function (event, ui, _self) {
       let self = this;
-      _self.$().droppable({
-        accept: '.draggable-el',
-        drop(event, ui) {
-          let json = {
-            "id": self._findSuitableId(),
-            "type": "TextArea",
-            "x": ui.position.left,
-            "y": ui.position.top,
-            "z": 1,
-            "width": ui.draggable.children().css('width'),
-            "height": ui.draggable.children().css('height'),
-            "children_id": []
-          };
-
-          let json_elements = self.get('mockup.json_elements');
-          json_elements.elements.push(json);
-          self.get('socketIORef').emit('message', json_elements);
-          self._saveChangeMockup(json_elements);
-        }
-      });
-      _self.$().selectable();
+      
     }),
 
     dragged: Ember.on('willRender', function (event, ui, _self) {
