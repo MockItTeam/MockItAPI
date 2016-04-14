@@ -1,8 +1,6 @@
 {{#if success}}
   <div class='form-group'>
-    <div class='alert alert-success'>
-      <p>{{success}}</p>
-    </div>
+    {{shared.alert-message type='success' message=success}}
   </div>
 {{/if}}
 

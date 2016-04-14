@@ -15,6 +15,6 @@ export default DS.Model.extend({
     inverse: 'projects'
   }),
 
-  invitations: DS.hasMany('invitation'),
-  mockups: DS.hasMany('mockup')
+  invitations: DS.hasMany('invitation', {async: true}),
+  mockups: DS.hasMany('mockup', {async: true})
 });

@@ -3,17 +3,13 @@
 
     {{#if successMessage}}
       <div class='form-group'>
-        <div class='alert alert-success'>
-          <p>{{successMessage}}</p>
-        </div>
+        {{shared.alert-message type='success' message=successMessage}}
       </div>
     {{/if}}
 
     {{#if errorMessage}}
       <div class='form-group'>
-        <div class='alert alert-danger'>
-          <p>{{errorMessage}}</p>
-        </div>
+        {{shared.alert-message type='danger' message=errorMessage}}
       </div>
     {{/if}}
 

@@ -14,11 +14,12 @@ class Invitation < ActiveRecord::Base
   before_create :set_default_status
   after_save :after_status_transition, if: :status_changed?
 
-  scope :pending, -> { where(status: 0) }
+  default_scope { where(status: 0) }
 
   def self.search(options)
     query = where(nil)
     query = query.where(recipient_id: options[:user_id]) if options[:user_id].present?
+    query = query.where(status: options[:status]) if options[:status].present?
     query
   end
 
