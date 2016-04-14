@@ -1,12 +1,12 @@
-<div class='invitation-container' id='invitation-{{invitation.id}}'>
-  <div class='invitation-content'>
-    <div class='invitation-information'>
-      {{invitation.sender_name}} want you to
-      <span>Project {{invitation.project_name}}</span>
-    </div>
-    <button {{action 'accept' invitation}} class='btn btn-info accept-button'>Accept</button>
-    <button {{action 'refuse' invitation}} class='btn btn-danger refuse-button'>Refuse</button>
+<div class='incoming-invitation-content'>
+  <div class='incoming-invitation-information'>
+    {{invitation.sender_name}} want you to
+    <p>Project {{invitation.project_name}}</p>
+    <button {{action 'acceptInvite' invitation}} class='btn btn-info accept-button'>Accept</button>
+    <button {{action 'refuseInvite' invitation}} class='btn btn-danger refuse-button'>Refuse</button>
   </div>
-
-  <button class='invitation-notification' {{action 'fadeNotification' invitation.id}}><i class='fa fa-exclamation'></i></button>
 </div>
+
+<button class='incoming-invitation-notification' {{action 'fade'}}>
+  <span><i class='fa fa-exclamation'></i></span>
+</button>

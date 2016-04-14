@@ -1,7 +1,8 @@
-.btn {
+button {
 
-  &:focus {
-    outline: none;
+  &:focus,
+  &:active {
+    outline: 0;
   }
 }
 

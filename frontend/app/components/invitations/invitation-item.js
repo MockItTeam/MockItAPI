@@ -1,10 +1,25 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  fade: 'in',
-  
+  tagName: 'li',
+  classNames: ['incoming-invitation-item'],
+  fadeFact: false,
+
   actions: {
-    accept(invitation) {
+    fade() {
+      let fadeFact = this.get('fadeFact');
+      let $item = this.$();
+
+      if (fadeFact) {
+        $item.animate({'right': `-=${$item.width()}px`}, 'slow');
+        this.set('fadeFact', false);
+      } else {
+        $item.animate({'right': `+=${$item.width()}px`}, 'slow');
+        this.set('fadeFact', true);
+      }
+    },
+
+    acceptInvite(invitation) {
       invitation.set('status', 'accepted');
       invitation.save()
         .then(() => {
@@ -13,8 +28,8 @@ export default Ember.Component.extend({
           this.set('success', undefined);
         });
     },
-    
-    refuse(invitation) {
+
+    refuseInvite(invitation) {
       invitation.set('status', 'refused');
       invitation.save()
         .then(() => {
@@ -22,22 +37,6 @@ export default Ember.Component.extend({
         }, () => {
           this.set('success', undefined);
         });
-    },
-    
-    fadeNotification(invitationId) {
-      let $invitationContainer = $(`#invitation-${invitationId}`);
-      let fadeCondition = this.get('fade');
-      
-      if (fadeCondition == 'in') {
-        $invitationContainer.animate({'right': `+=${$invitationContainer.width() + 60}px`}, 'slow');
-        this.set('fade', 'out');
-      }
-      
-      if (fadeCondition == 'out') {
-        $invitationContainer.animate({'right': `-=${$invitationContainer.width() + 60}px`}, 'slow');
-        this.set('fade', 'in');
-      }
     }
   }
-  
 });

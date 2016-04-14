@@ -50,3 +50,59 @@
     right: -5%;
   }
 }
+
+.incoming-invitation-list-container {
+  position: absolute;
+  top: 0;
+  right: -275px;
+  height: 100%;
+
+  .incoming-invitation-list {
+    height: 100%;
+    margin-bottom: 0;
+
+    .incoming-invitation-item {
+      position: relative;
+      height: 3.25rem;
+    }
+
+    .incoming-invitation-item .incoming-invitation-content {
+      background: $color-charlie;
+      padding: $grid-gutter-width $grid-gutter-width/2;
+      width: 100%;
+
+      @include media-breakpoint-up(md) {
+        max-width: 20rem;
+      }
+    }
+
+    .incoming-invitation-item .incoming-invitation-information {
+      background: $white;
+      padding: $grid-gutter-width/2 $grid-gutter-width;
+      text-align: center;
+      @include border-radius(.5rem);
+    }
+
+    .incoming-invitation-item .incoming-invitation-notification {
+      position: absolute;
+      top: 0;
+      left: -40px;
+      width: 40px;
+      height: 40px;
+      background: $color-echo;
+      border: 0;
+      border-top-left-radius: .5rem;
+      border-bottom-left-radius: .5rem;
+
+      > span {
+        color: $white;
+      }
+    }
+
+    .btn-delete {
+      position: absolute;
+      top: 5px;
+      right: -10px;
+    }
+  }
+}
