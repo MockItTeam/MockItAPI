@@ -1,0 +1,13 @@
+.dropdown-menu,
+.dropdown-menu.manage-user {
+  left: auto;
+  right: 0;
+}
+
+.dropdown-menu.manage-user {
+  min-width: 200px;
+
+  a {
+    padding: 0 $grid-gutter-width/3;
+  }
+}

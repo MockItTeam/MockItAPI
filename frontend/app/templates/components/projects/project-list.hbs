@@ -6,11 +6,11 @@
       </div>
 
       <div class='filter-group'>
-        <div class='form-group form-search'>
-          {{input class='form-control' name='search-project' value=projectSearch placeholder='search by name' key-up='searchProject'}}
+        <div class='form-group form-search col-xs-8 col-sm-8'>
+          {{input class='form-control' name='search-project' value=projectSearch placeholder='name' key-up='searchProject'}}
         </div>
 
-        <div class='form-group'>
+        <div class='form-group col-xs-4 col-sm-4'>
           {{#x-select action='filterProjects' class='form-control c-select' default='all'}}
             {{#x-option value='all'}}All{{/x-option}}
             {{#x-option value='yours'}}Yours{{/x-option}}
@@ -21,11 +21,11 @@
     </legend>
 
     {{#if projects}}
-      <div class='card-container'>
+      <div class='app-card-container'>
         {{#each projects as |project|}}
-          <div class='card'>
+          <div class='app-card'>
             {{#link-to 'protected.projects.detail' project.id}}
-              <div class='image-container hidden-sm-down'>
+              <div class='app-card-image-container hidden-sm-down'>
                 {{#unless project.image_url}}
                   <div class='blank-state image'>
                     <div class='content-container'>
@@ -40,7 +40,7 @@
                 <div class='plaster plaster-bottom-right'></div>
                 <div class='plaster plaster-bottom-left'></div>
               </div>
-              <div class='name'>
+              <div class='app-card-name'>
                 project {{project.name}}
               </div>
             {{/link-to}}

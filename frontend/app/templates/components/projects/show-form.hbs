@@ -1,31 +1,88 @@
-<div class='project-detail-container'>
-  <div class='project-name'>
-    Project {{project.name}}
-  </div>
-</div>
-<h3>Owner</h3>
-{{project.owner.username}}
-<br>
-<h3>Member</h3>
-{{#each project.members as |member|}}
-  {{#unless member.isOwner}}
-    {{member.username}}
-    {{#if canKick }}
-      <button {{action 'kickMember' member}} class='kick-button'>Kick</button>
-    {{/if}}
+<form class='form-body'>
+  <fieldset class='project-detail'>
+    <legend>
+      <div class='legend-header'>
+        Project {{project.name}}
+      </div>
+    </legend>
 
-    {{#if canAssign }}
-      <button {{action 'assignOwner' member}} class='assign-button'>Assign</button>
+    <div class='project-manage'>
+      <div class='create-mockup-container dropdown'>
+        <button class='btn btn-secondary-outline btn-outline btn-icon' data-toggle='dropdown'>
+          <i class='fa fa-plus'></i>
+          <span class='btn-text'> Create mockup</span>
+        </button>
+
+        <div class='create-mockup-menu dropdown-menu'>
+          <button class='btn btn-icon' {{action 'createMockup'}}>
+            <i class='fa fa-file-text'></i>
+            <span>Blank</span>
+          </button>
+          <div class='dropdown-divider'></div>
+          {{#x-file-input value=photo name='photo' action='createMockupWithPhoto' on='change'}}
+            <button class='btn btn-icon'>
+              <i class='fa fa-camera'></i>
+              <span>Upload a photo</span>
+            </button>
+          {{/x-file-input}}
+        </div>
+      </div>
+
+      {{#link-to 'protected.projects.detail.members' tagName='button' class='btn btn-secondary-outline btn-outline btn-icon'}}
+        <i class='fa fa-users'></i>
+        <span class='btn-text'> Manage team</span>
+      {{/link-to}}
+    </div>
+  </fieldset>
+</form>
+
+<form class='form-body'>
+  <fieldset class='mockup-list'>
+    <legend>
+      <div class='legend-header'>
+        Mockups <span>( {{mockups.length}} )</span>
+      </div>
+
+      <div class='filter-group'>
+        <div class='form-group form-search'>
+          {{input class='form-control' name='search-mockup' value=mockupSearch placeholder='search by name' key-up='searchMockup'}}
+        </div>
+      </div>
+    </legend>
+
+    {{#if mockups}}
+      <div class='app-card-container'>
+        {{#each mockups as |mockup|}}
+          <div class='app-card'>
+            {{#link-to 'protected.projects.detail.mockups.detail' mockup.id}}
+              <div class='app-card-image-container hidden-sm-down'>
+                {{#unless mockup.raw_image.image_url}}
+                  <div class='blank-state image'>
+                    <div class='content-container'>
+                      <p>Insert cover photo</p>
+                    </div>
+                  </div>
+                {{else}}
+                  <img class='image' src='{{mockup.raw_image.image_url}}'/>
+                {{/unless}}
+                <div class='plaster plaster-top-right'></div>
+                <div class='plaster plaster-top-left'></div>
+                <div class='plaster plaster-bottom-right'></div>
+                <div class='plaster plaster-bottom-left'></div>
+              </div>
+              <div class='app-card-name'>
+                Mockup {{mockup.name}}
+              </div>
+            {{/link-to}}
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class='blank-state'>
+        <div class='content-container'>
+          <p>Don't have any mockups</p>
+        </div>
+      </div>
     {{/if}}
-    <br>
-  {{/unless}}
-{{/each}}
-<br>
-<h3>Mockups</h3>
-{{#each project.mockups as |mockup|}}
-  {{#link-to 'protected.projects.detail.mockups.detail' mockup.id }}
-    {{mockup.description}}
-  {{/link-to}}
-  <br>
-{{/each}}
-<br>
+  </fieldset>
+</form>

@@ -1,0 +1,60 @@
+.btn {
+  padding: 0 1rem;
+
+  &:focus,
+  &:active ,
+  &:active:focus {
+    outline: 0;
+  }
+}
+
+.btn-outline {
+  border: 0;
+  padding: .5rem;
+  margin-bottom: $grid-gutter-width/2;
+}
+
+.btn-outline.btn-icon i {
+  display: table-cell;
+  vertical-align: middle;
+  width: 2.2rem;
+}
+
+.btn-icon {
+  padding-right: $grid-gutter-width/3;
+  background: transparent;
+  display: table;
+}
+
+.btn-icon span {
+  font-family: 'novecentosans_widebold';
+  font-size: 1em;
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: $grid-gutter-width/3;
+  color: $color-alpha;
+}
+
+.btn-icon i {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2em;
+  color: #fff;
+  text-align: center;
+  background: $color-bravo;
+  @include border-radius(50%);
+}
+
+.btn-icon .btn-text {
+  color: $white;
+  font-size: 1.5em;
+}
+
+.btn-delete i,
+.btn-kick i {
+  background: red;
+}
+
+.btn-transfer i {
+  background: $color-charlie;
+}

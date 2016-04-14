@@ -11,17 +11,18 @@ class Api::V1::InvitationsController < Api::V1::ApiController
       filters[:user_id] = current_user.id if params[:condition] == 'recipient'
     end
 
+    filters[:status] = params[:status] unless params[:status].blank?
+
     @invitations = Invitation
                      .accessible_by(current_ability)
                      .search(filters)
-                     .pending
 
 
     render json: @invitations, status: :ok
   end
 
   def show
-    render json: @invitation, status: :ok
+    render json: @invitation, include: %w(sender recipient), status: :ok
   end
 
   def create

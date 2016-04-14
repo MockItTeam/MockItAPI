@@ -1,35 +1,93 @@
-.invitation-list-container {
+.invitation-list {
+
+  .filter-group {
+
+    @include media-breakpoint-up(md) {
+      @include pull-left();
+    }
+  }
+
+  .legend-header {
+    padding-bottom: $grid-gutter-width/2;
+    width: 100%;
+  }
+
+  .app-card {
+    position: relative;
+
+    @include media-breakpoint-down(sm) {
+      display: table;
+      table-layout: fixed;
+
+      > div {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+
+    .app-card-image-container {
+
+      @include media-breakpoint-down(sm) {
+        padding: 0;
+        width: 20%;
+        text-align: left;
+      }
+    }
+  }
+}
+
+.incoming-invitation-list-container {
   position: absolute;
   top: 0;
-  right: 0;
+  right: -275px;
+  height: 100%;
 
-  .invitation-container {
-    position: relative;
-    background: $color-charlie;
-    padding: $grid-gutter-width;
-    max-width: 20rem;
-    right: -20rem;
+  .incoming-invitation-list {
+    height: 100%;
+    margin-bottom: 0;
 
-    .invitation-content {
+    .incoming-invitation-item {
+      position: relative;
+      height: 3.25rem;
+    }
+
+    .incoming-invitation-item .incoming-invitation-content {
+      background: $color-charlie;
+      padding: $grid-gutter-width $grid-gutter-width/2;
+      width: 100%;
+
+      @include media-breakpoint-up(md) {
+        max-width: 20rem;
+      }
+    }
+
+    .incoming-invitation-item .incoming-invitation-information {
       background: $white;
       padding: $grid-gutter-width/2 $grid-gutter-width;
-      @include border-radius(.75rem);
-    }
-
-    .invitation-information {
       text-align: center;
-      padding-bottom: $grid-gutter-width/3;
+      @include border-radius(.5rem);
     }
 
-    .invitation-notification {
+    .incoming-invitation-item .incoming-invitation-notification {
       position: absolute;
-      width: 50px;
-      height: 50px;
       top: 0;
-      left: -3.25rem;
+      left: -40px;
+      width: 40px;
+      height: 40px;
       background: $color-echo;
-      color: $white;
       border: 0;
+      border-top-left-radius: .5rem;
+      border-bottom-left-radius: .5rem;
+
+      > span {
+        color: $white;
+      }
+    }
+
+    .btn-delete {
+      position: absolute;
+      top: 5px;
+      right: -10px;
     }
   }
 }

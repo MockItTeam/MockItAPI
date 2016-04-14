@@ -1,0 +1,33 @@
+.member-list {
+
+  .app-card {
+    position: relative;
+
+    @include media-breakpoint-down(sm) {
+      display: table;
+      table-layout: fixed;
+
+      > div {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+
+    .app-card-image-container {
+
+      @include media-breakpoint-down(sm) {
+        padding: 0;
+        width: 20%;
+        text-align: left;
+      }
+    }
+
+    .app-card-name {
+
+      @include media-breakpoint-down(sm) {
+        width: 60%;
+        text-align: left;
+      }
+    }
+  }
+}
