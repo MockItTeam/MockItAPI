@@ -34,6 +34,10 @@ export default Ember.Route.extend({
 
       this.transitionTo(this.routeName, {queryParams: queryParams});
       this.refresh();
+    },
+
+    applyCreateMockup(mockup) {
+      this.transitionTo('protected.projects.detail.mockups.detail', mockup.get('id'));
     }
   }
 });

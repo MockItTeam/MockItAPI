@@ -13,9 +13,11 @@ class Mockup < ActiveRecord::Base
   validates :name,
             length: {in: 0..20},
             format: {with: /\A[a-zA-Z0-9\s]+\z/}
+  validates_uniqueness_of :name, scope: :project
 
+  before_validation :set_default_name
   before_create :set_default_status
-  after_create :change_status,:image_processing, if: :raw_image?
+  after_create :change_status, :image_processing, if: :raw_image?
 
   scope :recently, -> { order(updated_at: :desc) }
 
@@ -31,6 +33,16 @@ class Mockup < ActiveRecord::Base
 
     else
       self.status = :created
+    end
+  end
+
+  def set_default_name
+    unless self.name
+      i = 1
+      begin
+        self.name = "Untitled #{i}"
+        i += 1
+      end while (self.class.exists?(name: self.name))
     end
   end
 
