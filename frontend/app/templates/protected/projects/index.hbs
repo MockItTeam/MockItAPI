@@ -9,8 +9,10 @@
   {{projects.project-list projects=model.projects queryFilter='applyQueryFilter' searchProject='applySearchProject'}}
 </div>
 
-<div class='invitation-list-container'>
-  {{#each model.invitations as |i|}}
-    {{invitations.invitation-item invitation=i afterAccepted='afterAccepted' afterRefused='afterRefused'}}
-  {{/each}}
+<div class='incoming-invitation-list-container'>
+  <ul class='incoming-invitation-list list-unstyled'>
+    {{#each model.invitations as |i|}}
+      {{invitations.invitation-item invitation=i afterAccepted='afterAccepted' afterRefused='afterRefused'}}
+    {{/each}}
+  </ul>
 </div>
