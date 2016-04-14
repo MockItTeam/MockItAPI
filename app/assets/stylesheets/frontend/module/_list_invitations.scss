@@ -1,9 +1,5 @@
 .invitation-list {
 
-  .btn-icon {
-    padding: 0;
-  }
-
   .filter-group {
 
     @include media-breakpoint-up(md) {
@@ -37,17 +33,6 @@
         text-align: left;
       }
     }
-  }
-}
-
-.invitation-menu {
-  width: 20%;
-  text-align: right;
-
-  @include media-breakpoint-up(md) {
-    position: absolute;
-    top: -5%;
-    right: -5%;
   }
 }
 

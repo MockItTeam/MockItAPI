@@ -57,6 +57,7 @@
   }
 
   .btn-login, .btn-signup {
+    padding: .375rem 1rem;
     @include pull-right();
   }
 }

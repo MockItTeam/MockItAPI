@@ -1,9 +1,5 @@
 .member-list {
 
-  .btn-icon {
-    padding: 0;
-  }
-
   .app-card {
     position: relative;
 
@@ -33,38 +29,5 @@
         text-align: left;
       }
     }
-  }
-}
-
-.member-image {
-  text-transform: uppercase;
-  width: 2rem;
-  height: 2rem;
-  display: block;
-  line-height: 2em;
-  text-align: center;
-  font-size: .85em;
-  color: $white;
-  overflow: hidden;
-  @include border-radius(50%);
-  background: $color-bravo;
-
-  @include media-breakpoint-up(md) {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto;
-    font-size: 5em;
-    line-height: 1.5;
-  }
-}
-
-.member-menu {
-  width: 20%;
-  text-align: right;
-
-  @include media-breakpoint-up(md) {
-    position: absolute;
-    top: -5%;
-    right: -5%;
   }
 }

@@ -1,25 +1,23 @@
 <div class='app-card-image-container'>
-  <div class='member-image'>{{member.firstLetter}}</div>
+  <div class='user-image'>{{member.firstLetter}}</div>
 </div>
 
 <div class='app-card-name'>{{member.username}}</div>
 
 {{#if isOwner}}
   {{#if canManage}}
-    <div class='member-menu dropdown'>
+    <div class='app-card-menu dropdown'>
       <button class='btn btn-icon' data-toggle="dropdown">
-        <span class='fa fa-bars'></span>
+        <i class='fa fa-bars'></i>
       </button>
 
       <div class='dropdown-menu manage-user'>
-        <a {{action 'transferOwner' member}} class='nav-link' href="#">
-          <i class='icon icon-plus fa fa-plus'></i>
-          Transfer owner
+        <a {{action 'transferOwner' member}} class='btn btn-icon btn-transfer' href="#">
+          <i class='fa fa-plus'></i><span>Transfer Owner</span>
         </a>
         <div class='dropdown-divider'></div>
-        <a {{action 'kickMember' member}} href="#">
-          <i class='icon icon-minus fa fa-minus'></i>
-          Kick
+        <a {{action 'kickMember' member}} class='btn btn-icon btn-kick' href="#">
+          <i class='fa fa-minus'></i><span>Kick</span>
         </a>
       </div>
     </div>
