@@ -1,9 +1,7 @@
 <div class='project-list-container'>
-  {{#link-to 'protected.projects.new' tagName='button' class='btn btn-secondary-outline btn-outline'}}
-    <div class='btn-icon'>
-      <span class='fa fa-plus'></span>
-    </div>
-    <div class='btn-text'> Create Project</div>
+  {{#link-to 'protected.projects.new' tagName='button' class='btn btn-secondary-outline btn-outline btn-icon'}}
+    <i class='fa fa-plus'></i>
+    <span class='btn-text'> Create Project</span>
   {{/link-to}}
 
   {{projects.project-list projects=model.projects queryFilter='applyQueryFilter' searchProject='applySearchProject'}}

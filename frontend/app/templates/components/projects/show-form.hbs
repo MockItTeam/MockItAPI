@@ -7,18 +7,14 @@
     </legend>
 
     <div class='project-manage'>
-      <button class='btn btn-secondary-outline btn-outline'>
-        <div class='btn-icon'>
-          <span class='fa fa-plus'></span>
-        </div>
-        <div class='btn-text'> Create mockup</div>
+      <button class='btn btn-secondary-outline btn-outline btn-icon'>
+        <i class='fa fa-plus'></i>
+        <span class='btn-text'> Create mockup</span>
       </button>
 
-      {{#link-to 'protected.projects.detail.members' tagName='button' class='btn btn-secondary-outline btn-outline'}}
-        <div class='btn-icon'>
-          <span class='fa fa-users'></span>
-        </div>
-        <div class='btn-text'> Manage team</div>
+      {{#link-to 'protected.projects.detail.members' tagName='button' class='btn btn-secondary-outline btn-outline btn-icon'}}
+        <i class='fa fa-users'></i>
+        <span class='btn-text'> Manage team</span>
       {{/link-to}}
     </div>
   </fieldset>

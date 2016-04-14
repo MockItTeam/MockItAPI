@@ -20,6 +20,11 @@ export default Ember.Route.extend({
       .then((members) => {
         project.set('members', members.sortBy('username'));
       });
+
+    project.get('invitations')
+      .then((invitations) => {
+        project.set('invitations', invitations.filterBy('status', 'pending'));
+      });
   },
 
   actions: {
