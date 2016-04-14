@@ -7,10 +7,26 @@
     </legend>
 
     <div class='project-manage'>
-      <button class='btn btn-secondary-outline btn-outline btn-icon'>
-        <i class='fa fa-plus'></i>
-        <span class='btn-text'> Create mockup</span>
-      </button>
+      <div class='create-mockup-container dropdown'>
+        <button class='btn btn-secondary-outline btn-outline btn-icon' data-toggle='dropdown'>
+          <i class='fa fa-plus'></i>
+          <span class='btn-text'> Create mockup</span>
+        </button>
+
+        <div class='create-mockup-menu dropdown-menu'>
+          <button class='btn btn-icon' {{action 'createMockup'}}>
+            <i class='fa fa-file-text'></i>
+            <span>Blank</span>
+          </button>
+          <div class='dropdown-divider'></div>
+          {{#x-file-input value=photo name='photo' action='createMockupWithPhoto' on='change'}}
+            <button class='btn btn-icon'>
+              <i class='fa fa-camera'></i>
+              <span>Upload a photo</span>
+            </button>
+          {{/x-file-input}}
+        </div>
+      </div>
 
       {{#link-to 'protected.projects.detail.members' tagName='button' class='btn btn-secondary-outline btn-outline btn-icon'}}
         <i class='fa fa-users'></i>
