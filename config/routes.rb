@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     resources :raw_images, only: [:show]
   end
 
+  # Admin page route
+  get '/admin', to: 'admin#index'
+
   # Ember route
   mount_ember_app :frontend, to: '/', controller: 'application', action: 'frontend'
   get '/var/images/:name', to: 'api/v1/raw_images#get_image', defaults: {format: %w(jpg jpeg gif png)}
