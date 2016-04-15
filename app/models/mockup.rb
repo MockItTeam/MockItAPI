@@ -70,7 +70,7 @@ class Mockup < ActiveRecord::Base
       self.status = :error
     end
 
-    if result.error_message
+    if result["error_message"]
       self.error_message = result["error_message"].to_json
       self.status = :error
     else
