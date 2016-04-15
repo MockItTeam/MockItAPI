@@ -17,7 +17,7 @@ class Mockup < ActiveRecord::Base
 
   before_validation :set_default_name
   before_create :set_default_status
-  after_create :change_status, :image_processing, if: :raw_image?
+  after_create :image_processing, if: :raw_image?
 
   scope :recently, -> { order(updated_at: :desc) }
 
@@ -58,20 +58,24 @@ class Mockup < ActiveRecord::Base
     errors.add(:json_elements, 'is not in json format') unless json_elements.is_json?
   end
 
-  def change_status
+  def image_processing
     self.status = :in_progress
     save!(validate: false)
-  end
 
-  handle_asynchronously :change_status
-
-  def image_processing
-    result = %x(python ~/ElementDetector/main.py -f "#{self.raw_image.name.url}")
-    unless result.nil?
-      self.json_elements = result
-      self.status = :created
-    else
+    begin
+      result = %x(python ~/ElementDetector/main.py -f "#{self.raw_image.name.url}")
+      result = JSON.parse(result)
+    rescue Exception => e
+      self.error_message = e.to_s
       self.status = :error
+    end
+
+    if result["error_message"]
+      self.error_message = result["error_message"].to_json
+      self.status = :error
+    else
+      self.json_elements = result["json_elements"].to_json
+      self.status = :created
     end
 
     save!(validate: false)
