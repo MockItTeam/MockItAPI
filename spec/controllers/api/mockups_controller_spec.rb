@@ -43,6 +43,7 @@ RSpec.describe Api::V1::MockupsController, type: :controller do
 
   describe 'POST #create' do
     let(:valid_mockup) { {type: 'mockups', attributes: {}} }
+    let(:valid_mockup_image) { {type: 'mockups', attributes: {image: raw_images.sample.name.file}} }
     let(:mockup_relationships) { {project: {data: {type: 'projects', id: project.id}}} }
 
     context 'when all params is valid' do
@@ -55,7 +56,6 @@ RSpec.describe Api::V1::MockupsController, type: :controller do
     end
 
     context 'when all params is valid, with raw image' do
-      let(:valid_mockup_image) { {type: 'mockups', attributes: {image: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'fixtures', 'assets', 'mockup_image.jpg'))}} }
       before { post :create, data: valid_mockup_image.merge({relationships: mockup_relationships}), access_token: access_token.token }
 
       it { expect(response).to have_http_status(:created) }
