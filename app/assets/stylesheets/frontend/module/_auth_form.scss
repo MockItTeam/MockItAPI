@@ -5,6 +5,50 @@
   margin: 0 auto;
   padding: ($navbar-height + $grid-gutter-width) $grid-gutter-width;
 
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    $purple;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    $purple;
+     opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    $purple;
+     opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color:    $purple;
+  }
+
+  #username-field {
+    color: $purple;
+  }
+
+  input[type="number"] {
+    color: transparent;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+    display: inline-block;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+  input[type="number"] {
+      -moz-appearance: textfield;
+  }
+
+  input[type="number"]:focus { 
+    background: $red;
+  }
+
+  .input-done {
+    background: $color-charlie; 
+  }
+
   @include media-breakpoint-up(md) {
     max-width: $form-size-md;
   }
