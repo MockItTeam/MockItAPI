@@ -106,10 +106,27 @@
     }
   }
 
+  .in-progress-tab {
+    position: absolute;
+
+    @include media-breakpoint-up(md) {
+      width: 120%;
+      height: 3rem;
+      top: 40%;
+      left: -10%;
+      background: $color-dark-gray;
+    }
+
+    span {
+      color: $white;
+      font-size: 1.5em;
+    }
+  }
+
   @include media-breakpoint-up(md) {
     @include make-col();
-    margin: $grid-gutter-width/3;
-    max-width: 14rem;
+    margin: $grid-gutter-width/3 2rem;
+    max-width: 15rem;
     height: 14rem;
     text-align: center;
   }
