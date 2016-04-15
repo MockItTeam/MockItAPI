@@ -2,7 +2,7 @@ class Mockup < ActiveRecord::Base
   acts_as_paranoid
   enum status: %w(pending in_progress created error)
 
-  belongs_to :raw_image
+  belongs_to :raw_image, dependent: :destroy
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
   belongs_to :project
 

@@ -34,7 +34,7 @@ export default Ember.Component.extend({
 
       mockup.save()
         .then(() => {
-          console.log('create success');
+          
         });
     }
   }
