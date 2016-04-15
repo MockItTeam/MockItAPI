@@ -16,8 +16,7 @@ class Mockup < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :project
 
   before_validation :set_default_name
-  before_create :set_default_status
-  after_create :image_processing, if: :raw_image?
+  after_create :image_processing
 
   scope :recently, -> { order(updated_at: :desc) }
 
@@ -26,15 +25,6 @@ class Mockup < ActiveRecord::Base
   end
 
   private
-
-  def set_default_status
-    if raw_image?
-      self.status = :pending
-
-    else
-      self.status = :created
-    end
-  end
 
   def set_default_name
     unless self.name
@@ -59,27 +49,51 @@ class Mockup < ActiveRecord::Base
   end
 
   def image_processing
-    self.status = :in_progress
-    save!(validate: false)
+    if self.raw_image.present?
+      self.status = :in_progress
+      self.save(validate: false)
+    else
+      self.status = :created
+      self.save(validate: false)
+      return
+    end
 
     begin
+      command = "python ~/ElementDetector/main.py -f \"#{self.raw_image.name.url}\""
       result = %x(python ~/ElementDetector/main.py -f "#{self.raw_image.name.url}")
-      result = JSON.parse(result)
+      if result == nil
+        message = {}
+        message["exec_command"] = command
+        message["reason"] = "output from processor is nil (#{result})"
+        self.error_message = message.to_json
+        self.status = :error
+      else
+        result_hash = JSON.parse(result)
+        if result_hash["error_message"]
+          self.error_message = result_hash["error_message"].to_json
+          self.status = :error
+        elsif result_hash["json_elements"]
+          self.json_elements = result_hash["json_elements"].to_json
+          self.status = :created
+        else
+          message = {}
+          message["exec_command"] = command
+          message["output_from_processor"] = result
+          self.error_message = message.to_json
+          self.status = :error
+        end
+      end
     rescue Exception => e
-      self.error_message = e.to_s
+      message = {}
+      message["exec_command"] = command
+      message["output_from_processor"] = result
+      message["rails_exception"] = e.backtrace.to_s
+      self.error_message = message.to_json
       self.status = :error
     end
 
-    if result["error_message"]
-      self.error_message = result["error_message"].to_json
-      self.status = :error
-    else
-      self.json_elements = result["json_elements"].to_json
-      self.status = :created
-    end
-
-    save!(validate: false)
+    self.save(validate: false)
   end
 
-  handle_asynchronously :image_processing, :priority => 1, :run_at => Proc.new { 1.seconds.from_now }
+  handle_asynchronously :image_processing, :run_at => Proc.new { 1.seconds.from_now }
 end
