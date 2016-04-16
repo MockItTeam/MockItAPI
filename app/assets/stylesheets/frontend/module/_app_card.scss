@@ -6,6 +6,7 @@
 }
 
 .app-card {
+  position: relative;
   background: $white;
   padding: .5rem $grid-gutter-width;
   margin-bottom: $grid-gutter-width/2;
@@ -106,10 +107,50 @@
     }
   }
 
+  .tab {
+    position: absolute;
+    display: table;
+    width: 120%;
+    height: 100%;
+    top: 0;
+    left: -10%;
+    background: transparent;
+    opacity: 0.8;
+
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    @include media-breakpoint-up(md) {
+      opacity: 1;
+    }
+  }
+
+  .tab-menu {
+
+    .btn-icon i {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .btn-tab {
+    background: $color-dark-gray;
+    color: $white;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    width: 100%;
+  }
+
+  .btn-tab.retry {
+    background: red;
+  }
+
   @include media-breakpoint-up(md) {
     @include make-col();
-    margin: $grid-gutter-width/3;
-    max-width: 14rem;
+    margin: $grid-gutter-width/3 2rem;
+    max-width: 15rem;
     height: 14rem;
     text-align: center;
   }
