@@ -11,29 +11,6 @@
     padding-bottom: $grid-gutter-width/2;
     width: 100%;
   }
-
-  .app-card {
-    position: relative;
-
-    @include media-breakpoint-down(sm) {
-      display: table;
-      table-layout: fixed;
-
-      > div {
-        display: table-cell;
-        vertical-align: middle;
-      }
-    }
-
-    .app-card-image-container {
-
-      @include media-breakpoint-down(sm) {
-        padding: 0;
-        width: 20%;
-        text-align: left;
-      }
-    }
-  }
 }
 
 .incoming-invitation-list-container {
