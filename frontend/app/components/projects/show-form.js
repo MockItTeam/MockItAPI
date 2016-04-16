@@ -34,8 +34,12 @@ export default Ember.Component.extend({
 
       mockup.save()
         .then(() => {
-          
+          this.set('success', 'Your mockup is created, and now it is in progress');
         });
+    },
+
+    afterDeleteMockup(message) {
+      this.set('success', message);
     }
   }
 });

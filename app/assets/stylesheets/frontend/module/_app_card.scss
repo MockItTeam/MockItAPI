@@ -6,6 +6,7 @@
 }
 
 .app-card {
+  position: relative;
   background: $white;
   padding: .5rem $grid-gutter-width;
   margin-bottom: $grid-gutter-width/2;
@@ -106,21 +107,44 @@
     }
   }
 
-  .in-progress-tab {
+  .tab {
     position: absolute;
+    display: table;
+    width: 120%;
+    height: 100%;
+    top: 0;
+    left: -10%;
+    background: transparent;
+    opacity: 0.8;
+
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+    }
 
     @include media-breakpoint-up(md) {
-      width: 120%;
-      height: 3rem;
-      top: 40%;
-      left: -10%;
-      background: $color-dark-gray;
+      opacity: 1;
     }
+  }
 
-    span {
-      color: $white;
-      font-size: 1.5em;
+  .tab-menu {
+
+    .btn-icon i {
+      display: table-cell;
+      vertical-align: middle;
     }
+  }
+
+  .btn-tab {
+    background: $color-dark-gray;
+    color: $white;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    width: 100%;
+  }
+
+  .btn-tab.retry {
+    background: red;
   }
 
   @include media-breakpoint-up(md) {

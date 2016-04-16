@@ -1,3 +1,15 @@
+{{#if success}}
+  <div class='form-group'>
+    {{shared.alert-message type='success' message=success}}
+  </div>
+{{/if}}
+
+{{#if errorMessage}}
+  <div class='form-group'>
+    {{shared.alert-message type='success' message=errorMessageme}}
+  </div>
+{{/if}}
+
 <form class='form-body'>
   <fieldset class='project-detail'>
     <legend>
@@ -53,7 +65,7 @@
     {{#if mockups}}
       <div class='app-card-container'>
         {{#each mockups as |mockup|}}
-          {{mockups.mockup-card mockup=mockup}}
+          {{mockups.mockup-card mockup=mockup deleteMockup='afterDeleteMockup'}}
         {{/each}}
       </div>
     {{else}}
