@@ -17,7 +17,12 @@ export default Ember.Component.extend({
 
   actions: {
     cancelInvitation(invitation) {
-      this.sendAction('cancelInvitation', invitation);
+
+      let c = confirm(`Are you sure to delete invite user '${invitation.get('recipient.username')}'?`);
+
+      if (c) {
+        this.sendAction('cancelInvitation', invitation);
+      }
     }
   }
 });

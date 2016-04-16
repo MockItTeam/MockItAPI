@@ -1,3 +1,15 @@
+{{#if success}}
+  <div class='form-group'>
+    {{shared.alert-message type='success' message=success}}
+  </div>
+{{/if}}
+
+{{#if errorMessage}}
+  <div class='form-group'>
+    {{shared.alert-message type='danger' message=errorMessage}}
+  </div>
+{{/if}}
+
 <form class='form-body'>
   <fieldset class='project-list'>
     <legend>
@@ -23,7 +35,7 @@
     {{#if projects}}
       <div class='app-card-container'>
         {{#each projects as |project|}}
-          {{projects.project-card project=project}}
+          {{projects.project-card project=project owner=project.owner deleteProject='applyDeleteProject'}}
         {{/each}}
       </div>
     {{else}}

@@ -21,5 +21,9 @@ export default Ember.Component.extend({
     searchProject(data, event) {
       this.sendAction('searchProject', data);
     },
+
+    applyDeleteProject(message) {
+      this.set('success', message);
+    }
   }
 });
