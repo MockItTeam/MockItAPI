@@ -19,6 +19,22 @@
   </div>
 {{/link-to}}
 
-<div class='in-progress-tab' hidden>
-  <span>In Progress..</span>
+<div class='tab'>
+  <div class='btn-tab-container'>
+    <div class='tab-menu'>
+      <button type='button' class='btn btn-tab' data-toggle='dropdown'>Hello</button>
+
+      <div class='dropdown-menu'>
+        <button class='btn btn-icon' {{action 'retryProcessMockup' mockup}}>
+          <i class='fa fa-question'></i>
+          <span>Retry Again</span>
+        </button>
+        <div class='dropdown-divider'></div>
+        <button class='btn btn-icon' {{action 'deleteMockup' mockup}}>
+          <i class='fa fa-times'></i>
+          <span>Delete this mockup</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
