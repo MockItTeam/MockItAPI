@@ -9,7 +9,7 @@ export default Ember.Route.extend({
         project.get('mockups').then((mockups) => {
           if (params.name)
             project.set('mockups', mockups.filter(function(mockup) {
-              if (mockup.get('name').indexOf(params.name) > -1)
+              if (mockup.get('name').toLowerCase().indexOf(params.name) > -1)
                 return mockup;
             }));
         });
@@ -27,7 +27,7 @@ export default Ember.Route.extend({
       let queryParams = {};
 
       if (!Ember.isEmpty(searchText)) {
-        queryParams.name = searchText;
+        queryParams.name = searchText.toLowerCase();
       } else {
         queryParams.name = null;
       }
