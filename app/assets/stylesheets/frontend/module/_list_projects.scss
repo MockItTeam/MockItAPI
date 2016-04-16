@@ -1,3 +1,10 @@
 .project-list-container {
   padding: $grid-gutter-width/3;
+
+  .project-list {
+
+    .app-card-name {
+      width: 100%;
+    }
+  }
 }
