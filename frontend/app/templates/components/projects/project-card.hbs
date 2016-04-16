@@ -18,3 +18,11 @@
     project {{project.name}}
   </div>
 {{/link-to}}
+
+{{#if canDelete}}
+  <div class='app-card-menu'>
+    <button class='btn btn-icon btn-delete' {{action 'deleteProject' project}}>
+      <i class='fa fa-times'></i>
+    </button>
+  </div>
+{{/if}}

@@ -6,6 +6,16 @@ const { service } = Ember.inject;
 export default Ember.Component.extend({
   classNames: ['app-card'],
   store: service('store'),
+  sessionUser: service('session'),
+
+  _checkIsProjectOwner: Ember.on(
+    'didReceiveAttrs',
+    'willRender',
+    function() {
+      this.get('sessionUser.currentUser').then((currentUser) => {
+        this.set('canDelete', currentUser.get('username') == this.get('projectOwner.username') || currentUser.get('username') == this.get('mockupOwner.username'));
+      });
+    }),
 
   _setupPollster: Ember.on(
     'didInsertElement',
@@ -110,11 +120,16 @@ export default Ember.Component.extend({
       let _self = this;
 
       _self.get('pollster').stop();
-      mockup.deleteRecord();
-      mockup.save()
-        .then(() => {
-          this.sendAction('deleteMockup', `Delete mockup '${mockup.get('name')}' successfully.`)
-        });
+
+      let c = confirm(`Are you sure to delete mockup '${mockup.get('name')}'?`);
+
+      if (c) {
+        mockup.deleteRecord();
+        mockup.save()
+          .then(() => {
+            this.sendAction('deleteMockup', `Delete mockup '${mockup.get('name')}' successfully.`)
+          });
+      }
     }
   }
 });

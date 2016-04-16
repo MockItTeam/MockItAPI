@@ -19,6 +19,14 @@
   </div>
 {{/link-to}}
 
+{{#if canDelete}}
+  <div class='app-card-menu'>
+    <button class='btn btn-icon btn-delete' {{action 'deleteMockup' mockup}}>
+      <i class='fa fa-times'></i>
+    </button>
+  </div>
+{{/if}}
+
 <div class='tab'>
   <div class='btn-tab-container'>
     <div class='tab-menu'>

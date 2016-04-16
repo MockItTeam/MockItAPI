@@ -65,7 +65,7 @@
     {{#if mockups}}
       <div class='app-card-container'>
         {{#each mockups as |mockup|}}
-          {{mockups.mockup-card mockup=mockup deleteMockup='afterDeleteMockup' errorImageProcess='applyErrorImageProcess'}}
+          {{mockups.mockup-card mockup=mockup projectOwner=project.owner mockupOwner=mockup.owner deleteMockup='afterDeleteMockup' errorImageProcess='applyErrorImageProcess'}}
         {{/each}}
       </div>
     {{else}}
