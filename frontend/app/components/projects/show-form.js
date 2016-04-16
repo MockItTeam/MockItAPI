@@ -40,6 +40,10 @@ export default Ember.Component.extend({
 
     afterDeleteMockup(message) {
       this.set('success', message);
+    },
+
+    applyErrorImageProcess(errorMessage) {
+      this.set('errorMessage', errorMessage);
     }
   }
 });

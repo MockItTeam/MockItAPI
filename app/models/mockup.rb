@@ -68,6 +68,7 @@ class Mockup < ActiveRecord::Base
       if result == nil
         message["exec_command"] = command
         message["reason"] = "output from processor is nil (#{result})"
+        update_columns(status: Mockup.statuses[:error], error_message: message.to_json)
       else
         result_hash = JSON.parse(result)
         if result_hash["error_message"]
@@ -77,9 +78,9 @@ class Mockup < ActiveRecord::Base
         else
           message["exec_command"] = command
           message["output_from_processor"] = result
+          update_columns(status: Mockup.statuses[:error], error_message: message.to_json)
         end
       end
-      update_columns(status: Mockup.statuses[:error], error_message: message.to_json)
 
     rescue Exception => e
       message = {}

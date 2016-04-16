@@ -20,8 +20,7 @@ export default Ember.Component.extend({
               .then(() => {
 
               }, () => {
-                _self.get('pollster').stop();
-                _self.get('pollster').destroy();
+                _self._stopPollster();
               });
           }
         }));
@@ -32,14 +31,12 @@ export default Ember.Component.extend({
   _checkMockupFound: Ember.on('didRender',
     Ember.observer('mockup',
       function() {
-        if (!this.get('mockup') && this.get('pollster')) {
-          this.get('pollster').stop();
-          this.get('pollster').destroy();
+        if (!this.get('mockup')) {
+          this._removePollster();
         }
       })),
 
   _statusObserver: Ember.on(
-    'didInsertElement',
     'didRender',
     Ember.observer('mockup.status',
       function() {
@@ -48,9 +45,8 @@ export default Ember.Component.extend({
 
         this._resetTab();
 
-        if (mockupStatus == 'created') {
-          if (this.get('pollster'))
-            this.get('pollster').stop();
+        if (mockupStatus == 'created' && this.get('pollster')) {
+          this._stopPollster();
         }
 
         if (mockupStatus == 'in_progress') {
@@ -60,9 +56,11 @@ export default Ember.Component.extend({
         }
 
         if (mockupStatus == 'error') {
+          this._stopPollster();
           this.$('.tab').removeAttr('hidden');
           this.$('.btn-tab').addClass('retry');
           this.$('.tab-menu').addClass('dropdown');
+          this._filterErrorMessage(this.get('mockup'));
           spanText = 'Retry...';
         }
 
@@ -71,16 +69,29 @@ export default Ember.Component.extend({
     )),
 
   willDestroyElement() {
-    if (!Ember.isNone(this.get('pollster'))) {
-      this.get('pollster').stop();
-    }
-    this.get('pollster').destroy();
+    this._stopPollster();
   },
 
   _resetTab() {
     this.$('.tab').attr('hidden', 'hidden');
     this.$('.btn-tab').removeClass('retry');
     this.$('.tab-menu').removeClass('dropdown');
+  },
+
+  _stopPollster() {
+    if (this.get('pollster')) {
+      this.get('pollster').stop();
+    }
+  },
+
+  _filterErrorMessage(mockup) {
+    let errorMessage = JSON.parse(mockup.get('error_message'));
+
+    if (errorMessage.indexOf('Traceback') > -1) {
+      errorMessage = `Image process of ${mockup.get('name')} is error or has something wrong on server side.`;
+    }
+
+    this.sendAction('errorImageProcess', errorMessage);
   },
 
   actions: {
@@ -91,7 +102,6 @@ export default Ember.Component.extend({
       _self.get('pollster').stop();
       mockup.save()
         .then(() => {
-          _self._resetTab();
           _self.get('pollster').start();
         });
     },
