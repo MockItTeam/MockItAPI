@@ -16,6 +16,8 @@
 @import './layout/default';
 @import './layout/form';
 
+@import './mixins/form';
+
 // Modules
 @import './module/auth_form';
 @import './module/app_navbar';
