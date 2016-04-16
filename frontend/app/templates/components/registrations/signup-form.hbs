@@ -1,5 +1,5 @@
 <div class='auth-form-container'>
-  <form {{action 'createAccount' on='submit'}} class='form-body'>
+  <form {{action 'createAccount' on='submit'}} autocomplete='off' class='form-body'>
 
     {{#if successMessage}}
       <div class='form-group'>
@@ -20,7 +20,7 @@
     <div class='form-group row'>
       <label for='username' class='col-xs-12 col-sm-12 col-md-3 form-label'>USERNAME</label>
       <div class='col-xs-12 col-sm-12 col-md-9'>
-        {{input type='text' name='username' value=identification
+        {{input autocomplete='off' id='username-field' type='text' name='username' value=identification key-down='typeUsername'
         placeholder='Username' required=true autofocus=true class='form-control'}}
       </div>
     </div>
@@ -31,10 +31,10 @@
       </label>
 
       <div class='col-xs-12 col-sm-12 col-md-5'>
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='0' key-up='typePin'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='1' key-up='typePin'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='2' key-up='typePin'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='3' key-up='typePin'}}
+        {{input autocomplete='off' type='number' focus-in='onFocus' name='pincode' class='form-control pin-form-control' maxlength=1 id='0' key-down='typePinDown' key-up='typePin'}}
+        {{input autocomplete='off' type='number' focus-in='onFocus' name='pincode' class='form-control pin-form-control' maxlength=1 id='1' key-down='typePinDown' key-up='typePin'}}
+        {{input autocomplete='off' type='number' focus-in='onFocus' name='pincode' class='form-control pin-form-control' maxlength=1 id='2' key-down='typePinDown' key-up='typePin'}}
+        {{input autocomplete='off' type='number' focus-in='onFocus' name='pincode' class='form-control pin-form-control' maxlength=1 id='3' key-down='typePinDown' key-up='typePin'}}
       </div>
     </div>
 
@@ -44,10 +44,10 @@
       </label>
 
       <div class='col-xs-12 col-sm-12 col-md-5'>
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='00' key-up='typePinConfirmation'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='01' key-up='typePinConfirmation'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='02' key-up='typePinConfirmation'}}
-        {{input type='password' name='pincode' class='form-control pin-form-control' maxlength=1 id='03' key-up='typePinConfirmation'}}
+        {{input autocomplete='off' type='number' focus-in='onFocus' name='pincode' class='form-control pin-form-control' maxlength=1 id='4' key-down='typePinDown' key-up='typePin'}}
+        {{input autocomplete='off' type='number' focus-in='onFocus' name='pincode' class='form-control pin-form-control' maxlength=1 id='5' key-down='typePinDown' key-up='typePin'}}
+        {{input autocomplete='off' type='number' focus-in='onFocus' name='pincode' class='form-control pin-form-control' maxlength=1 id='6' key-down='typePinDown' key-up='typePin'}}
+        {{input autocomplete='off' type='number' focus-in='onFocus' name='pincode' class='form-control pin-form-control' maxlength=1 id='7' key-down='typePinDown' key-up='typePin'}}
       </div>
     </div>
 
@@ -61,7 +61,7 @@
       </div>
 
       <div class='col-xs-8 col-sm-8 col-md-6'>
-        <button class='btn btn-primary btn-signup'>CREATE ACCOUNT</button>
+         {{input key-down='typeLogin' type='submit' id='submit-btn' class='btn btn-primary btn-signup' value='Create an account' }}
       </div>
     </div>
   </form>
