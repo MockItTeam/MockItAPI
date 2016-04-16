@@ -5,6 +5,7 @@ const { service } = Ember.inject;
 export default Ember.Component.extend({
   session: service('session'),
   password: [-1, -1, -1, -1],
+  maxPinDigit: (4 - 1),
   hold: [false],
 
   showGuide(destination) {
@@ -42,13 +43,16 @@ export default Ember.Component.extend({
     },
 
     typeUsername(data, event) {
-      if (event.keyCode == 13) {
+      // enter and tab
+      if (event.keyCode == 13 || event.keyCode == 9) {
         event.preventDefault();
+        this.get('hold')[0] = true;
         $('#0').focus();
       }
     },
 
     typePinDown(data, event) {
+      // enter and tab
       if (event.keyCode == 13 || event.keyCode == 9) {
         event.preventDefault();
       }
@@ -57,8 +61,8 @@ export default Ember.Component.extend({
     typeLogin(data, event) {
       if (event.keyCode == 8) {
         event.preventDefault();
-        $('#3').focus();
         this.get('hold')[0] = true;
+        $('#' + this.get('maxPinDigit')).focus();
       }
     },
 
@@ -66,7 +70,13 @@ export default Ember.Component.extend({
       let field = event.target;
       let fieldId = parseInt(field.id);
 
-      if ((event.keyCode == 8 && this.get('hold')[0] == false) || event.keyCode == 37) {
+      if (this.get('hold')[0]) {
+        this.get('hold')[0] = false;
+        return;
+      }
+
+      // backspace and left-arrow
+      if (event.keyCode == 8 || event.keyCode == 37) {
         this.get('password')[fieldId] = -1;
         $(`#${fieldId}`).removeClass('input-done');
 
@@ -76,16 +86,19 @@ export default Ember.Component.extend({
           $(`#${fieldId - 1}`).focus();
         }
 
-      } else if (event.keyCode >= 48 && event.keyCode <= 57) {
-        this.get('password')[fieldId] = event.keyCode - 48;
+        // number and numpad
+      } else if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105)) {
+        let base = 48;
+        if (event.keyCode >= 96) {
+          base = 96
+        }
+        this.get('password')[fieldId] = event.keyCode - base;
         $(`#${fieldId}`).val('').addClass('input-done');
-
-        if (fieldId >= 3) {
-          $('#login-btn').focus();
+        if (fieldId >= this.get('maxPinDigit')) {
+          $('#submit-btn').focus();
         } else {
           $('#' + (fieldId + 1)).focus();
         }
-
       } else {
         this.get('showGuide')(fieldId);
       }

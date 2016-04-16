@@ -5,11 +5,7 @@
   margin: 0 auto;
   padding: ($navbar-height + $grid-gutter-width) $grid-gutter-width;
 
-  @include input-placeholder($purple, 1);
-
-  #username-field {
-    color: $purple;
-  }
+  @include input-placeholder($color-alpha, 1);
 
   input[type="number"] {
     color: transparent;
@@ -24,6 +20,7 @@
       -webkit-appearance: none;
       margin: 0;
   }
+  
   input[type="number"] {
       -moz-appearance: textfield;
   }
