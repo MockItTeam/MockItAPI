@@ -5,6 +5,16 @@ export default Ember.Component.extend({
   classNames: ['project-container'],
   store: service('store'),
 
+  isShowingProjectName: false,
+
+  _autoFocusToggleInput: Ember.on('didRender',
+    Ember.observer(
+      'isShowingProjectName',
+      function() {
+        this.$('.toggle-input').focus();
+      })
+  ),
+
   actions: {
     searchMockup(data, event) {
       this.sendAction('searchMockup', data);
@@ -44,6 +54,31 @@ export default Ember.Component.extend({
 
     applyErrorImageProcess(errorMessage) {
       this.set('errorMessage', errorMessage);
+    },
+
+    toggleEdit(){
+      this.set('oldProjectName', this.get('project.name'));
+      this.set('success', undefined);
+      this.set('errorMessage', undefined);
+      this.toggleProperty('isShowingProjectName');
+    },
+
+    changeProjectName(data, event) {
+
+      if(event.keyCode == 13) {
+        let project = this.get('project');
+
+        if (project.get('hasDirtyAttributes') && !Ember.isEmpty(project.get('name'))) {
+          project.save()
+            .then(() => {
+              this.set('success', 'Change project name success.');
+            }, () => {
+              this.set('errorMessage', 'Project name cannot empty.');
+            });
+        } else {
+          project.set('name', this.get('oldProjectName'));
+        }
+      }
     }
   }
 });

@@ -22,6 +22,7 @@ Router.map(function() {
       });
 
       this.route('new', {path: '/create'});
+      this.route('edit', {path: '/edit/:project_id'});
     });
   });
 });
