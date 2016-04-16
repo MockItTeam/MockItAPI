@@ -13,9 +13,18 @@
 <form class='form-body'>
   <fieldset class='project-detail'>
     <legend>
-      <div class='legend-header'>
-        Project {{project.name}}
-      </div>
+
+      {{#if isShowingProjectName}}
+        <div class='legend-header'>
+            {{input value=project.name class="toggle-input form-control"
+            key-down='changeProjectName'
+            focus-out='toggleEdit'}}
+        </div>
+      {{else}}
+        <div class='legend-header' {{action 'toggleEdit'}}>
+          Project {{project.name}}
+        </div>
+      {{/if}}
     </legend>
 
     <div class='project-manage'>
@@ -44,6 +53,11 @@
         <i class='fa fa-users'></i>
         <span class='btn-text'> Manage team</span>
       {{/link-to}}
+
+      {{#link-to 'protected.projects.edit' project.id tagName='button' class='btn btn-secondary-outline btn-outline btn-icon'}}
+        <i class='fa fa-pencil'></i>
+        <span class='btn-text'>Edit project</span>
+      {{/link-to}}
     </div>
   </fieldset>
 </form>
@@ -57,7 +71,7 @@
 
       <div class='filter-group'>
         <div class='form-group form-search'>
-          {{input class='form-control' name='search-mockup' value=mockupSearch placeholder='search by name' key-up='searchMockup'}}
+          {{input class='form-control' name='search-mockup' value=mockupSearch placeholder='search by name' key-down='searchMockup'}}
         </div>
       </div>
     </legend>

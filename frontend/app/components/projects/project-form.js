@@ -3,11 +3,15 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['project-form-container'],
 
+  _checkDirtyAttributes: Ember.on('willRender', function() {
+    this.set('canSave', this.get('project').get('hasDirtyAttributes'));
+  }),
+
   actions: {
     save(project) {
       project.save()
         .then(() => {
-          this.set('success', 'Project created');
+          this.set('success', `Project ${mockup.get('name')} ${this.get('title')}`);
         }, () => {
           this.set('success', undefined)
         })

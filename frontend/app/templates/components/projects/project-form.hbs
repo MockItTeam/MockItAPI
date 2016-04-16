@@ -17,7 +17,7 @@
   <fieldset class='project-form'>
     <legend>
       <div class='legend-header'>
-        Create Project
+        {{title}} Project
       </div>
     </legend>
 
@@ -46,7 +46,7 @@
 
     <div class='form-group row'>
       <div class='col-xs-12 col-sm-12 col-md-10'>
-        <button type='submit' class='btn btn-primary btn-submit' {{action 'save' project}}>Submit</button>
+        <button type='submit' class='btn btn-primary btn-submit' {{action 'save' project}} disabled={{if canSave null 'disabled'}}>Submit</button>
       </div>
     </div>
 

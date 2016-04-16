@@ -32,6 +32,14 @@
     }
   }
 
+  .toggle-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: $white;
+  }
+
   .mockup-list {
 
     .app-card-name {
