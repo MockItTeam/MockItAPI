@@ -6,7 +6,8 @@ export default Ember.Component.extend({
   session: service('session'),
   password: [-1, -1, -1, -1],
   hold: [false],
-  showGuide: function(destination) {
+
+  showGuide(destination) {
     var div = document.getElementById(destination);
     var interval = 30;
     var distance = 3;
@@ -14,13 +15,14 @@ export default Ember.Component.extend({
 
     $(div).css('position', 'relative');
 
-    for (var iter = 0; iter < (times + 1) ; iter++) {
-        $(div).animate({
-            left: ((iter % 2 == 0 ? distance : distance * -1))
-        }, interval);
-    }                                                                                                          
-    $(div).animate({ left: 0 }, interval);
+    for (var iter = 0; iter < (times + 1); iter++) {
+      $(div).animate({
+        left: ((iter % 2 == 0 ? distance : distance * -1))
+      }, interval);
+    }
+    $(div).animate({left: 0}, interval);
   },
+
   actions: {
     authenticate() {
       this._resetForm();
@@ -66,32 +68,33 @@ export default Ember.Component.extend({
 
       if ((event.keyCode == 8 && this.get('hold')[0] == false) || event.keyCode == 37) {
         this.get('password')[fieldId] = -1;
-        $('#' + fieldId).removeClass('input-done');
+        $(`#${fieldId}`).removeClass('input-done');
+
         if (fieldId <= 0) {
           $('#username-field').focus();
         } else {
-          $('#' + (fieldId-1)).focus();
+          $(`#${fieldId - 1}`).focus();
         }
+
       } else if (event.keyCode >= 48 && event.keyCode <= 57) {
         this.get('password')[fieldId] = event.keyCode - 48;
-        $('#' + fieldId).val('');
-        $('#' + fieldId).addClass('input-done');
+        $(`#${fieldId}`).val('').addClass('input-done');
+
         if (fieldId >= 3) {
           $('#login-btn').focus();
         } else {
-          $('#' + (fieldId+1)).focus();
+          $('#' + (fieldId + 1)).focus();
         }
+
       } else {
         this.get('showGuide')(fieldId);
-        // $('#' + fieldId).effect('shake');
       }
 
       this.get('hold')[0] = false;
     },
 
     onFocus(data, event) {
-      $(this).val('');
-      $(this).removeClass('input-done');
+      $(this).val('').removeClass('input-done');
     }
   },
 

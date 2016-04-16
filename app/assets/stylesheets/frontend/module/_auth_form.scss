@@ -5,20 +5,7 @@
   margin: 0 auto;
   padding: ($navbar-height + $grid-gutter-width) $grid-gutter-width;
 
-  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    $purple;
-  }
-  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-     color:    $purple;
-     opacity:  1;
-  }
-  ::-moz-placeholder { /* Mozilla Firefox 19+ */
-     color:    $purple;
-     opacity:  1;
-  }
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-     color:    $purple;
-  }
+  @include input-placeholder($purple, 1);
 
   #username-field {
     color: $purple;
