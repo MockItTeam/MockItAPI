@@ -97,7 +97,7 @@ export default Ember.Component.extend({
   _filterErrorMessage(mockup) {
     let errorMessage = JSON.parse(mockup.get('error_message'));
 
-    if (errorMessage.indexOf('Traceback') > -1) {
+    if (errorMessage && errorMessage.indexOf('Traceback') > -1) {
       errorMessage = `Image process of ${mockup.get('name')} is error or has something wrong on server side.`;
     }
 

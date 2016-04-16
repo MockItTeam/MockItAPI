@@ -45,5 +45,12 @@
     .app-card-name {
       width: 100%;
     }
+
+    .app-card:last-child {
+
+      .dropdown-menu {
+        top: 0;
+      }
+    }
   }
 }
