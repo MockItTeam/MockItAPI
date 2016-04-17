@@ -49,13 +49,13 @@ export default Ember.Component.extend({
     this._saveChangeMockup(data);
   },
 
-  _findSuitableId(){
-    let json_elements = this.get('mockup.json_elements');
+  _findSuitableId(json_elements){
     let id = 0;
     let check = false;
     while (!check) {
       id++;
       check = true;
+      console.log(json_elements.elements);
       for (var i = 0; i < json_elements.elements.length; i++) {
         if (json_elements.elements[i].id == id) {
           check = false;
@@ -68,12 +68,33 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     let self = this;
-
+    var ctrlDown = false;
+    var temp;
+    var ctrlKey = 17, commandKey = 91, vKey = 86, cKey = 67, dKey = 68, backspaceKey = 8, deleteKey = 46;
     Ember.$('body').on('keydown', function (e) {
       e.preventDefault();
-      // detect backspace and delete
-      if (e.which == 8 || e.which == 46) {
+      if (e.which == backspaceKey || e.which == deleteKey) {
         self._removeMockupComponent();
+      }
+      if (e.keyCode == ctrlKey || e.keyCode == commandKey) {
+        ctrlDown = true;
+      }
+      if (ctrlDown && e.keyCode == cKey) {
+        temp = self._copyMockupComponent();
+      }
+      if (ctrlDown && e.keyCode == vKey) {
+        self._pasteMockupComponent(temp);
+      }
+      if (ctrlDown && e.keyCode == dKey) {
+        self._duplicateMockupComponent();
+      }
+
+    });
+
+    Ember.$('body').on('keyup', function (e) {
+      e.preventDefault();
+      if(e.keyCode == ctrlKey || e.keyCode == commandKey){
+        ctrlDown = false;
       }
     });
 
@@ -81,7 +102,7 @@ export default Ember.Component.extend({
         accept: '.draggable-el',
         drop(event, ui) {
           let json = {
-            "id": self._findSuitableId(),
+            "id": self._findSuitableId(self.get('mockup.json_elements')),
             "type": "TextArea",
             "x": ui.position.left,
             "y": ui.position.top,
@@ -132,6 +153,39 @@ export default Ember.Component.extend({
     });
     this.get('socketIORef').emit('message', json_elements);
     this._saveChangeMockup(json_elements);
+  },
+
+  _copyMockupComponent(){
+    let json_elements = this.get('mockup.json_elements');
+    let list = [];
+    $(".ui-selected").each(function(){
+      let temp;
+      for (var i = 0; i < json_elements.elements.length; i++) {
+        if(json_elements.elements[i].id == this.getAttribute("component_id")){
+          temp = JSON.parse(JSON.stringify(json_elements.elements[i]));
+        }
+      }
+      list.push(temp);
+    });
+    return list;
+  },
+
+  _pasteMockupComponent(temp){
+    if(temp.length != 0){
+      let json_elements = this.get('mockup.json_elements');
+      for(var i = 0; i< temp.length; i++){
+        temp[i].id = this._findSuitableId(json_elements);
+        temp[i].x = temp[i].x + 5;
+        temp[i].y = temp[i].y + 5;
+        json_elements.elements.push(temp[i]);
+      }
+      this.get('socketIORef').emit('message', json_elements);
+      this._saveChangeMockup(json_elements);
+    }
+  },
+
+  _duplicateMockupComponent(){
+
   },
 
   actions: {
