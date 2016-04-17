@@ -36,7 +36,25 @@ export default Draggable.extend({
 
           // mark new selection
           obj.addClass('ui-selected');
-      }
+      };
+
+      this.$().dblclick(function () {
+        if($(this).hasClass('component-text') && !$(this).hasClass('text-editable')) {
+          if (!$(this).hasClass('text-editable')) {
+            $('.text-editable').removeClass('text-editable');
+          }
+          $(this).addClass('text-editable');
+          $('.description' + $(this).attr('component_id')).hide();
+          var textArea = '<textarea class="edit-area" style="box-sizing:border-box; color: black; left: 0px; top: 0px; width: ' + $(this).css('width') + '; height: ' + $(this).css('height') + ';">' + $(this).text() + '</textarea>';
+          $('.text-editable').append(textArea);
+          $('.text-editable textarea').click(function () {
+            event.stopPropagation();
+          });
+          $('.text-editable textarea').on('keydown', function () {
+            event.stopPropagation();
+          });
+        }
+      });
 
       this.$().draggable({
 
