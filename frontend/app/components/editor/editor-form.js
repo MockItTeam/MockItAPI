@@ -122,16 +122,23 @@ export default Ember.Component.extend({
   },
 
   _removeMockupComponent(){
-    console.log('ice');
+    let json_elements = this.get('mockup.json_elements');
     $(".ui-selected").each(function(){
-      console.log(this.id);
+      for (var i = 0; i < json_elements.elements.length; i++) {
+        if(json_elements.elements[i].id == this.getAttribute("component_id")){
+          json_elements.elements.splice(i,1);
+          break;
+        }
+      }
     });
+    this.get('socketIORef').emit('message', json_elements);
+    this._saveChangeMockup(json_elements);
   },
 
   actions: {
     dropped: Ember.on('willRender', function (event, ui, _self) {
       let self = this;
-      
+
     }),
 
     dragged: Ember.on('willRender', function (event, ui, _self) {
