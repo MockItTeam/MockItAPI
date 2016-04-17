@@ -185,7 +185,8 @@ export default Ember.Component.extend({
   },
 
   _duplicateMockupComponent(){
-
+    let temp = this._copyMockupComponent();
+    this._pasteMockupComponent(temp);
   },
 
   actions: {
