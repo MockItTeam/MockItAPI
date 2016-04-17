@@ -74,6 +74,7 @@ export default Ember.Component.extend({
     onFocus(data, event) {
       AuthUtil.onFocus(this, data, event);
     }
+  },
 
   _resetForm() {
     this.set('errorMessage', null);
