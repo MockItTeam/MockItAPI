@@ -55,7 +55,6 @@ export default Ember.Component.extend({
     while (!check) {
       id++;
       check = true;
-      console.log(json_elements.elements);
       for (var i = 0; i < json_elements.elements.length; i++) {
         if (json_elements.elements[i].id == id) {
           check = false;
@@ -70,7 +69,17 @@ export default Ember.Component.extend({
     let self = this;
     var ctrlDown = false;
     var temp;
-    var ctrlKey = 17, commandKey = 91, vKey = 86, cKey = 67, dKey = 68, backspaceKey = 8, deleteKey = 46;
+    var enterKey = 13, ctrlKey = 17, commandKey = 91, vKey = 86, cKey = 67, dKey = 68, backspaceKey = 8, deleteKey = 46;
+
+    Ember.$('body').on('click', function (e) {
+      let id = $('.text-editable').attr('component_id');
+      let text = $('.text-editable textarea').val();
+      self._saveTextChange(id,text);
+      $('.text-editable textarea').remove();
+      $('.text-editable label').show();
+      $('.text-editable').removeClass('text-editable');
+    });
+
     Ember.$('body').on('keydown', function (e) {
       e.preventDefault();
       if (e.which == backspaceKey || e.which == deleteKey) {
@@ -118,7 +127,12 @@ export default Ember.Component.extend({
           self._saveChangeMockup(json_elements);
         }
       });
-    Ember.$('.droppable-el').selectable();
+
+    Ember.$('.droppable-el').selectable({
+      distance: 1,
+      filter: "div"
+    });
+
 
   },
 
@@ -189,6 +203,18 @@ export default Ember.Component.extend({
     this._pasteMockupComponent(temp);
   },
 
+  _saveTextChange(id,text){
+    let json_elements = this.get('mockup.json_elements');
+    for(var i = 0; i< json_elements.elements.length; i++){
+      if(json_elements.elements[i].id == id){
+        json_elements.elements[i].text = text;
+        break;
+      }
+    }
+    this.get('socketIORef').emit('message', json_elements);
+    this._saveChangeMockup(json_elements);
+  },
+
   actions: {
     dropped: Ember.on('willRender', function (event, ui, _self) {
       let self = this;
@@ -209,6 +235,7 @@ export default Ember.Component.extend({
         json_elements.elements[i].y = y;
       }
       this.get('socketIORef').emit('message', json_elements);
-    }
+    },
+
   }
 });

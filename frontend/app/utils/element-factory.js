@@ -28,6 +28,7 @@ class Element {
     this.width = obj.width;
     this.height = obj.height;
     this.renderable = true;
+    this.text = obj.text;
   }
 
   render(jquery) {
@@ -48,7 +49,10 @@ class Element {
       'top': this.y,
       'left': this.x,
       'width': this.width,
-      'height': this.height
+      'height': this.height,
+      'overflow': 'hidden',
+      'text-overflow': 'ellipsis',
+      'white-space': 'nowrap'
     }).attr('component_id', this.id);
     ;
   }
@@ -74,7 +78,8 @@ class Label extends Element {
     jquery.css({
       border: "none",
     });
-    jquery.text(this.text);
+    jquery.addClass('component-text');
+    jquery.html('<label style="display: inline-block; text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
   }
 
 }
@@ -95,7 +100,7 @@ class VideoPlayer extends Element {
       "font-size": "20px",
       "line-height": this.height + "px"
     });
-    jquery.text("Video Player");
+    jquery.html('<span class="description'+this.id+'">Video Player</span>');
   }
 
 }
@@ -104,6 +109,7 @@ class TextField extends Element {
 
   constructor(obj) {
     super(obj);
+    this.text = obj.text;
   }
 
   render(jquery) {
@@ -116,7 +122,11 @@ class TextField extends Element {
       "font-size": "20px",
       "line-height": this.height + "px"
     });
-    jquery.text("TextField");
+    jquery.addClass('component-text');
+    if(!this.text){
+      this.text = "TextField";
+    }
+    jquery.html('<label style="text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
   }
 
 }
@@ -125,6 +135,7 @@ class TextArea extends Element {
 
   constructor(obj) {
     super(obj);
+    this.text = obj.text;
   }
 
   render(jquery) {
@@ -137,7 +148,11 @@ class TextArea extends Element {
       "font-size": "20px",
       "line-height": this.height + "px"
     });
-    jquery.text("TextArea");
+    jquery.addClass('component-text');
+    if(!this.text){
+      this.text = "TextArea";
+    }
+    jquery.html('<label style="display: inline-block; text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
   }
 
 }
