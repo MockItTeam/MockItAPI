@@ -147,6 +147,10 @@ export default Ember.Component.extend({
         }
       });
 
+    Ember.$('ui-droppable').click( function () {
+      $('.ui-selected').removeClass('ui-selected');
+    });
+
     Ember.$('.droppable-el').selectable({
       distance: 1,
       filter: "div"
