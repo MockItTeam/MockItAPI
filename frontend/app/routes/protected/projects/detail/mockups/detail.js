@@ -7,6 +7,9 @@ export default Ember.Route.extend({
   },
 
   deactivate() {
+    $('body').removeClass('is-editor');
+    $('body').off('click');
+    $('body').off('keydown');
     let mockup = this.modelFor('protected.projects.detail.mockups.detail');
     mockup.set('json_elements', JSON.stringify(mockup.get('json_elements')));
   },

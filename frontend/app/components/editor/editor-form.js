@@ -84,8 +84,7 @@ export default Ember.Component.extend({
     history.initialize(JSON.stringify(json_elements));
     this.set('history', history);
 
-
-    $('.is-editor').on('click', function (e) {
+    $('.is-editor').on( 'click', function (e) {
       let id = $('.text-editable').attr('component_id');
       let text = $('.text-editable textarea').val();
       self._saveTextChange(id,text);
@@ -147,6 +146,10 @@ export default Ember.Component.extend({
           self._saveChangeMockup(json_elements);
         }
       });
+
+    Ember.$('ui-droppable').click( function () {
+      $('.ui-selected').removeClass('ui-selected');
+    });
 
     Ember.$('.droppable-el').selectable({
       distance: 1,
