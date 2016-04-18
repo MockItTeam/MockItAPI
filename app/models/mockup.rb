@@ -55,7 +55,12 @@ class Mockup < ActiveRecord::Base
       process_image
     else
       update_columns(status: Mockup.statuses[:created])
+      default_border_mockup
     end
+  end
+
+  def default_border_mockup
+    update_columns(json_elements: %q({"width": 800, "height": 600}))
   end
 
   def process_image

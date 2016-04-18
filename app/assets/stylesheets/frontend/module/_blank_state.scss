@@ -25,3 +25,9 @@
     }
   }
 }
+
+.blank-state.image-cover {
+  background-image: asset_url('mockit-cover-dark.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
