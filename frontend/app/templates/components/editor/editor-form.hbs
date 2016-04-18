@@ -5,6 +5,9 @@
     {{/ui-draggable}}
   </div>
 
+  <button {{action 'bringToFront'}}>Bring to front</button>
+  <button {{action 'sendToBack'}}>Send to back</button>
+
   <div class='droppable-el-container'>
     {{#ui-droppable onDrop='dropped' class='droppable-el'}}
       {{#each mockup.json_elements.elements as |e|}}
