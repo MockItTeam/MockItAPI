@@ -56,6 +56,13 @@ export default Draggable.extend({
         }
       });
 
+      this.$().resizable({
+        autoHide: true,
+        stop(event, ui) {
+          _self.sendAction('notifyResize');
+        }
+      });
+
       this.$().draggable({
 
         stop(event, ui) {

@@ -176,6 +176,7 @@ export default Ember.Component.extend({
   },
 
   _historyManage(json_elements){
+    this.get('socketIORef').emit('message', json_elements);
     this.set('json_elements', JSON.stringify(json_elements));
   },
 
@@ -285,6 +286,20 @@ export default Ember.Component.extend({
         let y = parseInt(element.css('top'));
         json_elements.elements[i].x = x;
         json_elements.elements[i].y = y;
+      }
+      let history = this.get('history');
+      history.save();
+      this.get('socketIORef').emit('message', json_elements);
+    },
+
+    notifyResize() {
+      let json_elements = this.get('mockup.json_elements');
+      for (var i = 0; i < json_elements.elements.length; i++) {
+        let element = $("[component_id="+json_elements.elements[i].id+"]");
+        let width = parseInt(element.css('width'));
+        let height = parseInt(element.css('height'));
+        json_elements.elements[i].width = width;
+        json_elements.elements[i].height = height;
       }
       let history = this.get('history');
       history.save();
