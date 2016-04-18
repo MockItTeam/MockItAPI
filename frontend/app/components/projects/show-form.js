@@ -15,6 +15,11 @@ export default Ember.Component.extend({
       })
   ),
 
+  _resetAlert() {
+    this.set('success', undefined);
+    this.set('errorMessage', undefined);
+  },
+
   actions: {
     searchMockup(data, event) {
       this.sendAction('searchMockup', data);
@@ -62,11 +67,6 @@ export default Ember.Component.extend({
       this._resetAlert();
       this.set('oldProjectName', this.get('project.name'));
       this.toggleProperty('isShowingProjectName');
-    },
-
-    _resetAlert() {
-      this.set('success', undefined);
-      this.set('errorMessage', undefined);
     },
 
     changeProjectName(data, event) {
