@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318170453) do
+ActiveRecord::Schema.define(version: 20160415064158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160318170453) do
   add_index "invitations", ["status"], name: "index_invitations_on_status", using: :btree
 
   create_table "mockups", force: :cascade do |t|
-    t.string   "description"
+    t.string   "name"
     t.text     "json_elements"
     t.integer  "status",        default: 0
     t.integer  "raw_image_id"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160318170453) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.datetime "deleted_at"
+    t.text     "error_message"
   end
 
   add_index "mockups", ["project_id"], name: "index_mockups_on_project_id", using: :btree

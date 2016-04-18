@@ -5,7 +5,15 @@ export default DS.Model.extend({
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
 
-  ownerTo: DS.belongsTo('project', {
+  project: DS.hasMany('project', {
+    inverse: 'owner'
+  }),
+
+  ownerMockups: DS.hasMany('mockup', {
+    inverse: 'owner'
+  }),
+
+  ownerRawImage: DS.hasMany('rawImage', {
     inverse: 'owner'
   }),
 
@@ -27,5 +35,9 @@ export default DS.Model.extend({
 
   projects: DS.hasMany('project', {
     inverse: 'members'
+  }),
+
+  firstLetter: Ember.computed('username', function() {
+    return this.get('username')[0];
   })
 });

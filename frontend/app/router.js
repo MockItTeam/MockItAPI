@@ -7,6 +7,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('sessions.new', {path: '/signin'});
+  this.route('registrations.new', {path: '/signup'});
 
   this.route('protected', {path: '/app'}, function() {
     // Project route
@@ -17,9 +18,11 @@ Router.map(function() {
         this.route('mockups', function() {
           this.route('detail', {path: '/:mockup_id'});
         });
+        this.route('members');
       });
 
-      this.route('new');
+      this.route('new', {path: '/create'});
+      this.route('edit', {path: '/edit/:project_id'});
     });
   });
 });

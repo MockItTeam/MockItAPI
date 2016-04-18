@@ -1,0 +1,25 @@
+<div class='app-card-image-container'>
+  <div class='user-image'>{{member.firstLetter}}</div>
+</div>
+
+<div class='app-card-name'>{{member.username}}</div>
+
+{{#if isOwner}}
+  {{#if canManage}}
+    <div class='app-card-menu dropdown'>
+      <button class='btn btn-icon' data-toggle="dropdown">
+        <i class='fa fa-bars'></i>
+      </button>
+
+      <div class='dropdown-menu manage-user'>
+        <a {{action 'transferOwner' member}} class='btn btn-icon btn-transfer' href="#">
+          <i class='fa fa-plus'></i><span>Transfer Owner</span>
+        </a>
+        <div class='dropdown-divider'></div>
+        <a {{action 'kickMember' member}} class='btn btn-icon btn-kick' href="#">
+          <i class='fa fa-minus'></i><span>Kick</span>
+        </a>
+      </div>
+    </div>
+  {{/if}}
+{{/if}}

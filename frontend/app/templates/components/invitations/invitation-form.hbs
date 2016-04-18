@@ -1,0 +1,50 @@
+{{#if success}}
+  <div class='form-group'>
+    {{shared.alert-message type='success' message=success}}
+  </div>
+{{/if}}
+
+{{#if errorMessage }}
+  <div class='form-group'>
+    {{shared.alert-message type='danger' message=errorMessage}}
+  </div>
+{{/if}}
+
+<form class='form-body'>
+  <fieldset class='invitation-list'>
+    <legend>
+      <div class='legend-header'>
+        Project {{project.name}}'s invited member
+      </div>
+
+      <div class='filter-group'>
+        <div class='form-group filter-header col-xs-12 col-sm-12 col-md-5'>
+          Invite member
+        </div>
+        <div class='form-group form-search col-xs-9 col-sm-9 col-md-6'>
+          {{input class='form-control' name='search-user' value=memberUsername placeholder='username'}}
+        </div>
+
+        <div class='form-group col-xs-3 col-sm-3 col-md-1'>
+          <button class='btn btn-icon' {{action 'createInvitation'}}>
+            <i class='fa fa-plus'></i>
+          </button>
+        </div>
+      </div>
+    </legend>
+
+    <div class='app-card-container'>
+      {{#if invitations}}
+        {{#each invitations as |invitation|}}
+          {{invitations.invitation-card invitation=invitation owner=project.owner cancelInvitation='applyCancelInvitation'}}
+        {{/each}}
+      {{else}}
+        <div class='blank-state'>
+          <div class='content-container'>
+            <p>Don't have any invitations</p>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </fieldset>
+</form>

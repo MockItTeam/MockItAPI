@@ -1,16 +1,70 @@
 .app-navbar {
-  display: table;
   position: fixed;
   width: 100%;
   padding: 0.625rem 1rem;
-  background: map-get($brand-purple, 'dark');
+  background: $color-bravo;
+
+  .app-name {
+    @include make-col();
+    width: auto;
+    padding: 0 .5rem;
+
+    .navbar-brand {
+      font-family: $font-family-navbar-brand;
+      font-size: $font-size-navbar-brand;
+      float: none;
+      padding: 0;
+    }
+  }
+
+  .user-navigation {
+    @include make-col();
+    @include pull-right();
+    height: 2.5rem;
+
+    .user-card-container {
+      color: $white;
+      width: auto;
+      cursor: pointer;
+
+      .user-info {
+        max-width: 6.25rem;
+        font-size: .75em;
+        text-transform: uppercase;
+        @include text-truncate();
+
+        @include media-breakpoint-up(sm) {
+          max-width: 4.3rem;
+        }
+
+        @include media-breakpoint-up(md) {
+          max-width: 9.25rem;
+        }
+      }
+
+      .menu-caret {
+        padding-left: .3rem;
+      }
+    }
+
+    .mobile-menu-container {
+      line-height: 2.5em;
+
+      .hamburger-menu {
+        color: $white;
+      }
+    }
+
+    .dropdown-menu {
+
+      i {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
 
   @include media-breakpoint-up(md) {
     position: static;
-  }
-
-  .sign-out-container {
-    @include pull-right();
-    height: 2.5rem;
   }
 }

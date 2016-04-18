@@ -11,9 +11,12 @@ class Ability
     can [:read, :update, :destroy], User, id: user.id
 
     can :manage, Invitation, project: {user_id: user.id}
-    can [:read, :create, :update], Invitation
+    can [:read, :create], Invitation
+    can [:update, :destroy], Invitation, sender_id: user.id
+    can [:update], Invitation, recipient_id: user.id
 
     can :manage, Mockup, user_id: user.id
+    can :manage, Mockup, project: {user_id: user.id}
     can [:read, :update], Mockup, project: {id: user.project_ids}
 
     can :manage, RawImage, user_id: user.id

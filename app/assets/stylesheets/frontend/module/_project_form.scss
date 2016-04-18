@@ -1,0 +1,11 @@
+.project-form-container {
+  padding: $grid-gutter-width/3;
+
+  .project-form {
+
+    .btn-submit {
+      padding: .375rem 1rem;
+      @include pull-right();
+    }
+  }
+}

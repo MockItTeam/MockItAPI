@@ -1,6 +1,5 @@
 class Api::V1::MockupsController < Api::V1::ApiController
   before_action :authenticate_user!
-  before_action :page_params
 
   load_resource except: [:index, :create]
   authorize_resource
@@ -8,22 +7,19 @@ class Api::V1::MockupsController < Api::V1::ApiController
   def index
     @mockups = Mockup
                  .accessible_by(current_ability)
-                 .page(@page)
-                 .per(@per_page)
+                 .recently
 
-    render json: @mockups,
-           meta: pagination_dict(@mockups),
-           status: :ok
+    render json: @mockups, include: %w(raw_image), status: :ok
   end
 
   def show
-    render json: @mockup, status: :ok
+    render json: @mockup, include: %w(raw_image), status: :ok
   end
 
   def create
     @mockup = Mockup.new(create_mockup_params)
     # case create mockup by image
-    @mockup.attach_raw_image(jsonapi_params[:mockup][:raw_image], current_user) if jsonapi_params[:mockup][:raw_image]
+    @mockup.attach_raw_image(jsonapi_params[:mockup][:image], current_user) if jsonapi_params[:mockup][:image]
 
     if @mockup.save
       render json: @mockup, status: :created
@@ -51,10 +47,10 @@ class Api::V1::MockupsController < Api::V1::ApiController
   private
 
   def create_mockup_params
-    jsonapi_params.require(:mockup).permit(:project_id, :description, :json_elements).merge(owner: current_user)
+    jsonapi_params.require(:mockup).permit(:project_id).merge(owner: current_user)
   end
 
   def update_mockup_params
-    jsonapi_params.require(:mockup).permit(:description, :json_elements)
+    jsonapi_params.require(:mockup).permit(:name, :json_elements)
   end
 end

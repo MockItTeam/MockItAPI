@@ -1,0 +1,35 @@
+.user-card-container {
+  display: table;
+  table-layout: fixed;
+  padding: 0.25rem 0;
+
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.user-card-container .user-avatar {
+  width: $user-card-avatar-width;
+  height: $user-card-avatar-height;
+  padding-right: $user-card-avatar-width - $user-card-avatar-height;
+  position: relative;
+
+  .user-initial {
+    text-transform: uppercase;
+    width: 2rem;
+    height: 2rem;
+    display: block;
+    line-height: 2em;
+    text-align: center;
+    font-size: 1em;
+    color: #fff;
+    overflow: hidden;
+    @include border-radius(50%);
+    background: $color-charlie;
+  }
+}
+
+.user-card-container .user-info {
+  @include text-truncate();
+}

@@ -7,15 +7,15 @@ RSpec.describe Mockup, type: :model do
 
   context 'db' do
     context 'columns' do
-      it { should have_db_column(:description).of_type(:string) }
+      it { should have_db_column(:name).of_type(:string) }
       it { should have_db_column(:json_elements).of_type(:text) }
     end
   end
 
   context 'Attributes' do
-    it 'has description' do
-      expect(FactoryGirl.build(:mockup, description: 'blah blah', owner: owner, raw_image: raw_image, project: project))
-        .to have_attributes(description: 'blah blah')
+    it 'has name' do
+      expect(FactoryGirl.build(:mockup, name: 'blah blah', owner: owner, raw_image: raw_image, project: project))
+        .to have_attributes(name: 'blah blah')
     end
   end
 
@@ -25,8 +25,8 @@ RSpec.describe Mockup, type: :model do
 
       before { mockup.save }
 
-      it 'check description length' do
-        expect(mockup).to validate_length_of(:description)
+      it 'check name length' do
+        expect(mockup).to validate_length_of(:name)
       end
 
       it 'check validity of description' do
@@ -48,10 +48,10 @@ RSpec.describe Mockup, type: :model do
       before { invalid_mockup.save }
 
       subject { invalid_mockup.errors }
-      it { is_expected.to include :description }
+      it { is_expected.to include :name }
 
       context 'with format error message' do
-        subject { invalid_mockup.errors.messages[:description][0] }
+        subject { invalid_mockup.errors.messages[:name][0] }
         # look like not allowed
         it { is_expected.to match(/only.*allowed/i) }
       end

@@ -1,0 +1,12 @@
+<div class='incoming-invitation-content'>
+  <div class='incoming-invitation-information'>
+    {{invitation.sender_name}} want you to
+    <p>Project {{invitation.project_name}}</p>
+    <button {{action 'acceptInvite' invitation}} class='btn btn-info accept-button'>Accept</button>
+    <button {{action 'refuseInvite' invitation}} class='btn btn-danger refuse-button'>Refuse</button>
+  </div>
+</div>
+
+<button class='incoming-invitation-notification' {{action 'fade'}}>
+  <span><i class='fa fa-exclamation'></i></span>
+</button>

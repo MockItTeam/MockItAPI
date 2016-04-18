@@ -1,0 +1,84 @@
+form {
+  font-size: $font-form-size-base;
+  color: $white;
+
+  input {
+    font-size: $font-form-size-md;
+  }
+
+  label {
+
+    @include media-breakpoint-up(md) {
+      text-align: right;
+    }
+  }
+
+  span {
+    color: $color-bravo;
+    font-family: $font-family-additional-label;
+    font-size: $font-form-size-sm;
+  }
+
+  input[type='password'] {
+    display: inline-block;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+  }
+}
+
+form fieldset {
+  padding: $grid-gutter-width/3 0;
+
+  legend {
+    border-bottom: 2px solid $white;
+
+    @include media-breakpoint-up(md) {
+      @include clearfix();
+
+      > div {
+        @include make-col();
+        padding: 0;
+      }
+    }
+  }
+
+  .legend-header {
+    padding-bottom: $grid-gutter-width/3;
+
+    @include media-breakpoint-up(md) {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.filter-group {
+  @include make-row();
+
+  > div {
+    @include make-col();
+  }
+
+  @include media-breakpoint-up(md) {
+    @include pull-right();
+  }
+}
+
+.form-search {
+  position: relative;
+
+  &::before {
+    font-family: FontAwesome;
+    font-size: 1em;
+    color: $color-alpha;
+    content: '\f002';
+    position: absolute;
+    padding-left: $grid-gutter-width/2;
+    z-index: 100;
+  }
+
+  input {
+    padding-left: 3rem;
+  }
+}

@@ -8,13 +8,13 @@ export default DS.Model.extend({
   updated_at: DS.attr('date'),
 
   owner: DS.belongsTo('user', {
-    inverse: 'ownerTo'
+    inverse: 'project'
   }),
 
   members: DS.hasMany('user', {
     inverse: 'projects'
   }),
 
-  invitations: DS.hasMany('invitation'),
-  mockups: DS.hasMany('mockup')
+  invitations: DS.hasMany('invitation', {async: true}),
+  mockups: DS.hasMany('mockup', {async: true})
 });

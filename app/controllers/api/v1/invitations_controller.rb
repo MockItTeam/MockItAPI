@@ -1,29 +1,28 @@
 class Api::V1::InvitationsController < Api::V1::ApiController
   before_action :authenticate_user!
-  before_action :page_params
 
   load_resource expect: [:index, :create]
   authorize_resource
 
   def index
     filters = {}
-    filters[:user_id] = params[:user_id] unless params[:user_id].blank?
+
+    unless params[:condition].blank?
+      filters[:user_id] = current_user.id if params[:condition] == 'recipient'
+    end
+
+    filters[:status] = params[:status] unless params[:status].blank?
 
     @invitations = Invitation
                      .accessible_by(current_ability)
                      .search(filters)
-                     .pending
-                     .page(@page)
-                     .per(@per_page)
 
 
-    render json: @invitations,
-           meta: pagination_dict(@invitations),
-           status: :ok
+    render json: @invitations, status: :ok
   end
 
   def show
-    render json: @invitation, status: :ok
+    render json: @invitation, include: %w(sender recipient), status: :ok
   end
 
   def create

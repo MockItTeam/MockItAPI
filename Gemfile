@@ -9,7 +9,6 @@ gem 'active_model_serializers', '~> 0.10.0.rc4' # ActiveModel::Serializer implem
 gem 'carrierwave' # Classier solution for file uploads for Rails
 gem 'carrierwave-aws'
 gem 'mini_magick' # A ruby wrapper for ImageMagick or GraphicsMagick command line
-gem 'kaminari' # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Rails 3 and 4
 gem 'chronic' # Chronic is a pure Ruby natural language date parser.
 gem 'paranoia', '~> 2.1.3' # Paranoia is a re-implementation of acts_as_paranoid for Rails 3 and Rails 4. Soft-deletion of records
 gem 'ffaker' # A library for generating fake data such as names, addresses, and phone numbers.
@@ -47,9 +46,7 @@ group :development do
   gem 'better_errors' # Better error page for Rails and other Rack apps
   gem 'binding_of_caller' # Retrieve the binding of a method's caller in MRI 1.9.2+
   gem 'quiet_assets' # For cleaner logs
-  gem 'bullet' # help to kill N+1 queries and unused eager loading
   gem 'awesome_print' # Pretty print your Ruby objects with style -- in full color and with proper indentation
-  gem 'roadie-rails' # Mailers
 end
 
 group :development, :test do
@@ -70,6 +67,4 @@ end
 group :production do
   gem 'rails_12factor' # Makes running your Rails app easier. Based on the ideas behind 12factor.net (Heroku)
   gem 'rack-timeout' # Rack middleware which aborts requests that have been running for longer than a specified timeout.
-  gem 'mandrill-api' # A Ruby API library for the Mandrill email as a service platform.
-  gem 'intercom-rails' # The easiest way to install Intercom in a Rails app
 end

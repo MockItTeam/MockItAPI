@@ -1,0 +1,182 @@
+.app-card-container {
+
+  @include media-breakpoint-up(md) {
+    @include make-container();
+  }
+}
+
+.app-card {
+  position: relative;
+  background: $white;
+  padding: .5rem $grid-gutter-width;
+  margin-bottom: $grid-gutter-width/2;
+  border: 0;
+  width: 100%;
+  @include border-radius(.75rem);
+
+  .app-card-name {
+    color: $color-alpha;
+    @include text-truncate();
+
+    @include media-breakpoint-down(sm) {
+      max-width: 13.75rem;
+    }
+  }
+
+  .app-card-image-container {
+    position: relative;
+    padding: $grid-gutter-width/3;
+
+    .image {
+      border: 1px solid $color-dark-gray;
+      width: 150px;
+      height: 150px;
+    }
+
+    .plaster {
+      position: absolute;
+      width: 40px;
+      height: 10px;
+      background: $color-bravo;
+      opacity: 0.3;
+    }
+
+    .plaster-top-right {
+      top: 5%;
+      right: 5%;
+      -ms-transform: rotate(-140deg);
+      -webkit-transform: rotate(-140deg);
+      transform: rotate(-140deg);
+    }
+
+    .plaster-top-left {
+      top: 5%;
+      left: 5%;
+      -ms-transform: rotate(140deg);
+      -webkit-transform: rotate(140deg);
+      transform: rotate(140deg);
+    }
+
+    .plaster-bottom-right {
+      bottom: 5%;
+      right: 5%;
+      -ms-transform: rotate(-40deg);
+      -webkit-transform: rotate(-40deg);
+      transform: rotate(-40deg);
+    }
+
+    .plaster-bottom-left {
+      bottom: 5%;
+      left: 5%;
+      -ms-transform: rotate(40deg);
+      -webkit-transform: rotate(40deg);
+      transform: rotate(40deg);
+    }
+
+    .user-image {
+      text-transform: uppercase;
+      width: 2rem;
+      height: 2rem;
+      display: block;
+      line-height: 2em;
+      text-align: center;
+      font-size: .85em;
+      color: $white;
+      overflow: hidden;
+      @include border-radius(50%);
+      background: $color-bravo;
+
+      @include media-breakpoint-up(md) {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        font-size: 5em;
+        line-height: 1.5;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding: 0;
+      width: 20%;
+      text-align: left;
+    }
+  }
+
+  .app-card-menu {
+    width: 20%;
+    text-align: right;
+
+    @include media-breakpoint-up(md) {
+      position: absolute;
+      top: -8%;
+      right: -5%;
+    }
+  }
+
+  .tab {
+    position: absolute;
+    display: table;
+    width: 120%;
+    height: 100%;
+    top: 0;
+    left: -10%;
+    background: transparent;
+    opacity: 0.8;
+
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    @include media-breakpoint-up(md) {
+      opacity: 1;
+    }
+  }
+
+  .tab-menu {
+
+    .btn-icon i {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .btn-tab {
+    background: $color-dark-gray;
+    color: $white;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    width: 100%;
+  }
+
+  .btn-tab.retry {
+    background: $red;
+  }
+
+  .app-card-name {
+
+    @include media-breakpoint-down(sm) {
+      width: 60%;
+      text-align: left;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    @include make-col();
+    margin: $grid-gutter-width/3 2rem;
+    max-width: 15rem;
+    height: 14rem;
+    text-align: center;
+  }
+
+
+  @include media-breakpoint-down(sm) {
+    display: table;
+    table-layout: fixed;
+
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}

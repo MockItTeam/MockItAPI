@@ -37,6 +37,7 @@ export default Ember.Component.extend({
     socket.off('connect', this.onConnect);
     socket.off('message', this.onMessage);
     socket.emit('leave room');
+    this.get('socketIOService').closeSocketFor('http://localhost:7000');
   },
 
   onConnect() {

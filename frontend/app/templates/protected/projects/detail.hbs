@@ -1,5 +1,3 @@
-{{projects.edit-form project=model.project}}
+{{!projects.edit-form project=model.project}}
 
-{{projects.show-form project=model.project afterDeleted='afterDeleted'}}
-
-{{invitations.invite-form invitations=model.project.invitations project=model.project}}
+{{projects.show-form project=model mockups=model.mockups searchMockup='applySearchMockup' createMockup='applyCreateMockup'}}

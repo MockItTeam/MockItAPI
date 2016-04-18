@@ -1,0 +1,54 @@
+{{#if success}}
+  <div class='form-group'>
+    {{shared.alert-message type='success' message=success}}
+  </div>
+{{/if}}
+
+{{#if project.errors }}
+  <div class='form-group'>
+    {{#each project.errors as |error|}}
+      {{shared.alert-message type='danger' message=error.message}}
+    {{/each}}
+  </div>
+{{/if}}
+
+<form {{action 'save' project on='submit'}} class='form-body'>
+
+  <fieldset class='project-form'>
+    <legend>
+      <div class='legend-header'>
+        {{title}} Project
+      </div>
+    </legend>
+
+    <div class='form-group row'>
+      <label class='form-control-label col-xs-12 col-sm-12 col-md-5'>Name</label>
+
+      <div class='col-xs-12 col-sm-12 col-md-5'>
+        {{input class="form-control" autofocus=true placeholder="Project name" value=project.name}}
+      </div>
+    </div>
+
+    <div class='form-group row'>
+      <label class='form-control-label col-xs-12 col-sm-12 col-md-5'>Project Cover Photo</label>
+
+      <div class='col-xs-12 col-sm-12 col-md-5'>
+        <div class='image-upload-container'>
+          <div class='image-preview'>
+            <img src='{{project.image_url}}'>
+          </div>
+          {{#x-file-input value=project.image name='image' action='preview' on='change'}}
+            <div class="file-input-box">Upload Cover Photo</div>
+          {{/x-file-input}}
+        </div>
+      </div>
+    </div>
+
+    <div class='form-group row'>
+      <div class='col-xs-12 col-sm-12 col-md-10'>
+        <button type='submit' class='btn btn-primary btn-submit' {{action 'save' project}} disabled={{if canSave null 'disabled'}}>Submit</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>

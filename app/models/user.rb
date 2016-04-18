@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   validates :password,
             presence: {if: :password_required?},
+            confirmation: {if: :password_required?},
             numericality: true,
             length: {is: 4}
 
@@ -16,6 +17,12 @@ class User < ActiveRecord::Base
             length: {in: 3..50},
             uniqueness: {case_sensitive: false},
             format: {with: /\A[a-z]+\z/}
+
+  def self.search(options)
+    query = where(nil)
+    query = where(username: options[:username]).first! if options[:username].present?
+    query
+  end
 
   private
 
