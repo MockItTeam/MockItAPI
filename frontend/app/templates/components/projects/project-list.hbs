@@ -10,7 +10,7 @@
   </div>
 {{/if}}
 
-<form class='form-body'>
+<form class='form-body' onkeypress='return event.keyCode != 13;'>
   <fieldset class='project-list'>
     <legend>
       <div class='legend-header'>
@@ -19,7 +19,7 @@
 
       <div class='filter-group'>
         <div class='form-group form-search col-xs-8 col-sm-8'>
-          {{input class='form-control' name='search-project' value=projectSearch placeholder='name' key-up='searchProject'}}
+          {{input class='form-control' value=projectSearch placeholder='name' key-up='searchProject'}}
         </div>
 
         <div class='form-group col-xs-4 col-sm-4'>

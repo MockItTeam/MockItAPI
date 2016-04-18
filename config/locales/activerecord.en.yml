@@ -4,6 +4,9 @@ en:
       invitation:
         recipient: Invitee
         sender: Inviter
+      user:
+        password: Pin Code
+        password_confirmation: Pin Code Confirmation
     exception:
       not_found: Not Found
     errors:
@@ -13,6 +16,8 @@ en:
             name:
               invalid: only a-z, A-Z, 0-9 allowed
               taken: must be unique per user
+            password:
+              confirmation: Please check pin code confirmation
         user:
           attributes:
             username:

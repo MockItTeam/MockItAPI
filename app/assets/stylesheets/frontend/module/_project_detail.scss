@@ -3,6 +3,13 @@
 
   .create-mockup-container {
     max-width: 17.5rem;
+
+    &:hover {
+
+      .create-mockup-menu {
+        display: block;
+      }
+    }
   }
 
   .create-mockup-container .create-mockup-menu {
@@ -38,6 +45,10 @@
     outline: none;
     font-size: 1em;
     color: $white;
+  }
+
+  .change-project-name {
+    cursor: pointer;
   }
 
   .mockup-list {

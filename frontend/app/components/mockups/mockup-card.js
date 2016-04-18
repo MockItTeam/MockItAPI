@@ -59,6 +59,7 @@ export default Ember.Component.extend({
 
         if (mockupStatus == 'in_progress') {
           this.$('.tab').removeAttr('hidden');
+          this.$('.btn-tab').attr('disabled', 'disabled');
           console.log('in progress');
           spanText = 'In Progress...';
         }
@@ -67,7 +68,6 @@ export default Ember.Component.extend({
           this._stopPollster();
           this.$('.tab').removeAttr('hidden');
           this.$('.btn-tab').addClass('retry');
-          this.$('.tab-menu').addClass('dropdown');
           this._filterErrorMessage(this.get('mockup'));
           spanText = 'Retry...';
         }
@@ -83,7 +83,7 @@ export default Ember.Component.extend({
   _resetTab() {
     this.$('.tab').attr('hidden', 'hidden');
     this.$('.btn-tab').removeClass('retry');
-    this.$('.tab-menu').removeClass('dropdown');
+    this.$('.btn-tab').removeAttr('disabled');
   },
 
   _stopPollster() {
@@ -93,13 +93,7 @@ export default Ember.Component.extend({
   },
 
   _filterErrorMessage(mockup) {
-    let errorMessage = JSON.parse(mockup.get('error_message'));
-
-    if (errorMessage && errorMessage.indexOf('Traceback') > -1) {
-      errorMessage = `Image process of ${mockup.get('name')} is error or has something wrong on server side.`;
-    }
-
-    this.sendAction('errorImageProcess', errorMessage);
+    this.sendAction('errorImageProcess', `Mockup is unable to process, please retry or contact system administrator (0x0${mockup.get('id')})`);
   },
 
   actions: {

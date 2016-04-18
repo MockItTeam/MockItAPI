@@ -1,8 +1,6 @@
 import Ember from 'ember';
-const { service } = Ember.inject;
 
 export default Ember.Route.extend({
-  sessionUser: service('session'),
 
   model(params, transition) {
     let _self = this;

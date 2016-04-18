@@ -38,6 +38,10 @@ export default Ember.Route.extend({
 
     applyCreateMockup(mockup) {
       this.transitionTo('protected.projects.detail.mockups.detail', mockup.get('id'));
+    },
+
+    afterSaveProject() {
+      this.transitionTo('protected.projects.index');
     }
   }
 });

@@ -15,6 +15,11 @@ export default Ember.Component.extend({
       })
   ),
 
+  _resetAlert() {
+    this.set('success', undefined);
+    this.set('errorMessage', undefined);
+  },
+
   actions: {
     searchMockup(data, event) {
       this.sendAction('searchMockup', data);
@@ -49,17 +54,18 @@ export default Ember.Component.extend({
     },
 
     afterDeleteMockup(message) {
+      this._resetAlert();
       this.set('success', message);
     },
 
     applyErrorImageProcess(errorMessage) {
+      this._resetAlert();
       this.set('errorMessage', errorMessage);
     },
 
     toggleEdit(){
+      this._resetAlert();
       this.set('oldProjectName', this.get('project.name'));
-      this.set('success', undefined);
-      this.set('errorMessage', undefined);
       this.toggleProperty('isShowingProjectName');
     },
 

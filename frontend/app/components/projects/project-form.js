@@ -12,6 +12,7 @@ export default Ember.Component.extend({
       project.save()
         .then(() => {
           this.set('success', `Project ${project.get('name')} ${this.get('title')}`);
+          this.sendAction('afterSaveProject');
         }, () => {
           this.set('success', undefined)
         })

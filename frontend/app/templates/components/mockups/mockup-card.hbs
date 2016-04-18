@@ -1,10 +1,7 @@
 {{#link-to 'protected.projects.detail.mockups.detail' mockup.id}}
   <div class='app-card-image-container hidden-sm-down'>
     {{#unless mockup.raw_image.image_url}}
-      <div class='blank-state image'>
-        <div class='content-container'>
-          <p>Insert cover photo</p>
-        </div>
+      <div class='blank-state image image-cover'>
       </div>
     {{else}}
       <img class='image' src='{{mockup.raw_image.image_url}}'/>
