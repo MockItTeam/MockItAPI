@@ -58,5 +58,6 @@ class Invitation < ActiveRecord::Base
 
   def after_status_transition
     self.project.members << self.recipient if self.status == 'accepted'
+    destroy
   end
 end
