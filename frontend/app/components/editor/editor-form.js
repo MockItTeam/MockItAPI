@@ -127,7 +127,7 @@ export default Ember.Component.extend({
       }
     });
 
-    this.$('.droppable-el').droppable({
+    Ember.$('.droppable-el').droppable({
         accept: '.draggable-el',
         drop(event, ui) {
           let json = {
@@ -148,10 +148,11 @@ export default Ember.Component.extend({
         }
       });
 
-    this.$('.droppable-el').selectable({
+    Ember.$('.droppable-el').selectable({
       distance: 1,
       filter: "div"
     });
+
   },
 
   mockupObserver: Ember.observer(
