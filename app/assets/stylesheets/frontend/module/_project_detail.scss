@@ -3,6 +3,13 @@
 
   .create-mockup-container {
     max-width: 17.5rem;
+
+    &:hover {
+
+      .create-mockup-menu {
+        display: block;
+      }
+    }
   }
 
   .create-mockup-container .create-mockup-menu {
