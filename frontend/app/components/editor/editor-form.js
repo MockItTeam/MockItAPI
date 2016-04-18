@@ -237,14 +237,16 @@ export default Ember.Component.extend({
 
   _saveTextChange(id,text){
     let json_elements = this.get('mockup.json_elements');
-    for(var i = 0; i< json_elements.elements.length; i++){
-      if(json_elements.elements[i].id == id){
-        json_elements.elements[i].text = text;
-        break;
+    if (json_elements !== null && json_elements !== undefined ) {
+      for (var i = 0; i < json_elements.elements.length; i++) {
+        if (json_elements.elements[i].id == id) {
+          json_elements.elements[i].text = text;
+          break;
+        }
       }
+      this.get('socketIORef').emit('message', json_elements);
+      this._saveChangeMockup(json_elements);
     }
-    this.get('socketIORef').emit('message', json_elements);
-    this._saveChangeMockup(json_elements);
   },
 
   _undo(){
