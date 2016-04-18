@@ -12,6 +12,7 @@ module.exports = function(defaults) {
   //
   app.import('vendor/js/common.js');
   app.import('vendor/js/undomanager.js');
+  app.import('vendor/js/html2canvas.js');
   app.import('bower_components/jquery-ui/jquery-ui.min.js');
   app.import('bower_components/jquery-ui/themes/base/jquery-ui.min.css');
   // If you need to use different assets in different

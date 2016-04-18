@@ -359,5 +359,18 @@ export default Ember.Component.extend({
       this.get('socketIORef').emit('message', json_elements);
     },
 
+    exportToImage() {
+      html2canvas($('.ui-droppable'), {
+        onrendered: function(canvas) {
+          document.body.appendChild(canvas);
+          var dataString = canvas.toDataURL("image/png");
+          var link = document.createElement("a");
+          link.download = 'image';
+          link.href = dataString;
+          link.click();
+        }
+      });
+    }
+
   }
 });
