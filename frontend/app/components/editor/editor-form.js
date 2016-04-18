@@ -212,11 +212,13 @@ export default Ember.Component.extend({
   _pasteMockupComponent(temp){
     if(temp.length != 0){
       let json_elements = this.get('mockup.json_elements');
+      let temp_id;
       for(var i = 0; i< temp.length; i++){
         temp[i].id = this._findSuitableId(json_elements);
         temp[i].x = temp[i].x + 5;
         temp[i].y = temp[i].y + 5;
         json_elements.elements.push(temp[i]);
+        temp_id = temp[i].id;
       }
       this.get('socketIORef').emit('message', json_elements);
       this._saveChangeMockup(json_elements);
@@ -242,10 +244,8 @@ export default Ember.Component.extend({
 
   _undo(){
     let history = this.get('history');
-    console.log(history);
     if(history.canUndo()) {
       let self = this;
-      console.log('undo');
 
       function setJsonElement(json_elements) {
         self._historyManage(JSON.parse(json_elements));
@@ -258,7 +258,7 @@ export default Ember.Component.extend({
     let history = this.get('history');
     if(history.canRedo()) {
       let self = this;
-      console.log('redo');
+
       function setJsonElement(json_elements) {
         self._historyManage(JSON.parse(json_elements));
       }
@@ -277,6 +277,38 @@ export default Ember.Component.extend({
     dragged: Ember.on('willRender', function (event, ui, _self) {
 
     }),
+
+    bringToFront() {
+      if($(".ui-selected").length > 0) {
+        let json_elements = this.get('mockup.json_elements');
+        $(".ui-selected").each(function () {
+          for (var i = 0; i < json_elements.elements.length; i++) {
+            if (json_elements.elements[i].id == this.getAttribute("component_id")) {
+              json_elements.elements[i].z = 100;
+            }
+          }
+        });
+        let history = this.get('history');
+        history.save();
+        this.get('socketIORef').emit('message', json_elements);
+      }
+    },
+
+    sendToBack() {
+      if($(".ui-selected").length > 0) {
+        let json_elements = this.get('mockup.json_elements');
+        $(".ui-selected").each(function () {
+          for (var i = 0; i < json_elements.elements.length; i++) {
+            if (json_elements.elements[i].id == this.getAttribute("component_id")) {
+              json_elements.elements[i].z = -1;
+            }
+          }
+        });
+        let history = this.get('history');
+        history.save();
+        this.get('socketIORef').emit('message', json_elements);
+      }
+    },
 
     notifyDragged() {
       let json_elements = this.get('mockup.json_elements');

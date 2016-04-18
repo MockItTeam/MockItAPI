@@ -24,7 +24,7 @@ class Element {
     this.id = obj.id;
     this.x = obj.x;
     this.y = obj.y;
-    this.z = obj.z;
+    this.z = obj.z+50;
     this.width = obj.width;
     this.height = obj.height;
     this.renderable = true;
