@@ -8,7 +8,7 @@
   <div class='droppable-el-container'>
     {{#ui-droppable onDrop='dropped' class='droppable-el'}}
       {{#each mockup.json_elements.elements as |e|}}
-        {{#editor.new-element e=e notifyDragged='notifyDragged' click='echo'}}
+        {{#editor.new-element e=e notifyDragged='notifyDragged' notifyResize='notifyResize'  click='echo'}}
 
         {{/editor.new-element}}
       {{/each}}
