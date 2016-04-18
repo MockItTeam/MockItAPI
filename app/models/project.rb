@@ -1,6 +1,9 @@
 class Project < ActiveRecord::Base
   acts_as_paranoid
+  include ::CarrierWave::Backgrounder::Delay unless Rails.env.test?
   mount_uploader :image, ImageUploader
+  process_in_background :image
+  validates_processing_of :image
 
   has_many :invitations, dependent: :destroy
   has_many :mockups, dependent: :destroy

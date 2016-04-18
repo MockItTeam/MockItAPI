@@ -1,5 +1,6 @@
 class RawImage < ActiveRecord::Base
   acts_as_paranoid
+  include ::CarrierWave::Backgrounder::Delay unless Rails.env.test?
   mount_uploader :name, RawImageUploader
   process_in_background :name
   validates_processing_of :name

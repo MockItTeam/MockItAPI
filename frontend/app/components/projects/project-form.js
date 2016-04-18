@@ -11,7 +11,7 @@ export default Ember.Component.extend({
     save(project) {
       project.save()
         .then(() => {
-          this.set('success', `Project ${mockup.get('name')} ${this.get('title')}`);
+          this.set('success', `Project ${project.get('name')} ${this.get('title')}`);
         }, () => {
           this.set('success', undefined)
         })
