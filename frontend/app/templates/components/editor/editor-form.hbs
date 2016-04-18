@@ -7,6 +7,9 @@
 
   <button {{action 'bringToFront'}}>Bring to front</button>
   <button {{action 'sendToBack'}}>Send to back</button>
+  <button {{action 'toggleRawImage'}} type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+     Show raw image
+  </button>
 
   <div class='droppable-el-container'>
     {{#ui-droppable onDrop='dropped' class='droppable-el'}}
