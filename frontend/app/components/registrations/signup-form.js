@@ -2,10 +2,7 @@ import Ember from 'ember';
 import $ from 'jquery';
 import AuthUtil from '../../utils/auth-util';
 
-const { service } = Ember.inject;
-
 export default Ember.Component.extend({
-  session: service('session'),
   password: [-1, -1, -1, -1, -1, -1, -1, -1],
   maxPinDigit: (8 - 1),
   hold: [false],
@@ -40,10 +37,7 @@ export default Ember.Component.extend({
           (response) => {
             this.set('successMessage', response.message);
             this.set('errorMessage', undefined);
-
-            Ember.run.later((() => {
-              this.sendAction('afterSignup');
-            }), 3000);
+            this.sendAction('afterSignup', identification, password);
           },
           (xhr, textStatus) => {
             this.set('successMessage', undefined);
