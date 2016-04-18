@@ -29,7 +29,7 @@ export default Ember.Route.extend({
       let mockup = this.modelFor('protected.projects.detail.mockups.detail');
 
       Ember.run.schedule('afterRender', this, () => {
-        $('.droppable-el').css({
+        $('.droppable-el .html-div').css({
           'width': mockup.get('json_elements').width,
           'height': mockup.get('json_elements').height
         });
