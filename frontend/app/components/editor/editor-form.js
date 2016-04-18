@@ -312,6 +312,22 @@ export default Ember.Component.extend({
       }
     },
 
+    toggleRawImage() {
+      var img_element = $('.ui-droppable img');
+      if(img_element.length == 0) {
+        let raw_image = this.get('mockup.raw_image.image_url');
+        var img = '<img src="' + raw_image + '">'
+        $('.ui-droppable').append(img);
+      }
+      else{
+        if(img_element.is(":visible")) {
+          img_element.hide();
+        }else{
+          img_element.show();
+        }
+      }
+    },
+
     notifyDragged() {
       let json_elements = this.get('mockup.json_elements');
       for (var i = 0; i < json_elements.elements.length; i++) {
