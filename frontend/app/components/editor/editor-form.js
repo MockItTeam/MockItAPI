@@ -70,7 +70,20 @@ export default Ember.Component.extend({
     let self = this;
     var ctrlDown = false;
     var temp;
-    var enterKey = 13, ctrlKey = 17, commandKey = 91, vKey = 86, cKey = 67, dKey = 68, backspaceKey = 8, deleteKey = 46;
+    var enterKey = 13, ctrlKey = 17, commandKey = 91, vKey = 86, cKey = 67, dKey = 68, yKey = 89, zKey = 90, backspaceKey = 8, deleteKey = 46;
+
+    let json_elements = this.get('mockup.json_elements');
+
+    var history = new SimpleUndo({
+      maxLength: 20000,
+      provider: function (done) {
+        let json_elements = self.get('mockup.json_elements');
+        done(JSON.stringify(json_elements));
+      }
+    });
+    history.initialize(JSON.stringify(json_elements));
+    this.set('history', history);
+
 
     Ember.$('body').on('click', function (e) {
       let id = $('.text-editable').attr('component_id');
@@ -97,6 +110,12 @@ export default Ember.Component.extend({
       }
       if (ctrlDown && e.keyCode == dKey) {
         self._duplicateMockupComponent();
+      }
+      if (ctrlDown && e.keyCode == zKey) {
+        self._undo();
+      }
+      if (ctrlDown && e.keyCode == yKey) {
+        self._redo();
       }
 
     });
@@ -133,26 +152,31 @@ export default Ember.Component.extend({
       distance: 1,
       filter: "div"
     });
-
-
   },
 
   mockupObserver: Ember.observer(
     'json_elements',
     function() {
       let mockup = this.get('mockup');
+
       if(mockup.get('hasDirtyAttributes')) {
         //set json_elements for record in database
         mockup.set('json_elements', this.get('json_elements'));
         mockup.save();
         //set json_elements for use in editor
         mockup.set('json_elements', JSON.parse(mockup.get('json_elements')));
+
       }
     }
   ),
 
   _saveChangeMockup(json_elements) {
-    let mockup = this.get('mockup');
+    let history = this.get('history');
+    this.set('json_elements', JSON.stringify(json_elements));
+    history.save();
+  },
+
+  _historyManage(json_elements){
     this.set('json_elements', JSON.stringify(json_elements));
   },
 
@@ -216,6 +240,34 @@ export default Ember.Component.extend({
     this._saveChangeMockup(json_elements);
   },
 
+  _undo(){
+    let history = this.get('history');
+    console.log(history);
+    if(history.canUndo()) {
+      let self = this;
+      console.log('undo');
+
+      function setJsonElement(json_elements) {
+        self._historyManage(JSON.parse(json_elements));
+      }
+      history.undo(setJsonElement);
+    }
+  },
+
+  _redo(){
+    let history = this.get('history');
+    if(history.canRedo()) {
+      let self = this;
+      console.log('redo');
+      function setJsonElement(json_elements) {
+        self._historyManage(JSON.parse(json_elements));
+      }
+
+      let history = this.get('history');
+      history.redo(setJsonElement);
+    }
+  },
+
   actions: {
     dropped: Ember.on('willRender', function (event, ui, _self) {
       let self = this;
@@ -235,6 +287,8 @@ export default Ember.Component.extend({
         json_elements.elements[i].x = x;
         json_elements.elements[i].y = y;
       }
+      let history = this.get('history');
+      history.save();
       this.get('socketIORef').emit('message', json_elements);
     },
 

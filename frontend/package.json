@@ -22,6 +22,7 @@
     "babel-cli": "^6.6.5",
     "broccoli-asset-rev": "^2.2.0",
     "ember-ajax": "0.7.1",
+    "ember-browserify": "^1.1.8",
     "ember-cli": "2.4.2",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-babel": "^5.1.5",
@@ -47,5 +48,6 @@
     "emberx-file-input": "1.0.0",
     "emberx-select": "2.1.1",
     "loader.js": "^4.0.0"
-  }
+  },
+  "dependencies": {}
 }
