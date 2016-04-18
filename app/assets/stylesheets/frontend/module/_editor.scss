@@ -4,10 +4,9 @@
   height: 100%;
 
   .editor-menu-container {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
+    position: fixed;
+    width: 95.5%;
+    top: 5rem;
     height: $navbar-height;
   }
 
@@ -42,31 +41,25 @@
 
   .editor-canvas-container {
     padding-top: $navbar-height + 1.25rem;
-    position: relative;
+    position: fixed;
+    width: 100%;
 
     .editor-sidebar-wrapper {
-      position: absolute;
+      position: fixed;
       width: 12.5rem;
-      left: 0;
       overflow-y: auto;
       overflow-x: hidden;
-
-      .editor-sidebar-pane {
-        position: relative;
-        width: 12.5rem;
-      }
-
-      .containment {
-        position: absolute;
-        width: 100%;
-        left: 0;
-      }
+      height: 75%;
     }
 
     .editor-canvas-wrapper {
-      position: absolute;
-      left: 14rem;
-      right: 0;
+      position: fixed;
+      left: 15rem;
+      overflow: auto;
+      padding: $grid-gutter-width;
+      background-color: $white;
+      width: 80%;
+      height: 75%;
     }
 
     .editor-canvas {

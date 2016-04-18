@@ -128,6 +128,7 @@ export default Ember.Component.extend({
     });
 
     let height = self.get('mockup.json_elements').height;
+    //$('.clear-section').css({'min-height': '600px'});
     $('.clear-section').css({'min-height': `${height}px`});
 
     Ember.$('.droppable-el').droppable({
