@@ -32,7 +32,7 @@ form fieldset {
   padding: $grid-gutter-width/3 0;
 
   legend {
-    border-bottom: 2px solid $white;
+    border-bottom: 1px solid $color-bravo;
 
     @include media-breakpoint-up(md) {
       @include clearfix();

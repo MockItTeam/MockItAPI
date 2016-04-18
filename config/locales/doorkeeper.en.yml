@@ -91,7 +91,7 @@ en:
 
         # Access token errors
         invalid_client: 'Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method.'
-        invalid_grant: 'Oops! That username / password combination is not valid.'
+        invalid_grant: 'Invalid username or pin code'
         unsupported_grant_type: 'The authorization grant type is not supported by the authorization server.'
 
         # Password Access token errors
