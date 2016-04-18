@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import $ from 'jquery';
 import AuthUtil from '../../utils/auth-util';
 
 export default Ember.Component.extend({
@@ -9,6 +8,13 @@ export default Ember.Component.extend({
 
   showGuide(destination) {
     AuthUtil.showGuide(this, destination);
+  },
+
+  didInsertElement(){
+    $('.pin-form-control').tooltip({
+      'trigger':'manual',
+      'title': 'Must be digits only'
+    });
   },
 
   actions: {
