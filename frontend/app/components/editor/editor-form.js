@@ -81,6 +81,7 @@ export default Ember.Component.extend({
         done(JSON.stringify(json_elements));
       }
     });
+
     history.initialize(JSON.stringify(json_elements));
     this.set('history', history);
 
@@ -125,6 +126,9 @@ export default Ember.Component.extend({
         ctrlDown = false;
       }
     });
+
+    let height = self.get('mockup.json_elements').height;
+    $('.clear-section').css({'min-height': `${height}px`});
 
     Ember.$('.droppable-el').droppable({
         accept: '.draggable-el',
