@@ -29,8 +29,6 @@ export default Ember.Component.extend({
               .reload()
               .then(() => {
 
-              }, () => {
-                _self._stopPollster();
               });
           }
         }));
