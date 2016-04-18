@@ -47,6 +47,12 @@ form fieldset {
   .legend-header {
     padding-bottom: $grid-gutter-width/3;
 
+    .project-name {
+      font-family: 'novecentosans_widebold';
+      font-size: 1.25em;
+      color: $color-charlie;
+    }
+
     @include media-breakpoint-up(md) {
       padding-bottom: 0;
     }
