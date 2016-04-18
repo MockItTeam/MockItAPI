@@ -85,7 +85,7 @@ export default Ember.Component.extend({
     this.set('history', history);
 
 
-    Ember.$('body').on('click', function (e) {
+    $('.is-editor').on('click', function (e) {
       let id = $('.text-editable').attr('component_id');
       let text = $('.text-editable textarea').val();
       self._saveTextChange(id,text);
@@ -94,7 +94,7 @@ export default Ember.Component.extend({
       $('.text-editable').removeClass('text-editable');
     });
 
-    Ember.$('body').on('keydown', function (e) {
+    $('.is-editor').on('keydown', function (e) {
       e.preventDefault();
       if (e.which == backspaceKey || e.which == deleteKey) {
         self._removeMockupComponent();
@@ -120,14 +120,14 @@ export default Ember.Component.extend({
 
     });
 
-    Ember.$('body').on('keyup', function (e) {
+    $('.is-editor').on('keyup', function (e) {
       e.preventDefault();
       if(e.keyCode == ctrlKey || e.keyCode == commandKey){
         ctrlDown = false;
       }
     });
 
-    Ember.$('.droppable-el').droppable({
+    this.$('.droppable-el').droppable({
         accept: '.draggable-el',
         drop(event, ui) {
           let json = {
@@ -148,7 +148,7 @@ export default Ember.Component.extend({
         }
       });
 
-    Ember.$('.droppable-el').selectable({
+    this.$('.droppable-el').selectable({
       distance: 1,
       filter: "div"
     });

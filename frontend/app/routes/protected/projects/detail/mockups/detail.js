@@ -2,6 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  activate() {
+    $('body').addClass('is-editor');
+  },
+
   deactivate() {
     let mockup = this.modelFor('protected.projects.detail.mockups.detail');
     mockup.set('json_elements', JSON.stringify(mockup.get('json_elements')));
