@@ -3,6 +3,7 @@
   .ui-draggable {
     cursor: pointer;
   }
+
 }
 
 .new-draggable-el {
@@ -18,7 +19,17 @@
     border: 1px solid black;
     resize: both;
     overflow: auto;
+    z-index: 1;
   }
 }
+
+.ui-selected {
+  background: blue !important;
+}
+
+.selected {
+  background: blue !important;
+}
+
 
 
