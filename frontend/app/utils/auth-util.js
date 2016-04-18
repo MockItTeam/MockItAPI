@@ -2,7 +2,12 @@ class AuthUtil {
 
   static showGuide(that, destination) {
     var div = document.getElementById(destination);
-   
+    $(div).tooltip('show');
+    $(div).on('shown.bs.tooltip', function() {
+      setTimeout(function() {
+        $(div).tooltip('hide');
+      }, 1000);
+    });
     var interval = 30;
     var distance = 3;
     var times = 5;

@@ -14,7 +14,10 @@ export default Ember.Component.extend({
   },
 
   didInsertElement(){
-    $('.pin-form-control').tooltip({'trigger':'focus', 'title': 'Must be digits only'});
+    $('.pin-form-control').tooltip({
+      'trigger':'manual',
+      'title': 'Must be digits only'
+    });
   },
 
   actions: {
