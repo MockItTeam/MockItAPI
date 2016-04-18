@@ -13,6 +13,10 @@ export default Ember.Component.extend({
     AuthUtil.showGuide(this, destination);
   },
 
+  didInsertElement(){
+    $('.pin-form-control').tooltip({'trigger':'focus', 'title': 'Must be digits only'});
+  },
+
   actions: {
     authenticate() {
       this._resetForm();

@@ -1,7 +1,8 @@
 class AuthUtil {
-  
+
   static showGuide(that, destination) {
     var div = document.getElementById(destination);
+   
     var interval = 30;
     var distance = 3;
     var times = 5;
