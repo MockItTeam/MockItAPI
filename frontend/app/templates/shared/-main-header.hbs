@@ -9,7 +9,7 @@
   {{#if session.isAuthenticated }}
     <div class='user-navigation dropdown'>
       <div class='user-card-container hidden-sm-down' data-toggle='dropdown'>
-        {{shared.current-user tagName='' user=session.currentUser}}
+        {{shared.user-card tagName='' user=session.currentUser icon='fa-caret-down'}}
       </div>
 
       <div class="mobile-menu-container hidden-md-up" data-toggle="dropdown">

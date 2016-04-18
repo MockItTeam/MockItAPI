@@ -9,6 +9,22 @@ export default DS.Model.extend({
     inverse: 'owner'
   }),
 
+  ownerMockups: DS.hasMany('mockup', {
+    inverse: 'owner'
+  }),
+
+  ownerRawImage: DS.hasMany('rawImage', {
+    inverse: 'owner'
+  }),
+
+  ownerMockups: DS.hasMany('mockup', {
+    inverse: 'owner'
+  }),
+
+  ownerRawImage: DS.hasMany('rawImage', {
+    inverse: 'owner'
+  }),
+
   senders: DS.hasMany('invitation', {
     inverse: 'sender'
   }),

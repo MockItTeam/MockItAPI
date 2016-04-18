@@ -2,10 +2,11 @@
 
 class RawImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
+  include ::CarrierWave::Backgrounder::Delay unless Rails.env.test?
   storage :file
 
   def store_dir
-    '/var/images/'
+    '/var/images'
   end
 
   # Create different versions of your uploaded files:

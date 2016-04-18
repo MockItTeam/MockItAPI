@@ -1,0 +1,59 @@
+.image-upload-container {
+  @include clearfix();
+  display: table;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .image-preview,
+  .file-input {
+    float: left;
+  }
+
+  .image-preview {
+    display: table-cell;
+    vertical-align: middle;
+    min-width: 5rem;
+    min-height: 5rem;
+    padding: 0.25rem;
+    margin-right: 1.25rem;
+    border: 1px solid;
+    border-radius: 0.25rem;
+
+    .image-container {
+      height: 100%;
+      background: $input-bg;
+    }
+
+    img {
+      max-height: 5.625em;
+    }
+  }
+
+  .x-file-input {
+    line-height: 1em;
+    display: table-cell;
+    vertical-align: middle;
+
+    label {
+      margin: 0;
+      font-weight: normal;
+    }
+
+    .file-input-box {
+      display: inline-block;
+      border-radius: $border-radius;
+      padding: 5px;
+      background: $color-bravo;
+      color: $white;
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.875em;
+    }
+  }
+
+  button {
+    margin-top: 0.125rem;
+  }
+}

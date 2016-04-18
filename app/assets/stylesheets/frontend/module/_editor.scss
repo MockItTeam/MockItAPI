@@ -1,0 +1,35 @@
+.draggable-el-container {
+
+  .ui-draggable {
+    cursor: pointer;
+  }
+
+}
+
+.new-draggable-el {
+  cursor: pointer;
+  position: absolute;
+  border: 1px solid black;
+}
+
+.droppable-el-container {
+
+  .droppable-el {
+    position: relative;
+    border: 1px solid black;
+    resize: both;
+    overflow: auto;
+    z-index: 1;
+  }
+}
+
+.ui-selected {
+  background: blue !important;
+}
+
+.selected {
+  background: blue !important;
+}
+
+
+

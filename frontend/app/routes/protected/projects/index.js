@@ -7,11 +7,9 @@ export default Ember.Route.extend({
   model(params, transition) {
     let _self = this;
 
-    return _self.get('sessionUser.currentUser').then((sessionUser) => {
-      return Ember.RSVP.hash({
-        projects: _self.store.query('project', params),
-        invitations: _self.store.query('invitation', {condition: 'recipient'})
-      });
+    return Ember.RSVP.hash({
+      projects: _self.store.query('project', params),
+      invitations: _self.store.query('invitation', {condition: 'recipient'})
     });
   },
 

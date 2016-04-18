@@ -1,11 +1,18 @@
 class Api::V1::UsersController < Api::V1::ApiController
   before_action :authenticate_user!
 
-  load_and_authorize_resource
+  load_resource except: [:index]
+  authorize_resource
   skip_load_and_authorize_resource only: [:show]
 
   def index
-    @users = @users.where(username: params[:username])
+    filters = {}
+    filters[:username] = params[:username] unless params[:username].blank?
+
+    @users = User
+               .accessible_by(current_ability)
+               .search(filters)
+
     render json: @users, status: :ok
   end
 

@@ -21,6 +21,22 @@ RSpec.describe Api::V1::ProjectsController, type: :controller do
       it { expect(response).to match_response_schema(:projects) }
       it { expect(JSON.parse(response.body)['data'].size).to eq projects.length }
     end
+
+    context 'when filter projects, to get belongs projects' do
+      before { get :index, condition: 'owner', access_token: access_token.token }
+
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(response).to match_response_schema(:projects) }
+      it { expect(JSON.parse(response.body)['data'].size).to eq projects.length }
+    end
+
+    context 'when filter projects, to get shared projects' do
+      before { get :index, condition: 'member', access_token: access_token.token }
+
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(response).to match_response_schema(:projects) }
+      it { expect(JSON.parse(response.body)['data'].size).not_to eq projects.length }
+    end
   end
 
   describe 'GET #show' do

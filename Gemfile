@@ -31,6 +31,10 @@ gem 'sass-rails' # SASS
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'font-awesome-sass'
 
+# Delay job
+gem 'delayed_job_active_record'
+gem 'carrierwave_backgrounder'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'     # Adds Underscore JS to the Rails asset pipeline
   gem 'rails-assets-jquery.cookie'  # Adds jquery-cookie to the Rails asset pipeline
@@ -42,9 +46,7 @@ group :development do
   gem 'better_errors' # Better error page for Rails and other Rack apps
   gem 'binding_of_caller' # Retrieve the binding of a method's caller in MRI 1.9.2+
   gem 'quiet_assets' # For cleaner logs
-  gem 'bullet' # help to kill N+1 queries and unused eager loading
   gem 'awesome_print' # Pretty print your Ruby objects with style -- in full color and with proper indentation
-  gem 'roadie-rails' # Mailers
 end
 
 group :development, :test do
@@ -65,6 +67,4 @@ end
 group :production do
   gem 'rails_12factor' # Makes running your Rails app easier. Based on the ideas behind 12factor.net (Heroku)
   gem 'rack-timeout' # Rack middleware which aborts requests that have been running for longer than a specified timeout.
-  gem 'mandrill-api' # A Ruby API library for the Mandrill email as a service platform.
-  gem 'intercom-rails' # The easiest way to install Intercom in a Rails app
 end

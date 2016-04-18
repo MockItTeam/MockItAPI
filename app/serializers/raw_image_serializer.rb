@@ -1,14 +1,14 @@
 class RawImageSerializer < ActiveModel::Serializer
   attributes :id,
-             :owner,
+             :owner_name,
              :image_url,
              :created_at,
              :updated_at
 
   belongs_to :owner
 
-  def owner
-    object.user.username
+  def owner_name
+    object.owner.username
   end
 
   def image_url

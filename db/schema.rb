@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160305122701) do
+ActiveRecord::Schema.define(version: 20160415064158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -32,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160305122701) do
   add_index "invitations", ["status"], name: "index_invitations_on_status", using: :btree
 
   create_table "mockups", force: :cascade do |t|
-    t.string   "description"
+    t.string   "name"
     t.text     "json_elements"
     t.integer  "status",        default: 0
     t.integer  "raw_image_id"
@@ -41,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160305122701) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.datetime "deleted_at"
+    t.text     "error_message"
   end
 
   add_index "mockups", ["project_id"], name: "index_mockups_on_project_id", using: :btree
