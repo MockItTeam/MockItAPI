@@ -17,65 +17,69 @@
 
   <div class='editor-canvas-container'>
     <div class='editor-sidebar-wrapper'>
-      <div class='editor-sidebar-pane'>
-        <div class='clear-section'>
-          <div class='containment'>
-            <ul class='editor-stencil list-unstyled'>
-              <li class='editor-card'>a</li>
-              <li class='editor-card'>b</li>
-              <li class='editor-card'>c</li>
-              <li class='editor-card'>d</li>
-              <li class='editor-card'>e</li>
-              <li class='editor-card'>f</li>
-              <li class='editor-card'>g</li>
-              <li class='editor-card'>h</li>
-              <li class='editor-card'>i</li>
-              <li class='editor-card'>j</li>
-              <li class='editor-card'>k</li>
-              <li class='editor-card'>l</li>
-              <li class='editor-card'>m</li>
-              <li class='editor-card'>n</li>
-              <li class='editor-card'>o</li>
-              <li class='editor-card'>p</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <ul class='editor-stencil list-unstyled'>
+        <li class='editor-card'>a</li>
+        <li class='editor-card'>b</li>
+        <li class='editor-card'>c</li>
+        <li class='editor-card'>d</li>
+        <li class='editor-card'>e</li>
+        <li class='editor-card'>f</li>
+        <li class='editor-card'>g</li>
+        <li class='editor-card'>h</li>
+        <li class='editor-card'>i</li>
+        <li class='editor-card'>j</li>
+        <li class='editor-card'>k</li>
+        <li class='editor-card'>l</li>
+        <li class='editor-card'>m</li>
+        <li class='editor-card'>n</li>
+        <li class='editor-card'>o</li>
+        <li class='editor-card'>p</li>
+        <li class='editor-card'>c</li>
+        <li class='editor-card'>d</li>
+        <li class='editor-card'>e</li>
+        <li class='editor-card'>f</li>
+        <li class='editor-card'>g</li>
+        <li class='editor-card'>h</li>
+        <li class='editor-card'>i</li>
+        <li class='editor-card'>j</li>
+        <li class='editor-card'>k</li>
+        <li class='editor-card'>l</li>
+        <li class='editor-card'>m</li>
+        <li class='editor-card'>n</li>
+        <li class='editor-card'>o</li>
+        <li class='editor-card'>p</li>
+      </ul>
     </div>
 
     <div class='editor-canvas-wrapper'>
-      <div class='editor-canvas'>
-        <div class='clear-section'>
-          <!--<div class='containment'>-->
-          <!--<div class='draggable-el-container'>-->
-          <!--{{!#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}-->
-          <!--<div-->
-          <!--style="z-index: 1; top: 166px; left: 163px; width: 74px; height: 70px; color: rgb(255, 255, 255); border: none; text-align: center; font-size: 20px; line-height: 70px; background: rgb(194, 194, 194);">-->
-          <!--text-->
-          <!--</div>-->
-          <!--{{!/ui-draggable}}-->
-          <!--</div>-->
+      <!--<div class='containment'>-->
+      <!--<div class='draggable-el-container'>-->
+      <!--{{!#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}-->
+      <!--<div-->
+      <!--style="z-index: 1; top: 166px; left: 163px; width: 74px; height: 70px; color: rgb(255, 255, 255); border: none; text-align: center; font-size: 20px; line-height: 70px; background: rgb(194, 194, 194);">-->
+      <!--text-->
+      <!--</div>-->
+      <!--{{!/ui-draggable}}-->
+      <!--</div>-->
 
-          <!--<button {{!action 'bringToFront'}}>Bring to front</button>-->
-          <!--<button {{!action 'sendToBack'}}>Send to back</button>-->
-          <!--<button {{!action 'toggleRawImage'}} type="button" class="btn btn-primary" data-toggle="button"-->
-          <!--aria-pressed="false"-->
-          <!--autocomplete="off">-->
-          <!--Show raw image-->
-          <!--</button>-->
+      <!--<button {{!action 'bringToFront'}}>Bring to front</button>-->
+      <!--<button {{!action 'sendToBack'}}>Send to back</button>-->
+      <!--<button {{!action 'toggleRawImage'}} type="button" class="btn btn-primary" data-toggle="button"-->
+      <!--aria-pressed="false"-->
+      <!--autocomplete="off">-->
+      <!--Show raw image-->
+      <!--</button>-->
 
-          {{#ui-droppable onDrop='dropped' class='containment droppable-el'}}
-            <div class='html-div'>
-              {{#each mockup.json_elements.elements as |e|}}
-                {{#editor.new-element e=e notifyDragged='notifyDragged' notifyResize='notifyResize'  click='echo'}}
+      {{#ui-droppable onDrop='dropped' class='containment droppable-el'}}
+        <div class='html-div'>
+          {{#each mockup.json_elements.elements as |e|}}
+            {{#editor.new-element e=e notifyDragged='notifyDragged' notifyResize='notifyResize'  click='echo'}}
 
-                {{/editor.new-element}}
-              {{/each}}
-            </div>
-          {{/ui-droppable}}
-          <!--</div>-->
+            {{/editor.new-element}}
+          {{/each}}
         </div>
-      </div>
+      {{/ui-droppable}}
+      <!--</div>-->
     </div>
   </div>
   <div id="img-out"></div>
