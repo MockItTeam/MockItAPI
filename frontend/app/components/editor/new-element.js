@@ -48,7 +48,7 @@ export default Draggable.extend({
           }
           $(this).addClass('text-editable');
           $('.description' + $(this).attr('component_id')).hide();
-          var textArea = '<textarea class="edit-area" style="box-sizing:border-box; color: black; left: 0px; top: 0px; width: ' + $(this).css('width') + '; height: ' + $(this).css('height') + ';">' + $(this).text() + '</textarea>';
+          var textArea = '<textarea class="edit-area" style="margin:0px -10px 0px -10px;box-sizing:border-box; color: black; left: 0px; top: 0px; width: ' + $(this).css('width') + '; height: ' + $(this).css('height') + ';">' + $(this).text() + '</textarea>';
           $('.text-editable').append(textArea);
           $('.text-editable textarea').click(function () {
             event.stopPropagation();
@@ -72,7 +72,7 @@ export default Draggable.extend({
           _self.sendAction('notifyDragged');
         },
 
-        containment: ".droppable-el",
+        containment: ".html-div",
 
         drag: function (e, ui) {
 

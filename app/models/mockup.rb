@@ -65,8 +65,8 @@ class Mockup < ActiveRecord::Base
 
   def process_image
     begin
-      command = "python ~/ElementDetector/main.py -f \"#{self.raw_image.name.url}\""
-      result = %x(python ~/ElementDetector/main.py -f "#{self.raw_image.name.url}")
+      command = "python ~/ElementDetector/main.py -o True -f \"#{self.raw_image.name.url}\""
+      result = %x(python ~/ElementDetector/main.py -o True -f "#{self.raw_image.name.url}")
 
       message = {}
 

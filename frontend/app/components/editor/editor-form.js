@@ -134,12 +134,13 @@ export default Ember.Component.extend({
     Ember.$('.droppable-el').droppable({
         accept: '.draggable-el',
         drop(event, ui) {
+
           let json = {
             "id": self._findSuitableId(self.get('mockup.json_elements')),
-            "type": "TextArea",
             "x": ui.position.left,
             "y": ui.position.top,
-            "z": 1,
+            "z": 70,
+            "type":  ui.draggable.children().text(),
             "width": ui.draggable.children().css('width'),
             "height": ui.draggable.children().css('height'),
             "children_id": []
@@ -324,11 +325,11 @@ export default Ember.Component.extend({
     },
 
     toggleRawImage() {
-      var img_element = $('.ui-droppable img');
+      var img_element = $('.html-div img');
       if(img_element.length == 0) {
         let raw_image = this.get('mockup.raw_image.image_url');
         var img = '<img src="' + raw_image + '">'
-        $('.ui-droppable').append(img);
+        $('.html-div').append(img);
       }
       else{
         if(img_element.is(":visible")) {
@@ -388,15 +389,16 @@ export default Ember.Component.extend({
     },
 
     exportToImage() {
-      html2canvas($('.ui-droppable'), {
+      $('.editor-canvas-wrapper').css('overflow','visible');
+      html2canvas($('.html-div'), {
         onrendered: function(canvas) {
-          document.body.appendChild(canvas);
           var dataString = canvas.toDataURL("image/png");
           var link = document.createElement("a");
           link.download = 'image';
           link.href = dataString;
           link.click();
-        }
+          $('.editor-canvas-wrapper').css('overflow','auto');
+        },
       });
     }
 

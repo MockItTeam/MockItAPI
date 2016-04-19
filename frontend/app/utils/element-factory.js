@@ -2,7 +2,7 @@ class ElementFactory {
 
   static createElement(obj) {
     switch (obj.type) {
-      case "Text":
+      case "TextLabel":
         return new Label(obj);
       case "VideoPlayer":
         return new VideoPlayer(obj);
@@ -10,7 +10,8 @@ class ElementFactory {
         return new TextField(obj);
       case "TextArea":
         return new TextArea(obj);
-      case "Root":
+      case "Panel":
+        return new Panel(obj);
       default:
         return new NoneElement(obj);
     }
@@ -71,14 +72,21 @@ class Label extends Element {
   constructor(obj) {
     super(obj);
     this.text = obj.text;
+    this.z = obj.z + 70;
   }
 
   render(jquery) {
     super.render(jquery);
     jquery.css({
       border: "none",
+      "text-align": "left",
+      "font-size": "18px",
+      "padding" : "0px 10px 0px 10px",
     });
     jquery.addClass('component-text');
+    if(!this.text){
+      this.text = "TextLabel";
+    }
     jquery.html('<label style="display: inline-block; text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
   }
 
@@ -93,14 +101,11 @@ class VideoPlayer extends Element {
   render(jquery) {
     super.render(jquery);
     jquery.css({
-      background: "#c2c2c2",
-      color: "white",
+      'background-image': "url('/assets/component/videoplayer.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "cover",
       border: "none",
-      "text-align": "center",
-      "font-size": "20px",
-      "line-height": this.height + "px"
     });
-    jquery.html('<span class="description'+this.id+'">Video Player</span>');
   }
 
 }
@@ -115,18 +120,22 @@ class TextField extends Element {
   render(jquery) {
     super.render(jquery);
     jquery.css({
-      background: "#c2c2c2",
-      color: "white",
-      border: "none",
-      "text-align": "center",
-      "font-size": "20px",
-      "line-height": this.height + "px"
+      background: "white",
+      color: "#2e2e2e",
+      "border-color": "#2e2e2e",
+      "border-style": "solid",
+      "border-width": "3px",
+      "text-align": "left",
+      "font-size": "18px",
+      "padding" : "0px 10px 0px 10px",
+      "line-height": this.height + "px",
+      "border-radius": "5px",
     });
     jquery.addClass('component-text');
     if(!this.text){
       this.text = "TextField";
     }
-    jquery.html('<label style="text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
+    jquery.html('<label style="display: inline-block; text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
   }
 
 }
@@ -141,18 +150,40 @@ class TextArea extends Element {
   render(jquery) {
     super.render(jquery);
     jquery.css({
-      background: "#c2c2c2",
-      color: "white",
-      border: "none",
-      "text-align": "center",
+      background: "white",
+      color: "#2e2e2e",
+      "border-color": "#2e2e2e",
+      "border-style": "solid",
+      "border-width": "3px",
+      "text-align": "left",
       "font-size": "20px",
-      "line-height": this.height + "px"
+      "padding" : "0px 10px 0px 10px",
+      "border-radius": "5px",
     });
     jquery.addClass('component-text');
     if(!this.text){
       this.text = "TextArea";
     }
     jquery.html('<label style="display: inline-block; text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
+  }
+
+}
+
+class Panel extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      background: "white",
+      "border-color": "#2e2e2e",
+      "border-style": "solid",
+      "border-width": "3px",
+      "border-radius": "5px",
+    });
   }
 
 }
