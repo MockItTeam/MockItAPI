@@ -73,6 +73,8 @@ task :deploy => :environment do
     to :launch do
       invoke :'run[kill -9 $(lsof -i tcp:3000 -t)]'
       invoke :'puma:restart'
+      run 'cd /var/www/mockitAPI/current/websocket && screen node server.js'
+      run 'cd /var/www/mockitAPI/current/ && screen bundle exec rake jobs:work'
     end
   end
 end
