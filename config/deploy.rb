@@ -3,6 +3,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'    # for rvm support. (http://rvm.io)
 require 'mina/puma'
+require 'mina/npm'
 # Basic settings:
 #   domain       - The hostname to SSH to.
 #   deploy_to    - Path to deploy into.
@@ -63,11 +64,13 @@ task :deploy => :environment do
   deploy do
     set :bundle_bin, '/usr/local/rvm/gems/ruby-2.3.0/bin/bundle'
     set :bundle_path, './vendor/bundle'
+    set :npm_bin, '/root/.nvm/versions/node/v5.10.1/bin/npm'
+    set :bower_bin, '/root/.nvm/versions/node/v5.10.1/bin/bower'
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    invoke :'run[cd /var/www/mockitAPI/current/frontend && /root/.nvm/versions/node/v5.10.1/bin/npm install && /root/.nvm/versions/node/v5.10.1/bin/bower install --allow-root]'
+    invoke :'run[cd /var/www/mockitAPI/current/frontend && npm install && bower install --allow-root]'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
