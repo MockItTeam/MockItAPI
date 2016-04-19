@@ -40,7 +40,7 @@
   }
 
   .editor-canvas-container {
-    padding-top: $navbar-height + 1.25rem;
+    margin-top: $navbar-height + 1.25rem;
     position: fixed;
     width: 100%;
 
@@ -60,6 +60,7 @@
       background-color: $white;
       width: 79%;
       height: 75%;
+      @include border-radius(.75rem);
 
       .droppable-el {
         margin: $grid-gutter-width;
@@ -68,7 +69,17 @@
     }
 
     .html-div {
-      background-color: $color-light-gray;
+      border-color: $color-light-gray;
+      border-style: solid;
+      border-width: 5px;
+
+      img{
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        opacity: 0.3;
+      }
     }
   }
 
@@ -85,15 +96,15 @@
     position: absolute;
     border: 1px solid black;
   }
-
-  //.droppable-el-container {
-  //
-  //  .droppable-el {
-  //    position: relative;
-  //    border: 1px solid black;
-  //    resize: both;
-  //    overflow: auto;
-  //    z-index: 1;
-  //  }
-  //}
 }
+
+.ui-selected {
+  background: #6f9fcd !important;
+}
+
+.selected {
+  background: #6f9fcd !important;
+}
+
+
+
