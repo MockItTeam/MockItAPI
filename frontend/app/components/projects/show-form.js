@@ -20,6 +20,21 @@ export default Ember.Component.extend({
     this.set('errorMessage', undefined);
   },
 
+  _saveProjectName() {
+    let project = this.get('project');
+
+    if (project.get('hasDirtyAttributes')) {
+
+      project.save()
+        .then(() => {
+          this.set('success', 'Change project name success.');
+        }, (error) => {
+          project.rollbackAttributes();
+          this.set('errorMessage', error.errors[0].detail);
+        });
+    }
+  },
+
   actions: {
     searchMockup(data, event) {
       this.sendAction('searchMockup', data);
@@ -65,25 +80,19 @@ export default Ember.Component.extend({
 
     toggleEdit(){
       this._resetAlert();
-      this.set('oldProjectName', this.get('project.name'));
       this.toggleProperty('isShowingProjectName');
+
+      if(!this.get('isShowingProjectName')) {
+        this._saveProjectName();
+      }
     },
 
-    changeProjectName(data, event) {
+    typeProjectName(data, event) {
+      this._resetAlert();
 
       if(event.keyCode == 13) {
-        let project = this.get('project');
-
-        if (project.get('hasDirtyAttributes') && !Ember.isEmpty(project.get('name'))) {
-          project.save()
-            .then(() => {
-              this.set('success', 'Change project name success.');
-            }, () => {
-              this.set('errorMessage', 'Project name cannot empty.');
-            });
-        } else {
-          project.set('name', this.get('oldProjectName'));
-        }
+        this.toggleProperty('isShowingProjectName');
+        this._saveProjectName();
       }
     }
   }

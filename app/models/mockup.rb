@@ -11,7 +11,7 @@ class Mockup < ActiveRecord::Base
   validate :status_created_or_error?, on: :update
 
   validates :name,
-            length: {in: 0..20},
+            length: {in: 4..20},
             format: {with: /\A[a-zA-Z0-9\s]+\z/}
   validates_uniqueness_of :name, scope: :project
 

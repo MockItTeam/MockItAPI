@@ -16,6 +16,8 @@ en:
             name:
               invalid: only a-z, A-Z, 0-9 allowed
               taken: must be unique per user
+              too_short: must be more 4 characters
+              too_long: must be less 50 characters
             password:
               confirmation: Please check pin code confirmation
         user:

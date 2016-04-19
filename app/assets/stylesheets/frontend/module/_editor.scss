@@ -3,6 +3,24 @@
   width: 100%;
   height: 100%;
 
+  .toggle-input {
+    background: $color-bravo;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: $white;
+  }
+
+  .change-mockup-name {
+    cursor: pointer;
+  }
+
+  .mockup-name {
+    font-family: 'novecentosans_widebold';
+    font-size: 1.25em;
+    color: $color-charlie;
+  }
+
   .editor-menu-container {
     position: fixed;
     width: 95.5%;
@@ -33,7 +51,8 @@
   }
 
   .editor-mockup-name {
-    width: 100%;
+    @include make-col();
+    float: right;
     text-align: center;
     font-size: 1.25em;
     line-height: 2em;
