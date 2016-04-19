@@ -67,6 +67,7 @@ task :deploy => :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
+    run 'cd /var/www/mockitAPI/current/frontend && npm install && bower install --allow-root'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
