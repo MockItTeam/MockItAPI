@@ -8,6 +8,29 @@ export default Ember.Component.extend({
   socketIOService: Ember.inject.service('socket-io'),
   socketIORef: null,
 
+  isShowingMockupName: false,
+
+  _autoFocusToggleInput: Ember.on('didRender',
+    Ember.observer(
+      'isShowingMockupName',
+      function() {
+        this.$('.toggle-input').focus();
+      })
+  ),
+
+  _saveMockupName() {
+    let mockup = this.get('mockup');
+
+    if (mockup.get('hasDirtyAttributes')) {
+      mockup.save()
+        .then(() => {
+
+        }, (error) => {
+          mockup.rollbackAttributes();
+        });
+    }
+  },
+
   willRender() {
     /*
      * 2) The next step you need to do is to create your actual websocket. Calling socketFor
@@ -76,7 +99,7 @@ export default Ember.Component.extend({
 
     var history = new SimpleUndo({
       maxLength: 20000,
-      provider: function (done) {
+      provider: function(done) {
         let json_elements = self.get('mockup.json_elements');
         done(JSON.stringify(json_elements));
       }
@@ -94,7 +117,7 @@ export default Ember.Component.extend({
     //   $('.text-editable').removeClass('text-editable');
     // });
 
-    $('.is-editor').on('keydown', function (e) {
+    $('.is-editor').on('keydown', function(e) {
       e.preventDefault();
       if (e.which == backspaceKey || e.which == deleteKey) {
         self._removeMockupComponent();
@@ -120,9 +143,9 @@ export default Ember.Component.extend({
 
     });
 
-    $('.is-editor').on('keyup', function (e) {
+    $('.is-editor').on('keyup', function(e) {
       e.preventDefault();
-      if(e.keyCode == ctrlKey || e.keyCode == commandKey){
+      if (e.keyCode == ctrlKey || e.keyCode == commandKey) {
         ctrlDown = false;
       }
     });
@@ -132,39 +155,52 @@ export default Ember.Component.extend({
     $('.clear-section').css({'min-height': `${height}px`});
 
     Ember.$('.droppable-el').droppable({
-        accept: '.draggable-el',
-        drop(event, ui) {
+      accept: '.draggable-el',
+      drop(event, ui) {
 
-          let json = {
-            "id": self._findSuitableId(self.get('mockup.json_elements')),
-            "x": ui.position.left,
-            "y": ui.position.top,
-            "z": 70,
-            "type":  ui.draggable.children().text(),
-            "width": ui.draggable.children().css('width'),
-            "height": ui.draggable.children().css('height'),
-            "children_id": []
-          };
+        let json = {
+          "id": self._findSuitableId(self.get('mockup.json_elements')),
+          "x": ui.position.left,
+          "y": ui.position.top,
+          "z": 70,
+          "type": ui.draggable.children().text(),
+          "width": ui.draggable.children().css('width'),
+          "height": ui.draggable.children().css('height'),
+          "children_id": []
+        };
 
-          let json_elements = self.get('mockup.json_elements');
-          json_elements.elements.push(json);
-          self.get('socketIORef').emit('message', json_elements);
-          self._saveChangeMockup(json_elements);
-        }
-      });
+        let json_elements = self.get('mockup.json_elements');
+        json_elements.elements.push(json);
+        self.get('socketIORef').emit('message', json_elements);
+        self._saveChangeMockup(json_elements);
+      }
+    });
 
     Ember.$('.droppable-el').selectable({
       filter: ".ui-draggable",
-      start(e,ui) {
+      start(e, ui) {
         let id = $('.text-editable').attr('component_id');
         let text = $('.text-editable textarea').val();
-        self._saveTextChange(id,text);
+        self._saveTextChange(id, text);
         $('.text-editable textarea').remove();
         $('.text-editable label').show();
         $('.text-editable').removeClass('text-editable');
       }
     });
+  },
 
+  didRender() {
+    let _self = this;
+
+    _self.$('.toggle-input').on('keydown', function(event) {
+      event.stopPropagation();
+
+      if (event.keyCode == 13) {
+        _self.toggleProperty('isShowingMockupName');
+        _self.set('mockup.name', _self.$('.toggle-input').val());
+        _self._saveMockupName();
+      }
+    });
   },
 
   mockupObserver: Ember.observer(
@@ -172,7 +208,7 @@ export default Ember.Component.extend({
     function() {
       let mockup = this.get('mockup');
 
-      if(mockup.get('hasDirtyAttributes')) {
+      if (mockup.get('hasDirtyAttributes')) {
         //set json_elements for record in database
         let history = this.get('history');
         history.save();
@@ -196,10 +232,10 @@ export default Ember.Component.extend({
 
   _removeMockupComponent(){
     let json_elements = this.get('mockup.json_elements');
-    $(".ui-selected").each(function(){
+    $(".ui-selected").each(function() {
       for (var i = 0; i < json_elements.elements.length; i++) {
-        if(json_elements.elements[i].id == this.getAttribute("component_id")){
-          json_elements.elements.splice(i,1);
+        if (json_elements.elements[i].id == this.getAttribute("component_id")) {
+          json_elements.elements.splice(i, 1);
           break;
         }
       }
@@ -211,10 +247,10 @@ export default Ember.Component.extend({
   _copyMockupComponent(){
     let json_elements = this.get('mockup.json_elements');
     let list = [];
-    $(".ui-selected").each(function(){
+    $(".ui-selected").each(function() {
       let temp;
       for (var i = 0; i < json_elements.elements.length; i++) {
-        if(json_elements.elements[i].id == this.getAttribute("component_id")){
+        if (json_elements.elements[i].id == this.getAttribute("component_id")) {
           temp = JSON.parse(JSON.stringify(json_elements.elements[i]));
         }
       }
@@ -224,10 +260,10 @@ export default Ember.Component.extend({
   },
 
   _pasteMockupComponent(temp){
-    if(temp.length != 0){
+    if (temp.length != 0) {
       let json_elements = this.get('mockup.json_elements');
       let temp_id;
-      for(var i = 0; i< temp.length; i++){
+      for (var i = 0; i < temp.length; i++) {
         temp[i].id = this._findSuitableId(json_elements);
         temp[i].x = temp[i].x + 5;
         temp[i].y = temp[i].y + 5;
@@ -244,9 +280,9 @@ export default Ember.Component.extend({
     this._pasteMockupComponent(temp);
   },
 
-  _saveTextChange(id,text){
+  _saveTextChange(id, text){
     let json_elements = this.get('mockup.json_elements');
-    if (json_elements !== null && json_elements !== undefined ) {
+    if (json_elements !== null && json_elements !== undefined) {
       for (var i = 0; i < json_elements.elements.length; i++) {
         if (json_elements.elements[i].id == id) {
           json_elements.elements[i].text = text;
@@ -260,19 +296,20 @@ export default Ember.Component.extend({
 
   _undo(){
     let history = this.get('history');
-    if(history.canUndo()) {
+    if (history.canUndo()) {
       let self = this;
 
       function setJsonElement(json_elements) {
         self._historyManage(JSON.parse(json_elements));
       }
+
       history.undo(setJsonElement);
     }
   },
 
   _redo(){
     let history = this.get('history');
-    if(history.canRedo()) {
+    if (history.canRedo()) {
       let self = this;
 
       function setJsonElement(json_elements) {
@@ -285,19 +322,19 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    dropped: Ember.on('willRender', function (event, ui, _self) {
+    dropped: Ember.on('willRender', function(event, ui, _self) {
       let self = this;
 
     }),
 
-    dragged: Ember.on('willRender', function (event, ui, _self) {
+    dragged: Ember.on('willRender', function(event, ui, _self) {
 
     }),
 
     bringToFront() {
-      if($(".ui-selected").length > 0) {
+      if ($(".ui-selected").length > 0) {
         let json_elements = this.get('mockup.json_elements');
-        $(".ui-selected").each(function () {
+        $(".ui-selected").each(function() {
           for (var i = 0; i < json_elements.elements.length; i++) {
             if (json_elements.elements[i].id == this.getAttribute("component_id")) {
               json_elements.elements[i].z = 100;
@@ -310,9 +347,9 @@ export default Ember.Component.extend({
     },
 
     sendToBack() {
-      if($(".ui-selected").length > 0) {
+      if ($(".ui-selected").length > 0) {
         let json_elements = this.get('mockup.json_elements');
-        $(".ui-selected").each(function () {
+        $(".ui-selected").each(function() {
           for (var i = 0; i < json_elements.elements.length; i++) {
             if (json_elements.elements[i].id == this.getAttribute("component_id")) {
               json_elements.elements[i].z = -1;
@@ -326,15 +363,15 @@ export default Ember.Component.extend({
 
     toggleRawImage() {
       var img_element = $('.html-div img');
-      if(img_element.length == 0) {
+      if (img_element.length == 0) {
         let raw_image = this.get('mockup.raw_image.image_url');
         var img = '<img src="' + raw_image + '">'
         $('.html-div').append(img);
       }
-      else{
-        if(img_element.is(":visible")) {
+      else {
+        if (img_element.is(":visible")) {
           img_element.hide();
-        }else{
+        } else {
           img_element.show();
         }
       }
@@ -343,7 +380,7 @@ export default Ember.Component.extend({
     notifyDragged() {
       let json_elements = this.get('mockup.json_elements');
       for (var i = 0; i < json_elements.elements.length; i++) {
-        let element = $("[component_id="+json_elements.elements[i].id+"]");
+        let element = $("[component_id=" + json_elements.elements[i].id + "]");
         let x = parseInt(element.css('left'));
         let y = parseInt(element.css('top'));
         json_elements.elements[i].x = x;
@@ -357,7 +394,7 @@ export default Ember.Component.extend({
     notifyResize() {
       let json_elements = this.get('mockup.json_elements');
       for (var i = 0; i < json_elements.elements.length; i++) {
-        let element = $("[component_id="+json_elements.elements[i].id+"]");
+        let element = $("[component_id=" + json_elements.elements[i].id + "]");
         let width = parseInt(element.css('width'));
         let height = parseInt(element.css('height'));
         json_elements.elements[i].width = width;
@@ -370,7 +407,7 @@ export default Ember.Component.extend({
     notifySaveTextChange() {
       let id = $('.text-editable').attr('component_id');
       let text = $('.text-editable textarea').val();
-      if(text !== null && text !== undefined) {
+      if (text !== null && text !== undefined) {
         let json_elements = this.get('mockup.json_elements');
         if (json_elements !== null && json_elements !== undefined) {
           for (var i = 0; i < json_elements.elements.length; i++) {
@@ -389,7 +426,7 @@ export default Ember.Component.extend({
     },
 
     exportToImage() {
-      $('.editor-canvas-wrapper').css('overflow','visible');
+      $('.editor-canvas-wrapper').css('overflow', 'visible');
       html2canvas($('.html-div'), {
         onrendered: function(canvas) {
           var dataString = canvas.toDataURL("image/png");
@@ -397,10 +434,13 @@ export default Ember.Component.extend({
           link.download = 'image';
           link.href = dataString;
           link.click();
-          $('.editor-canvas-wrapper').css('overflow','auto');
+          $('.editor-canvas-wrapper').css('overflow', 'auto');
         },
       });
-    }
+    },
 
+    toggleEdit(){
+      this.toggleProperty('isShowingMockupName');
+    }
   }
 });
