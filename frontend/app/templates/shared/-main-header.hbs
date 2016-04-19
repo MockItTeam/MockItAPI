@@ -12,9 +12,9 @@
         {{shared.user-card tagName='' user=session.currentUser icon='fa-caret-down'}}
       </div>
 
-      <div class="mobile-menu-container hidden-md-up" data-toggle="dropdown">
+      <a href='#' class="mobile-menu-container hidden-md-up" data-toggle="dropdown">
         <i class='fa fa-bars fa-lg hamburger-menu'></i>
-      </div>
+      </a>
 
       <div class='dropdown-menu'>
         {{#link-to 'protected.projects.index' (query-params condition=null)}}
