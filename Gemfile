@@ -65,6 +65,7 @@ group :development, :test do
 end
 
 group :production do
+  gem 'uglifier'
   gem 'rails_12factor' # Makes running your Rails app easier. Based on the ideas behind 12factor.net (Heroku)
   gem 'rack-timeout' # Rack middleware which aborts requests that have been running for longer than a specified timeout.
 end
