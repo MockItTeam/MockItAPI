@@ -22,12 +22,14 @@ export default Ember.Component.extend({
     let mockup = this.get('mockup');
 
     if (mockup.get('hasDirtyAttributes')) {
+      mockup.set('json_elements', JSON.stringify(mockup.get('json_elements')));
       mockup.save()
         .then(() => {
 
         }, (error) => {
-          mockup.rollbackAttributes();
+          // mockup.rollbackAttributes();
         });
+      mockup.set('json_elements', JSON.parse(mockup.get('json_elements')));
     }
   },
 
