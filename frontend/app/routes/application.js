@@ -1,9 +1,16 @@
 import Ember from 'ember';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
+const { service } = Ember.inject;
+
 export default Ember.Route.extend(ApplicationRouteMixin, {
+  session: service('session'),
 
   activate() {
-    $(document).attr('title', 'Mockit');
+    if (this.get('session.isAuthenticated')) {
+      this.transitionTo('protected.projects.index');
+    } else {
+      this.transitionTo('sessions.new');
+    }
   }
 });
