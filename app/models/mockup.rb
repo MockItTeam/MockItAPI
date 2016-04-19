@@ -60,7 +60,7 @@ class Mockup < ActiveRecord::Base
   end
 
   def default_border_mockup
-    update_columns(json_elements: %q({"width": 800, "height": 600}))
+    update_columns(json_elements: %q({"width": 800, "height": 600, "elements": [] }))
   end
 
   def process_image

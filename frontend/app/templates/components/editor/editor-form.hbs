@@ -2,13 +2,14 @@
   <div class='editor-menu-container'>
     <nav class='editor-menu navbar'>
       <div class='editor-menu-tools'>
-        <button class='btn btn-icon'><i class='fa fa-undo'></i></button>
-        <button class='btn btn-icon'><i class='fa fa-repeat'></i></button>
-        <button class='btn btn-icon'><i class='fa fa-copy'></i></button>
-        <button class='btn btn-icon'><i class='fa fa-paste'></i></button>
-        <button class='btn btn-icon'><i class='fa fa-trash'></i></button>
-        <button {{action 'exportToImage'}} class='btn btn-icon'><i class='fa fa-download'></i></button>
-        <button {{action 'toggleRawImage'}} class='btn btn-icon'><i class='fa fa-file-image-o'></i></button>
+        <button {{action 'undo'}} class='btn btn-icon'><i class='fa fa-undo'></i></button>
+        <button {{action 'redo'}} class='btn btn-icon'><i class='fa fa-repeat'></i></button>
+        <button {{action 'duplicate'}} class='btn btn-icon'><i class='fa fa-copy'></i></button>
+        <button {{action 'delete'}} class='btn btn-icon'><i class='fa fa-trash'></i></button>
+        <!--<button {{action 'exportToImage'}} class='btn btn-icon'><i class='fa fa-download'></i></button>-->
+        <button {{action 'toggleRawImage'}} class='btn btn-icon'><i class='fa fa-eye'></i></button>
+        <button {{action 'sendToBack'}} class='btn btn-icon'><i class='fa'><img src="/assets/sendtoback.png"></i></button>
+        <button {{action 'bringToFront'}} class='btn btn-icon'><i class='fa'><img src="/assets/sendtofront.png"></i></button>
       </div>
 
       {{#if isShowingMockupName}}
@@ -27,136 +28,123 @@
     <div class='editor-sidebar-wrapper'>
       <ul class='editor-stencil list-unstyled'>
         <li class='editor-card'>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                  <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">TextLabel</div>
+              {{/ui-draggable}}
+            </div>
+        </li>
+        <li class='editor-card'>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                  <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/textfield.png"></div>
+                  <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">TextField</div>
+              {{/ui-draggable}}
+            </div>
+        </li>
+        <li class='editor-card'>
           <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                TextLabel
-              </div>
+            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/textarea.png"></div>
+                <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">TextArea</div>
             {{/ui-draggable}}
           </div>
         </li>
         <li class='editor-card'>
           <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                TextField
-              </div>
+            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/link.png"></div>
+                <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Link</div>
             {{/ui-draggable}}
           </div>
         </li>
         <li class='editor-card'>
           <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                TextArea
-              </div>
+            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/button.png"></div>
+                <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Button</div>
             {{/ui-draggable}}
           </div>
         </li>
         <li class='editor-card'>
           <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                Button
-              </div>
+            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/panel.png"></div>
+                <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Panel</div>
             {{/ui-draggable}}
           </div>
         </li>
         <li class='editor-card'>
           <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                Graph
-              </div>
+            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/graph.png"></div>
+                <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Graph</div>
             {{/ui-draggable}}
           </div>
         </li>
         <li class='editor-card'>
-          <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                Checkbox
-              </div>
-            {{/ui-draggable}}
-          </div>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                  <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/checkbox.png"></div>
+                  <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Checkbox</div>
+              {{/ui-draggable}}
+            </div>
         </li>
         <li class='editor-card'>
-          <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                Combobox
-              </div>
-            {{/ui-draggable}}
-          </div>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/dropdown.png"></div>
+                <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Dropdown</div>
+              {{/ui-draggable}}
+            </div>
         </li>
         <li class='editor-card'>
-          <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div style="width: 100%"><img style="width: 100%; height: 8rem; border-radius: .75rem;"
-                                            src="/assets/component/videoplayer.png"></div>
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                VideoPlayer
-              </div>
-            {{/ui-draggable}}
-          </div>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/videoplayer.png"></div>
+                <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">VideoPlayer</div>
+              {{/ui-draggable}}
+            </div>
         </li>
         <li class='editor-card'>
-          <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                RadioButton
-              </div>
-            {{/ui-draggable}}
-          </div>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                  <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/radio.png"></div>
+                  <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">RadioButton</div>
+              {{/ui-draggable}}
+            </div>
         </li>
         <li class='editor-card'>
-          <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                Table
-              </div>
-            {{/ui-draggable}}
-          </div>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                  <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/table.png"></div>
+                  <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Table</div>
+              {{/ui-draggable}}
+            </div>
         </li>
         <li class='editor-card'>
-          <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                Calendar
-              </div>
-            {{/ui-draggable}}
-          </div>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                  <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/calendar.png"></div>
+                  <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Calendar</div>
+              {{/ui-draggable}}
+            </div>
         </li>
         <li class='editor-card'>
-          <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                Panel
-              </div>
-            {{/ui-draggable}}
-          </div>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                  <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/image.png"></div>
+                  <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Image</div>
+              {{/ui-draggable}}
+            </div>
         </li>
         <li class='editor-card'>
-          <div class='draggable-el-container'>
-            {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el' }}
-              <div
-                style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">
-                Image
-              </div>
-            {{/ui-draggable}}
-          </div>
+            <div class='draggable-el-container'>
+              {{#ui-draggable appendTo='.droppable-el' revert='invalid' helper='clone' class='draggable-el component-clone' onStart='onDragStart'}}
+                  <div style="width: 100%;text-align:center"><img style="max-width: 100%; max-height: 6rem;" src="/assets/component/map.png"></div>
+                  <div style="color: #373a3c; border: none; text-align: center; font-size: 20px; line-height: 70px; background: #FFFFFF;">Map</div>
+              {{/ui-draggable}}
+            </div>
         </li>
       </ul>
     </div>

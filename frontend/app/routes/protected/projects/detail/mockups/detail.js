@@ -15,6 +15,7 @@ export default Ember.Route.extend({
     $body.removeClass('is-editor');
     $body.off('click');
     $body.off('keydown');
+    $body.off('keyup');
 
     // For mobile
     $('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=1');

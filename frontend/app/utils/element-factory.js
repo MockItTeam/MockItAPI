@@ -12,6 +12,26 @@ class ElementFactory {
         return new TextArea(obj);
       case "Panel":
         return new Panel(obj);
+      case "Button":
+        return new Button(obj);
+      case "Graph":
+        return new Graph(obj);
+      case "Checkbox":
+      return new Checkbox(obj);
+      case "RadioButton":
+        return new RadioButton(obj);
+      case "Dropdown":
+        return new Dropdown(obj);
+      case "Table":
+        return new Table(obj);
+      case "Calendar":
+        return new Calendar(obj);
+      case "Image":
+        return new ImagePlaceholder(obj);
+      case "Link":
+        return new Link(obj);
+      case "Map":
+        return new Map(obj);
       default:
         return new NoneElement(obj);
     }
@@ -103,7 +123,7 @@ class VideoPlayer extends Element {
     jquery.css({
       'background-image': "url('/assets/component/videoplayer.png')",
       'background-repeat': "no-repeat",
-      'background-size' : "cover",
+      'background-size' : "100% 100%",
       border: "none",
     });
   }
@@ -183,6 +203,206 @@ class Panel extends Element {
       "border-style": "solid",
       "border-width": "3px",
       "border-radius": "5px",
+    });
+  }
+
+}
+
+class Button extends Element {
+
+  constructor(obj) {
+    super(obj);
+    this.text = obj.text;
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      background: "white",
+      color: "#2e2e2e",
+      "border-color": "#2e2e2e",
+      "border-style": "solid",
+      "border-width": "3px",
+      "text-align": "center",
+      "font-size": "18px",
+      "padding" : "0px 10px 0px 10px",
+      "line-height": this.height + "px",
+      "border-radius": "5px",
+    });
+    jquery.addClass('component-text');
+    if(!this.text){
+      this.text = "Button";
+    }
+    jquery.html('<label style="display: inline-block; text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
+  }
+
+}
+
+class Graph extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      'background-image': "url('/assets/component/graph.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "100% 100%",
+      border: "none",
+    });
+  }
+
+}
+
+class Checkbox extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      'background-image': "url('/assets/component/checkbox.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "100% 100%",
+      border: "none",
+    });
+  }
+
+}
+
+class RadioButton extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      'background-image': "url('/assets/component/radio.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "100% 100%",
+      border: "none",
+    });
+  }
+
+}
+
+class Dropdown extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      'background-image': "url('/assets/component/dropdown.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "100% 100%",
+      border: "none",
+    });
+  }
+
+}
+
+class Table extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      'background-image': "url('/assets/component/table.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "100% 100%",
+      border: "none",
+    });
+  }
+
+}
+
+class Calendar extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      'background-image': "url('/assets/component/calendar.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "100% 100%",
+      border: "none",
+    });
+  }
+
+}
+
+class ImagePlaceholder extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      'background-image': "url('/assets/component/image.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "100% 100%",
+      border: "none",
+    });
+  }
+
+}
+
+class Link extends Element {
+
+  constructor(obj) {
+    super(obj);
+    this.text = obj.text;
+    this.z = obj.z;
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      border: "none",
+      "text-align": "left",
+      "font-size": "18px",
+      "color": "#6f9fcd",
+      "padding" : "0px 10px 0px 10px",
+    });
+    jquery.addClass('component-text');
+    if(!this.text){
+      this.text = "Link";
+    }
+    jquery.html('<label style="display: inline-block; text-decoration: underline; text-overflow: ellipsis; overflow: hidden" class="description'+this.id+'">'+this.text+'</label>');
+  }
+
+}
+
+class Map extends Element {
+
+  constructor(obj) {
+    super(obj);
+  }
+
+  render(jquery) {
+    super.render(jquery);
+    jquery.css({
+      'background-image': "url('/assets/component/map.png')",
+      'background-repeat': "no-repeat",
+      'background-size' : "100% 100%",
+      border: "none",
     });
   }
 
