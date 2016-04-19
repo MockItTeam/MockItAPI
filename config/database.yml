@@ -27,3 +27,5 @@ production:
   database: mockit_production
   username: postgres
   password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
