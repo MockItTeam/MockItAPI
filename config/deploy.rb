@@ -3,7 +3,6 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'    # for rvm support. (http://rvm.io)
 require 'mina/puma'
-require 'mina/npm'
 # Basic settings:
 #   domain       - The hostname to SSH to.
 #   deploy_to    - Path to deploy into.
@@ -70,17 +69,12 @@ task :deploy => :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    invoke :'run[cd frontend && npm install && bower install --allow-root]'
-    # invoke :'run[cd /var/www/mockitAPI/current/]'
-    invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     to :launch do
       invoke :'run[kill -9 $(lsof -i tcp:3000 -t)]'
       invoke :'run[kill -9 $(lsof -i tcp:7000 -t)]'
       invoke :'puma:restart'
-      invoke :'run[cd websocket && npm install && screen node server.js]'
-      invoke :'run[screen bundle exec rake jobs:work]'
     end
   end
 end
