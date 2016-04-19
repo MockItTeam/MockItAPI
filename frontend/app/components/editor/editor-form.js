@@ -97,8 +97,9 @@ export default Ember.Component.extend({
   didInsertElement() {
     let self = this;
     var ctrlDown = false;
+    var shiftDown = false;
     var temp;
-    var enterKey = 13, ctrlKey = 17, commandKey = 91, vKey = 86, cKey = 67, dKey = 68, yKey = 89, zKey = 90, backspaceKey = 8, deleteKey = 46;
+    var enterKey = 13, shiftKey = 16, ctrlKey = 17, commandKey = 91, vKey = 86, cKey = 67, dKey = 68, yKey = 89, zKey = 90, backspaceKey = 8, deleteKey = 46;
 
     let json_elements = this.get('mockup.json_elements');
 
@@ -130,6 +131,12 @@ export default Ember.Component.extend({
       if (e.keyCode == ctrlKey || e.keyCode == commandKey) {
         ctrlDown = true;
       }
+      if (e.keyCode == shiftKey) {
+        shiftDown = true;
+      }
+      if (shiftDown) {
+        self._holdShiftSelect();
+      }
       if (ctrlDown && e.keyCode == cKey) {
         temp = self._copyMockupComponent();
       }
@@ -152,6 +159,9 @@ export default Ember.Component.extend({
       e.preventDefault();
       if(e.keyCode == ctrlKey || e.keyCode == commandKey){
         ctrlDown = false;
+      }
+      if (e.keyCode == shiftKey) {
+        shiftDown = false;
       }
     });
 
@@ -385,6 +395,10 @@ export default Ember.Component.extend({
       let history = this.get('history');
       history.redo(setJsonElement);
     }
+  },
+
+  _holdShiftSelect(){
+
   },
 
   actions: {
