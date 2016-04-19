@@ -55,26 +55,15 @@
     .editor-canvas-wrapper {
       position: fixed;
       left: 15rem;
+      right: 0;
       overflow: auto;
-      padding: $grid-gutter-width;
       background-color: $white;
       width: 80%;
       height: 75%;
-    }
 
-    .editor-canvas {
-      @include clearfix();
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: $white;
-      z-index: 5;
-
-      .containment {
-        position: absolute;
-        padding: 20px;
-        left: 0;
+      .droppable-el {
+        margin: $grid-gutter-width;
+        display: inline-block;
       }
     }
 
@@ -82,53 +71,29 @@
       background-color: $color-light-gray;
     }
   }
-}
 
-.draggable-el-container {
+  .draggable-el-container {
 
-  .ui-draggable {
+    .ui-draggable {
+      cursor: pointer;
+    }
+
+  }
+
+  .new-draggable-el {
     cursor: pointer;
-  }
-
-}
-
-.new-draggable-el {
-  cursor: pointer;
-  position: absolute;
-  border: 1px solid black;
-}
-
-.droppable-el-container {
-
-  .droppable-el {
-    position: relative;
-    border: 1px solid black;
-    resize: both;
-    overflow: auto;
-    z-index: 1;
-  }
-
-  .ui-droppable {
-    background-color: #FFFFFF;
-  }
-
-  .ui-droppable img{
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: auto;
-    opacity: 0.3;
+    border: 1px solid black;
   }
+
+  //.droppable-el-container {
+  //
+  //  .droppable-el {
+  //    position: relative;
+  //    border: 1px solid black;
+  //    resize: both;
+  //    overflow: auto;
+  //    z-index: 1;
+  //  }
+  //}
 }
-
-.ui-selected {
-  background: blue !important;
-}
-
-.selected {
-  background: blue !important;
-}
-
-
-

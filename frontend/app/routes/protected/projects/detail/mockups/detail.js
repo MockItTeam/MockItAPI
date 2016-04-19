@@ -4,12 +4,20 @@ export default Ember.Route.extend({
 
   activate() {
     $('body').addClass('is-editor');
+
+    // For mobile
+    $('meta[name=viewport]').attr('content', 'width=1170');
   },
 
   deactivate() {
-    $('body').removeClass('is-editor');
-    $('body').off('click');
-    $('body').off('keydown');
+    // Remove Listener
+    let $body = $('body');
+    $body.removeClass('is-editor');
+    $body.off('click');
+    $body.off('keydown');
+
+    // For mobile
+    $('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=1');
     let mockup = this.modelFor('protected.projects.detail.mockups.detail');
     mockup.set('json_elements', JSON.stringify(mockup.get('json_elements')));
   },

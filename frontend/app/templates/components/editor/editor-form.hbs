@@ -70,7 +70,7 @@
       <!--Show raw image-->
       <!--</button>-->
 
-      {{#ui-droppable onDrop='dropped' class='containment droppable-el'}}
+      {{#ui-droppable onDrop='dropped' class='droppable-el'}}
         <div class='html-div'>
           {{#each mockup.json_elements.elements as |e|}}
             {{#editor.new-element e=e notifyDragged='notifyDragged' notifyResize='notifyResize'  click='echo'}}
