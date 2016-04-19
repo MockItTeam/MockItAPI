@@ -8,7 +8,11 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
   activate() {
     if (this.get('session.isAuthenticated')) {
-      this.transitionTo('protected.projects.index');
+      let path = window.location.pathName;
+      if (path == undefined || path == '/') {
+        console.log(window.location);
+        this.transitionTo('protected.projects.index');
+      }
     } else {
       this.transitionTo('sessions.new');
     }
