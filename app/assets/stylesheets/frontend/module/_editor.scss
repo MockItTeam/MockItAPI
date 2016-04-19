@@ -60,6 +60,7 @@
       background-color: $white;
       width: 79%;
       height: 75%;
+      @include border-radius(.75rem);
 
       .droppable-el {
         margin: $grid-gutter-width;
