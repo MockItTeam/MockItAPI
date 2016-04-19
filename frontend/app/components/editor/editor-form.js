@@ -85,14 +85,14 @@ export default Ember.Component.extend({
     history.initialize(JSON.stringify(json_elements));
     this.set('history', history);
 
-    $('.is-editor').on( 'click', function (e) {
-      let id = $('.text-editable').attr('component_id');
-      let text = $('.text-editable textarea').val();
-      self._saveTextChange(id,text);
-      $('.text-editable textarea').remove();
-      $('.text-editable label').show();
-      $('.text-editable').removeClass('text-editable');
-    });
+    // $('.is-editor').on( 'click', function (e) {
+    //   let id = $('.text-editable').attr('component_id');
+    //   let text = $('.text-editable textarea').val();
+    //   self._saveTextChange(id,text);
+    //   $('.text-editable textarea').remove();
+    //   $('.text-editable label').show();
+    //   $('.text-editable').removeClass('text-editable');
+    // });
 
     $('.is-editor').on('keydown', function (e) {
       e.preventDefault();
@@ -152,13 +152,16 @@ export default Ember.Component.extend({
         }
       });
 
-    Ember.$('ui-droppable').click( function () {
-      $('.ui-selected').removeClass('ui-selected');
-    });
-
     Ember.$('.droppable-el').selectable({
-      distance: 1,
-      filter: "div"
+      filter: ".ui-draggable",
+      start(e,ui) {
+        let id = $('.text-editable').attr('component_id');
+        let text = $('.text-editable textarea').val();
+        self._saveTextChange(id,text);
+        $('.text-editable textarea').remove();
+        $('.text-editable label').show();
+        $('.text-editable').removeClass('text-editable');
+      }
     });
 
   },
@@ -170,6 +173,8 @@ export default Ember.Component.extend({
 
       if(mockup.get('hasDirtyAttributes')) {
         //set json_elements for record in database
+        let history = this.get('history');
+        history.save();
         mockup.set('json_elements', this.get('json_elements'));
         mockup.save();
         //set json_elements for use in editor
@@ -180,9 +185,7 @@ export default Ember.Component.extend({
   ),
 
   _saveChangeMockup(json_elements) {
-    let history = this.get('history');
     this.set('json_elements', JSON.stringify(json_elements));
-    history.save();
   },
 
   _historyManage(json_elements){
@@ -300,9 +303,8 @@ export default Ember.Component.extend({
             }
           }
         });
-        let history = this.get('history');
-        history.save();
         this.get('socketIORef').emit('message', json_elements);
+        this.set('json_elements', JSON.stringify(json_elements));
       }
     },
 
@@ -316,9 +318,8 @@ export default Ember.Component.extend({
             }
           }
         });
-        let history = this.get('history');
-        history.save();
         this.get('socketIORef').emit('message', json_elements);
+        this.set('json_elements', JSON.stringify(json_elements));
       }
     },
 
@@ -347,9 +348,9 @@ export default Ember.Component.extend({
         json_elements.elements[i].x = x;
         json_elements.elements[i].y = y;
       }
-      let history = this.get('history');
-      history.save();
       this.get('socketIORef').emit('message', json_elements);
+      this.set('json_elements', JSON.stringify(json_elements));
+
     },
 
     notifyResize() {
@@ -361,9 +362,29 @@ export default Ember.Component.extend({
         json_elements.elements[i].width = width;
         json_elements.elements[i].height = height;
       }
-      let history = this.get('history');
-      history.save();
       this.get('socketIORef').emit('message', json_elements);
+      this.set('json_elements', JSON.stringify(json_elements));
+    },
+
+    notifySaveTextChange() {
+      let id = $('.text-editable').attr('component_id');
+      let text = $('.text-editable textarea').val();
+      if(text !== null && text !== undefined) {
+        let json_elements = this.get('mockup.json_elements');
+        if (json_elements !== null && json_elements !== undefined) {
+          for (var i = 0; i < json_elements.elements.length; i++) {
+            if (json_elements.elements[i].id == id) {
+              json_elements.elements[i].text = text;
+              break;
+            }
+          }
+          this.get('socketIORef').emit('message', json_elements);
+          this.set('json_elements', JSON.stringify(json_elements));
+        }
+        $('.text-editable textarea').remove();
+        $('.text-editable label').show();
+        $('.text-editable').removeClass('text-editable');
+      }
     },
 
     exportToImage() {

@@ -3,10 +3,13 @@
   <div class='editor-menu-container'>
     <nav class='editor-menu navbar'>
       <div class='editor-menu-tools'>
-        <button class='btn btn-icon'><i class='fa fa-cog'></i></button>
-        <button class='btn btn-icon'><i class='fa fa-download'></i></button>
-        <button class='btn btn-icon'><i class='fa fa-share-alt'></i></button>
+        <button class='btn btn-icon'><i class='fa fa-undo'></i></button>
+        <button class='btn btn-icon'><i class='fa fa-repeat'></i></button>
+        <button class='btn btn-icon'><i class='fa fa-copy'></i></button>
+        <button class='btn btn-icon'><i class='fa fa-paste'></i></button>
         <button class='btn btn-icon'><i class='fa fa-trash'></i></button>
+        <button class='btn btn-icon'><i class='fa fa-download'></i></button>
+        <button class='btn btn-icon'><i class='fa fa-file-image-o'></i></button>
       </div>
 
       <div class='editor-mockup-name'>
@@ -73,7 +76,7 @@
       {{#ui-droppable onDrop='dropped' class='droppable-el'}}
         <div class='html-div'>
           {{#each mockup.json_elements.elements as |e|}}
-            {{#editor.new-element e=e notifyDragged='notifyDragged' notifyResize='notifyResize'  click='echo'}}
+            {{#editor.new-element e=e notifyDragged='notifyDragged' notifyResize='notifyResize' notifySaveTextChange='notifySaveTextChange' click='echo'}}
 
             {{/editor.new-element}}
           {{/each}}

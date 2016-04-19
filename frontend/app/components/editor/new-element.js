@@ -30,17 +30,20 @@ export default Draggable.extend({
 
       var initSelection = function(obj) {
         // if start new dragging on un-selected, remove all previous selections.
-          if (!obj.hasClass('ui-selected')) {
-            $('.ui-selected').removeClass('ui-selected');
-          }
+        _self.sendAction('notifySaveTextChange')
+        if (!obj.hasClass('ui-selected')) {
+          $('.ui-selected').removeClass('ui-selected');
+        }
 
-          // mark new selection
-          obj.addClass('ui-selected');
+        // mark new selection
+        obj.addClass('ui-selected');
       };
 
       this.$().dblclick(function () {
         if($(this).hasClass('component-text') && !$(this).hasClass('text-editable')) {
           if (!$(this).hasClass('text-editable')) {
+            $('.text-editable textarea').remove();
+            $('.text-editable label').show();
             $('.text-editable').removeClass('text-editable');
           }
           $(this).addClass('text-editable');
