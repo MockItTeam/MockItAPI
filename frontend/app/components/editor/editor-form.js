@@ -25,11 +25,13 @@ export default Ember.Component.extend({
       mockup.set('json_elements', JSON.stringify(mockup.get('json_elements')));
       mockup.save()
         .then(() => {
-
+          mockup.set('json_elements', JSON.parse(mockup.get('json_elements')));
         }, (error) => {
-          // mockup.rollbackAttributes();
+          let json_element = mockup.get('json_elements');
+          mockup.rollbackAttributes();
+          mockup.set('json_elements', JSON.parse(json_element));
         });
-      mockup.set('json_elements', JSON.parse(mockup.get('json_elements')));
+
     }
   },
 
