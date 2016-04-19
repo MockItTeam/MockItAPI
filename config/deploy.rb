@@ -63,19 +63,18 @@ task :deploy => :environment do
   deploy do
     set :bundle_bin, '/usr/local/rvm/gems/ruby-2.3.0/bin/bundle'
     set :bundle_path, './vendor/bundle'
+    set :npm_bin, '/root/.nvm/versions/node/v5.10.1/bin/npm'
+    set :bower_bin, '/root/.nvm/versions/node/v5.10.1/bin/bower'
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    run 'cd /var/www/mockitAPI/current/frontend && npm install && bower install --allow-root'
-    invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     to :launch do
       invoke :'run[kill -9 $(lsof -i tcp:3000 -t)]'
+      invoke :'run[kill -9 $(lsof -i tcp:7000 -t)]'
       invoke :'puma:restart'
-      run 'cd /var/www/mockitAPI/current/websocket && screen node server.js'
-      run 'cd /var/www/mockitAPI/current/ && screen bundle exec rake jobs:work'
     end
   end
 end
