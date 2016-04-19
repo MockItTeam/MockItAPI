@@ -70,7 +70,8 @@ task :deploy => :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    invoke :'run[cd frontend && npm install && bower install --allow-root]'
+    invoke :'run[cd /var/www/mockitAPI/current/frontend && npm install && bower install --allow-root]'
+    invoke :'run[cd /var/www/mockitAPI/current/]'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
@@ -78,8 +79,8 @@ task :deploy => :environment do
       invoke :'run[kill -9 $(lsof -i tcp:3000 -t)]'
       invoke :'run[kill -9 $(lsof -i tcp:7000 -t)]'
       invoke :'puma:restart'
-      invoke :'run[cd websocket && screen node server.js]'
-      invoke :'run[screen bundle exec rake jobs:work]'
+      invoke :'run[cd /var/www/mockitAPI/current/ && screen node server.js]'
+      invoke :'run[cd /var/www/mockitAPI/current/ screen bundle exec rake jobs:work]'
     end
   end
 end
