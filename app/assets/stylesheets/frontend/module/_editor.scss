@@ -118,11 +118,14 @@
 }
 
 .ui-selected {
-  background: #6f9fcd !important;
+  border-color: #6f9fcd !important;
+  border-style: solid !important;
+  border-width: 0.5px !important;
+  //background-color: #6f9fcd !important;
 }
 
 .selected {
-  background: #6f9fcd !important;
+  //background-color: #6f9fcd !important;
 }
 
 

@@ -22,12 +22,14 @@ export default Ember.Component.extend({
     let mockup = this.get('mockup');
 
     if (mockup.get('hasDirtyAttributes')) {
+      mockup.set('json_elements', JSON.stringify(mockup.get('json_elements')));
       mockup.save()
         .then(() => {
 
         }, (error) => {
-          mockup.rollbackAttributes();
+          // mockup.rollbackAttributes();
         });
+      mockup.set('json_elements', JSON.parse(mockup.get('json_elements')));
     }
   },
 
@@ -76,6 +78,9 @@ export default Ember.Component.extend({
   _findSuitableId(json_elements){
     let id = 0;
     let check = false;
+    if(json_elements.elements === null || json_elements.elements === undefined){
+      return id;
+    }
     while (!check) {
       id++;
       check = true;
@@ -99,7 +104,7 @@ export default Ember.Component.extend({
 
     var history = new SimpleUndo({
       maxLength: 20000,
-      provider: function(done) {
+      provider: function (done) {
         let json_elements = self.get('mockup.json_elements');
         done(JSON.stringify(json_elements));
       }
@@ -117,7 +122,7 @@ export default Ember.Component.extend({
     //   $('.text-editable').removeClass('text-editable');
     // });
 
-    $('.is-editor').on('keydown', function(e) {
+    $('.is-editor').on('keydown', function (e) {
       e.preventDefault();
       if (e.which == backspaceKey || e.which == deleteKey) {
         self._removeMockupComponent();
@@ -143,9 +148,9 @@ export default Ember.Component.extend({
 
     });
 
-    $('.is-editor').on('keyup', function(e) {
+    $('.is-editor').on('keyup', function (e) {
       e.preventDefault();
-      if (e.keyCode == ctrlKey || e.keyCode == commandKey) {
+      if(e.keyCode == ctrlKey || e.keyCode == commandKey){
         ctrlDown = false;
       }
     });
@@ -155,33 +160,95 @@ export default Ember.Component.extend({
     $('.clear-section').css({'min-height': `${height}px`});
 
     Ember.$('.droppable-el').droppable({
-      accept: '.draggable-el',
-      drop(event, ui) {
+        accept: '.draggable-el',
+        drop(event, ui) {
+          let type = ui.draggable.children().text();
+          let width = ui.draggable.children().css('width');
+          let height = ui.draggable.children().css('height');
+          if(type == "Button"){
+            width = "95px";
+            height = "40px";
+          }
+          else if(type == "TextLabel"){
+            width = "128px";
+            height = "37";
+          }
+          else if(type == "Graph"){
+            width = "146px";
+            height = "133px";
+          }
+          else if(type == "TextField"){
+            width = "255px";
+            height = "40px";
+          }
+          else if(type == "TextArea"){
+            width = "231px";
+            height = "106px";
+          }
+          else if(type == "VideoPlayer"){
+            width = "239px";
+            height = "143px";
+          }
+          else if(type == "Checkbox"){
+            width = "30px";
+            height = "30px";
+          }
+          else if(type == "RadioButton"){
+            width = "30px";
+            height = "30px";
+          }
+          else if(type == "Dropdown"){
+            width = "289px";
+            height = "50px";
+          }
+          else if(type == "Calendar"){
+            width = "225px";
+            height = "225px";
+          }
+          else if(type == "Table"){
+            width = "276px";
+            height = "115px";
+          }
+          else if(type == "Panel"){
+            width = "182px";
+            height = "117px";
+          }
+          else if(type == "Image"){
+            width = "180px";
+            height = "180px";
+          }
+          else if(type == "Link"){
+            width = "71px";
+            height = "36px";
+          }
+          else if(type == "Map"){
+            width = "232px";
+            height = "164px";
+          }
+          let json = {
+            "id": self._findSuitableId(self.get('mockup.json_elements')),
+            "x": ui.position.left,
+            "y": ui.position.top,
+            "z": 100,
+            "type": type,
+            "width": width,
+            "height": height,
+            "children_id": []
+          };
 
-        let json = {
-          "id": self._findSuitableId(self.get('mockup.json_elements')),
-          "x": ui.position.left,
-          "y": ui.position.top,
-          "z": 70,
-          "type": ui.draggable.children().text(),
-          "width": ui.draggable.children().css('width'),
-          "height": ui.draggable.children().css('height'),
-          "children_id": []
-        };
-
-        let json_elements = self.get('mockup.json_elements');
-        json_elements.elements.push(json);
-        self.get('socketIORef').emit('message', json_elements);
-        self._saveChangeMockup(json_elements);
-      }
-    });
+          let json_elements = self.get('mockup.json_elements');
+          json_elements.elements.push(json);
+          self.get('socketIORef').emit('message', json_elements);
+          self._saveChangeMockup(json_elements);
+        }
+      });
 
     Ember.$('.droppable-el').selectable({
       filter: ".ui-draggable",
-      start(e, ui) {
+      start(e,ui) {
         let id = $('.text-editable').attr('component_id');
         let text = $('.text-editable textarea').val();
-        self._saveTextChange(id, text);
+        self._saveTextChange(id,text);
         $('.text-editable textarea').remove();
         $('.text-editable label').show();
         $('.text-editable').removeClass('text-editable');
@@ -208,7 +275,7 @@ export default Ember.Component.extend({
     function() {
       let mockup = this.get('mockup');
 
-      if (mockup.get('hasDirtyAttributes')) {
+      if(mockup.get('hasDirtyAttributes')) {
         //set json_elements for record in database
         let history = this.get('history');
         history.save();
@@ -232,10 +299,10 @@ export default Ember.Component.extend({
 
   _removeMockupComponent(){
     let json_elements = this.get('mockup.json_elements');
-    $(".ui-selected").each(function() {
+    $(".ui-selected").each(function(){
       for (var i = 0; i < json_elements.elements.length; i++) {
-        if (json_elements.elements[i].id == this.getAttribute("component_id")) {
-          json_elements.elements.splice(i, 1);
+        if(json_elements.elements[i].id == this.getAttribute("component_id")){
+          json_elements.elements.splice(i,1);
           break;
         }
       }
@@ -247,10 +314,10 @@ export default Ember.Component.extend({
   _copyMockupComponent(){
     let json_elements = this.get('mockup.json_elements');
     let list = [];
-    $(".ui-selected").each(function() {
+    $(".ui-selected").each(function(){
       let temp;
       for (var i = 0; i < json_elements.elements.length; i++) {
-        if (json_elements.elements[i].id == this.getAttribute("component_id")) {
+        if(json_elements.elements[i].id == this.getAttribute("component_id")){
           temp = JSON.parse(JSON.stringify(json_elements.elements[i]));
         }
       }
@@ -260,10 +327,10 @@ export default Ember.Component.extend({
   },
 
   _pasteMockupComponent(temp){
-    if (temp.length != 0) {
+    if(temp.length != 0){
       let json_elements = this.get('mockup.json_elements');
       let temp_id;
-      for (var i = 0; i < temp.length; i++) {
+      for(var i = 0; i< temp.length; i++){
         temp[i].id = this._findSuitableId(json_elements);
         temp[i].x = temp[i].x + 5;
         temp[i].y = temp[i].y + 5;
@@ -280,9 +347,9 @@ export default Ember.Component.extend({
     this._pasteMockupComponent(temp);
   },
 
-  _saveTextChange(id, text){
+  _saveTextChange(id,text){
     let json_elements = this.get('mockup.json_elements');
-    if (json_elements !== null && json_elements !== undefined) {
+    if (json_elements !== null && json_elements !== undefined ) {
       for (var i = 0; i < json_elements.elements.length; i++) {
         if (json_elements.elements[i].id == id) {
           json_elements.elements[i].text = text;
@@ -296,20 +363,19 @@ export default Ember.Component.extend({
 
   _undo(){
     let history = this.get('history');
-    if (history.canUndo()) {
+    if(history.canUndo()) {
       let self = this;
 
       function setJsonElement(json_elements) {
         self._historyManage(JSON.parse(json_elements));
       }
-
       history.undo(setJsonElement);
     }
   },
 
   _redo(){
     let history = this.get('history');
-    if (history.canRedo()) {
+    if(history.canRedo()) {
       let self = this;
 
       function setJsonElement(json_elements) {
@@ -322,22 +388,22 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    dropped: Ember.on('willRender', function(event, ui, _self) {
+    dropped: Ember.on('willRender', function (event, ui, _self) {
       let self = this;
 
     }),
 
-    dragged: Ember.on('willRender', function(event, ui, _self) {
+    dragged: Ember.on('willRender', function (event, ui, _self) {
 
     }),
 
     bringToFront() {
-      if ($(".ui-selected").length > 0) {
+      if($(".ui-selected").length > 0) {
         let json_elements = this.get('mockup.json_elements');
-        $(".ui-selected").each(function() {
+        $(".ui-selected").each(function () {
           for (var i = 0; i < json_elements.elements.length; i++) {
             if (json_elements.elements[i].id == this.getAttribute("component_id")) {
-              json_elements.elements[i].z = 100;
+              json_elements.elements[i].z = 999;
             }
           }
         });
@@ -347,9 +413,9 @@ export default Ember.Component.extend({
     },
 
     sendToBack() {
-      if ($(".ui-selected").length > 0) {
+      if($(".ui-selected").length > 0) {
         let json_elements = this.get('mockup.json_elements');
-        $(".ui-selected").each(function() {
+        $(".ui-selected").each(function () {
           for (var i = 0; i < json_elements.elements.length; i++) {
             if (json_elements.elements[i].id == this.getAttribute("component_id")) {
               json_elements.elements[i].z = -1;
@@ -363,15 +429,15 @@ export default Ember.Component.extend({
 
     toggleRawImage() {
       var img_element = $('.html-div img');
-      if (img_element.length == 0) {
+      if(img_element.length == 0) {
         let raw_image = this.get('mockup.raw_image.image_url');
         var img = '<img src="' + raw_image + '">'
         $('.html-div').append(img);
       }
-      else {
-        if (img_element.is(":visible")) {
+      else{
+        if(img_element.is(":visible")) {
           img_element.hide();
-        } else {
+        }else{
           img_element.show();
         }
       }
@@ -380,7 +446,7 @@ export default Ember.Component.extend({
     notifyDragged() {
       let json_elements = this.get('mockup.json_elements');
       for (var i = 0; i < json_elements.elements.length; i++) {
-        let element = $("[component_id=" + json_elements.elements[i].id + "]");
+        let element = $("[component_id="+json_elements.elements[i].id+"]");
         let x = parseInt(element.css('left'));
         let y = parseInt(element.css('top'));
         json_elements.elements[i].x = x;
@@ -394,7 +460,7 @@ export default Ember.Component.extend({
     notifyResize() {
       let json_elements = this.get('mockup.json_elements');
       for (var i = 0; i < json_elements.elements.length; i++) {
-        let element = $("[component_id=" + json_elements.elements[i].id + "]");
+        let element = $("[component_id="+json_elements.elements[i].id+"]");
         let width = parseInt(element.css('width'));
         let height = parseInt(element.css('height'));
         json_elements.elements[i].width = width;
@@ -407,7 +473,7 @@ export default Ember.Component.extend({
     notifySaveTextChange() {
       let id = $('.text-editable').attr('component_id');
       let text = $('.text-editable textarea').val();
-      if (text !== null && text !== undefined) {
+      if(text !== null && text !== undefined) {
         let json_elements = this.get('mockup.json_elements');
         if (json_elements !== null && json_elements !== undefined) {
           for (var i = 0; i < json_elements.elements.length; i++) {
@@ -426,7 +492,6 @@ export default Ember.Component.extend({
     },
 
     exportToImage() {
-      $('.editor-canvas-wrapper').css('overflow', 'visible');
       html2canvas($('.html-div'), {
         onrendered: function(canvas) {
           var dataString = canvas.toDataURL("image/png");
@@ -434,9 +499,29 @@ export default Ember.Component.extend({
           link.download = 'image';
           link.href = dataString;
           link.click();
-          $('.editor-canvas-wrapper').css('overflow', 'auto');
         },
       });
+    },
+
+    undo(){
+      this._undo();
+    },
+
+    redo(){
+      this._redo();
+    },
+
+    duplicate(){
+      this._duplicateMockupComponent();
+    },
+
+
+    delete(){
+      this._removeMockupComponent();
+    },
+
+    onDragStart(obj){
+      $('.component-clone').css({ height: 198, width: 168 });
     },
 
     toggleEdit(){

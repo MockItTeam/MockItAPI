@@ -50,10 +50,10 @@ export default Draggable.extend({
           $('.description' + $(this).attr('component_id')).hide();
           var textArea = '<textarea class="edit-area" style="margin:0px -10px 0px -10px;box-sizing:border-box; color: black; left: 0px; top: 0px; width: ' + $(this).css('width') + '; height: ' + $(this).css('height') + ';">' + $(this).text() + '</textarea>';
           $('.text-editable').append(textArea);
-          $('.text-editable textarea').click(function () {
+          $('.text-editable textarea').click(function (event) {
             event.stopPropagation();
           });
-          $('.text-editable textarea').on('keydown', function () {
+          $('.text-editable textarea').on('keydown', function (event) {
             event.stopPropagation();
           });
         }
@@ -67,7 +67,7 @@ export default Draggable.extend({
       });
 
       this.$().draggable({
-
+        scroll: true,
         stop(event, ui) {
           _self.sendAction('notifyDragged');
         },
@@ -75,7 +75,8 @@ export default Draggable.extend({
         containment: ".html-div",
 
         drag: function (e, ui) {
-
+          var scrollTop = $('.editor-canvas-wrapper').scrollTop();
+          var scrollLeft = $('.editor-canvas-wrapper').scrollLeft();
           var currentLoc = $(this).position();
           var prevLoc = $(this).data('prevLoc');
           if (!prevLoc) {
@@ -84,13 +85,14 @@ export default Draggable.extend({
 
           var ol = currentLoc.left - prevLoc.left;
           var ot = currentLoc.top - prevLoc.top;
-
           $('.ui-selected').each(function () {
             var p = $(this).position();
             var l = p.left;
             var t = p.top;
-            $(this).css('left', l + ol);
-            $(this).css('top', t + ot);
+            var left = l + ol + (scrollLeft);
+            var top = t + ot + (scrollTop);
+            $(this).css('left', left);
+            $(this).css('top', top);
           })
           $(this).data('prevLoc', currentLoc);
         },
