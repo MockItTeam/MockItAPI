@@ -69,7 +69,7 @@ export default Ember.Component.extend({
           this.$('.tab').removeAttr('hidden');
           this.$('.btn-tab').addClass('retry');
           this._filterErrorMessage(this.get('mockup'));
-          spanText = 'Retry...';
+          spanText = 'Retry ?';
         }
 
         this.$('.btn-tab').html(spanText);

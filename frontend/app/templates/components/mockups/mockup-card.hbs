@@ -24,15 +24,15 @@
   </div>
 {{/if}}
 
-<div class='tab'>
-  <div class='btn-tab-container'>
+<a class='tab'>
+  <a class='btn-tab-container'>
     <div class='tab-menu'>
       <button type='button' class='btn btn-tab' data-toggle='dropdown'>Hello</button>
 
       <div class='dropdown-menu'>
         <button class='btn btn-icon' {{action 'retryProcessMockup' mockup}}>
           <i class='fa fa-question'></i>
-          <span>Retry Again</span>
+          <span>Try Again</span>
         </button>
         <div class='dropdown-divider'></div>
         <button class='btn btn-icon' {{action 'deleteMockup' mockup}}>
@@ -41,5 +41,5 @@
         </button>
       </div>
     </div>
-  </div>
-</div>
+  </a>
+</a>

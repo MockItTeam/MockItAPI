@@ -115,6 +115,7 @@
   .tab {
     position: absolute;
     display: table;
+    z-index: 10000;
     width: 120%;
     height: 100%;
     top: 0;
@@ -122,7 +123,8 @@
     background: transparent;
     opacity: 0.8;
 
-    > div {
+    > div,
+    > a {
       display: table-cell;
       vertical-align: middle;
     }
@@ -137,6 +139,13 @@
     .btn-icon i {
       display: table-cell;
       vertical-align: middle;
+    }
+
+    .dropdown-menu {
+
+      @include media-breakpoint-up(md) {
+       top: 60%;
+      }
     }
   }
 
@@ -168,12 +177,12 @@
     text-align: center;
   }
 
-
   @include media-breakpoint-down(sm) {
     display: table;
     table-layout: fixed;
 
-    > div {
+    > div,
+    > a {
       display: table-cell;
       vertical-align: middle;
     }
