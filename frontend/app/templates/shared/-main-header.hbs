@@ -1,0 +1,33 @@
+<nav class='app-navbar navbar navbar-dark'>
+
+  <div class='app-name'>
+    {{#link-to 'protected.projects.index' class='navbar-brand'}}
+      <span>Mockit</span>
+    {{/link-to}}
+  </div>
+
+  {{#if session.isAuthenticated }}
+    <div class='user-navigation dropdown'>
+      <div class='user-card-container hidden-sm-down' data-toggle='dropdown'>
+        {{shared.user-card tagName='' user=session.currentUser icon='fa-caret-down'}}
+      </div>
+
+      <a href='#' class="mobile-menu-container hidden-md-up" data-toggle="dropdown">
+        <i class='fa fa-bars fa-lg hamburger-menu'></i>
+      </a>
+
+      <div class='dropdown-menu'>
+        {{#link-to 'protected.projects.index' (query-params condition=null)}}
+          <i class='fa fa-folder'></i>
+          Projects
+        {{/link-to}}
+        <div class="dropdown-divider"></div>
+        <a {{action 'signout'}} class='nav-link' href="#">
+          <i class='fa fa-sign-out'></i>
+          Sign Out
+        </a>
+      </div>
+
+    </div>
+  {{/if}}
+</nav>

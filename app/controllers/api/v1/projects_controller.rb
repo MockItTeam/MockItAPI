@@ -1,59 +1,68 @@
 class Api::V1::ProjectsController < Api::V1::ApiController
   before_action :authenticate_user!
-  before_action :page_params
 
+  load_resource except: [:index, :create]
   authorize_resource
-  load_resource except: :create
 
   def index
-    respond_to do |format|
-      format.json { render json: @projects, status: :ok }
+    filters = {}
+
+    unless params[:condition].blank?
+      condition = params[:condition]
+      filters[:owner] = current_user.id if condition == 'owner'
+      filters[:member] = current_user.id if condition == 'member'
     end
+
+    filters[:name] = params[:name] unless params[:name].blank?
+
+    @projects = Project
+                  .accessible_by(current_ability)
+                  .search(filters)
+
+    render json: @projects, status: :ok
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: @project, status: :ok }
-    end
+    render json: @project, include: %w(members), status: :ok
   end
 
   def create
-    @project = Project.new(create_project_params)
-    respond_to do |format|
-      if @project.save
-        format.json { render json: @project, status: :created }
-      else
-        format.json { render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity }
-      end
+    @project = Project.new(project_params)
+    @project.owner = current_user
+
+    if @project.save
+      render json: @project, status: :created
+    else
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @project.update_attributes(update_project_params)
-        format.json { render json: @project, status: :ok }
-      else
-        format.json { render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity }
-      end
+    # in case of change project owner
+    @project.user_id = jsonapi_params[:project][:owner_id] if jsonapi_params[:project][:owner_id]
+
+    if @project.update_attributes(update_project_params)
+      render json: @project, status: :ok
+    else
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @project.status = params['status'] if params['status']
-    if @project.save
-      head :ok
+    if @project.destroy
+      head :no_content
     else
-      render json: {errors: [@position.errors.full_messages.to_sentence]}, status: :unprocessable_entity
+      render json: {errors: [@project.errors.full_messages.to_sentence]}, status: :unprocessable_entity
     end
   end
 
   private
 
-  def create_project_params
-    params.require(:project).permit(:name).merge(owner: current_user)
+  def project_params
+    jsonapi_params.require(:project).permit(:name, :image)
   end
 
   def update_project_params
-    params.require(:project).permit(:name, :status)
+    jsonapi_params.require(:project).permit(:name, :image, :member_ids => [])
   end
 end

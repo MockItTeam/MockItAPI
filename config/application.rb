@@ -33,5 +33,6 @@ module Untitled
     config.active_record.raise_in_transactional_callbacks = true
 
     config.eager_load_paths += %w(#{config.root}/app/serializers)
+    config.active_job.queue_adapter = :delayed_job
   end
 end

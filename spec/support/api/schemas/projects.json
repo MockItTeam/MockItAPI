@@ -1,0 +1,101 @@
+{
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "attributes", "relationships"],
+        "properties": {
+          "attributes": {
+            "type": "object",
+            "required": [
+              "name",
+              "image_url",
+              "created_at",
+              "updated_at"
+            ],
+            "properties": {
+              "name": { "type": "string" },
+              "image_url": { "type": ["string", "null"] },
+              "created_at": { "type": "string" },
+              "updated_at": { "type": "string" }
+            }
+          },
+          "relationships": {
+            "type": "object",
+            "required": ["owner", "members", "invitations", "mockups"],
+            "properties": {
+              "owner": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "required": ["id", "type"],
+                    "properties": {
+                      "id": { "type": "string" },
+                      "type": { "type": "string" }
+                    }
+                  }
+                }
+              },
+              "members": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["id", "type"],
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "invitations": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["id", "type"],
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "mockups": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["id", "type"],
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

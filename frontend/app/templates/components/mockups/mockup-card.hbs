@@ -1,0 +1,45 @@
+{{#link-to 'protected.projects.detail.mockups.detail' mockup.id}}
+  <div class='app-card-image-container hidden-sm-down'>
+    {{#unless mockup.raw_image.image_url}}
+      <div class='blank-state image image-cover'>
+      </div>
+    {{else}}
+      <img class='image' src='{{mockup.raw_image.image_url}}'/>
+    {{/unless}}
+    <div class='plaster plaster-top-right'></div>
+    <div class='plaster plaster-top-left'></div>
+    <div class='plaster plaster-bottom-right'></div>
+    <div class='plaster plaster-bottom-left'></div>
+  </div>
+  <div class='app-card-name'>
+    Mockup {{mockup.name}}
+  </div>
+{{/link-to}}
+
+{{#if canDelete}}
+  <div class='app-card-menu'>
+    <button class='btn btn-icon btn-delete' {{action 'deleteMockup' mockup}}>
+      <i class='fa fa-times'></i>
+    </button>
+  </div>
+{{/if}}
+
+<a class='tab'>
+  <a class='btn-tab-container'>
+    <div class='tab-menu'>
+      <button type='button' class='btn btn-tab' data-toggle='dropdown'>Hello</button>
+
+      <div class='dropdown-menu'>
+        <button class='btn btn-icon' {{action 'retryProcessMockup' mockup}}>
+          <i class='fa fa-question'></i>
+          <span>Try Again</span>
+        </button>
+        <div class='dropdown-divider'></div>
+        <button class='btn btn-icon' {{action 'deleteMockup' mockup}}>
+          <i class='fa fa-times'></i>
+          <span>Delete this mockup</span>
+        </button>
+      </div>
+    </div>
+  </a>
+</a>

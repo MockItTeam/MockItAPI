@@ -1,0 +1,12 @@
+.app-main {
+  padding: $grid-gutter-width/2 $grid-gutter-width;
+  background: $color-alpha;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  @include media-breakpoint-up(md) {
+    padding: $grid-gutter-width;
+  }
+}

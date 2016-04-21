@@ -1,0 +1,67 @@
+.project-container {
+  padding: $grid-gutter-width/3;
+
+  .create-mockup-container {
+    max-width: 17.5rem;
+
+    &:hover {
+
+      .create-mockup-menu {
+        display: block;
+      }
+    }
+  }
+
+  .create-mockup-container .create-mockup-menu {
+    background: $white;
+    padding: $grid-gutter-width/2;
+    @include border-radius(.75rem);
+
+    .btn {
+      padding: 0;
+    }
+
+    .btn-icon i {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .x-file-input {
+      position: relative;
+
+      .x-file--input {
+        position: absolute;
+      }
+
+      label {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .toggle-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: $white;
+  }
+
+  .change-project-name {
+    cursor: pointer;
+  }
+
+  .mockup-list {
+
+    .app-card-name {
+      width: 100%;
+    }
+
+    .app-card:last-child {
+
+      .dropdown-menu {
+        top: 0;
+      }
+    }
+  }
+}

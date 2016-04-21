@@ -1,0 +1,32 @@
+.blank-state {
+  width: 100%;
+  padding: $grid-gutter-width;
+
+  .content-container {
+    width: 100%;
+    text-align: center;
+  }
+
+  p {
+    margin: 0;
+    color: $white;
+  }
+
+  @include media-breakpoint-up(md) {
+    @include make-container();
+    display: table;
+    max-width: 15rem;
+    height: 14rem;
+
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+.blank-state.image-cover {
+  background-image: asset_url('mockit-cover-dark.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}

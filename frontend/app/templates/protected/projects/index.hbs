@@ -1,0 +1,16 @@
+<div class='project-list-container'>
+  {{#link-to 'protected.projects.new' tagName='button' class='btn btn-secondary-outline btn-outline btn-icon'}}
+    <i class='fa fa-plus'></i>
+    <span class='btn-text'> Create Project</span>
+  {{/link-to}}
+
+  {{projects.project-list projects=model.projects queryFilter='applyQueryFilter' searchProject='applySearchProject'}}
+</div>
+
+<div class='incoming-invitation-list-container'>
+  <ul class='incoming-invitation-list list-unstyled'>
+    {{#each model.invitations as |i|}}
+      {{invitations.invitation-item invitation=i afterAccepted='afterAccepted' afterRefused='afterRefused'}}
+    {{/each}}
+  </ul>
+</div>

@@ -1,17 +1,38 @@
 class Project < ActiveRecord::Base
-  enum status: { active: 0 }
+  acts_as_paranoid
+  include ::CarrierWave::Backgrounder::Delay unless Rails.env.test?
+  mount_uploader :image, ImageUploader
+  process_in_background :image
+  validates_processing_of :image
 
-  has_many :invitations
-  has_and_belongs_to_many :members, join_table: "projects_users"
-  belongs_to :owner, foreign_key: "user_id", class_name: "User"
+  has_many :invitations, dependent: :destroy
+  has_many :mockups, dependent: :destroy
+  has_and_belongs_to_many :members, class_name: 'User', dependent: :delete_all
+  belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
 
   validates_presence_of :owner
-  validates_uniqueness_of :name, message: "Project's name must be unique per user"
+  validates_uniqueness_of :name, scope: :owner
   validates :name,
             presence: true,
-            length: { in: 3..20 },
-            format: { with: /\A[a-zA-Z0-9]+\z/,
-                      message: "Only a-z, A-Z, 0-9 allowed" }
+            length: {in: 3..50},
+            format: {with: /\A[a-zA-Z0-9]+\z/}
 
-  scope :pending_invitations, -> () { project.invitations.where(status: :pending) }
+  after_create :set_owner_to_member
+
+  def self.search(options)
+    query = where(nil)
+    query = where(user_id: options[:owner]) if options[:owner].present?
+    if options[:member].present?
+      projects = where.not(user_id: options[:member]).select {|p| p.members.ids.include?(options[:member].to_i)}
+      query = where(id: projects.map(&:id))
+    end
+    query = where("name LIKE ?", "%#{options[:name]}%") if options[:name].present?
+    query
+  end
+
+  private
+
+  def set_owner_to_member
+    self.members << self.owner
+  end
 end
