@@ -38,7 +38,11 @@ rake db:test:prepare
 bin/bash . envsetup.sh
 ```
 
-3. Start the rails server `rails server -b 0.0.0.0`
+3. Install Ember.js `npm install -g ember-cli`
+
+4. `cd frontend && npm install && bower install`
+
+5. Start the rails server `rails server -b 0.0.0.0`
 
 ### SSH into a container
 
